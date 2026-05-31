@@ -207,3 +207,69 @@
   padding-top: var(--space-stack-md);
   border-top: var(--stroke-width-default) solid var(--border-default);
 }
+
+/* ---------- Print / Save-as-PDF (light, ATS-friendly, ~1 page) ----------
+   Site-chrome hiding + @page live in base.css (truly global; CSS-module
+   files only allow class/id-scoped selectors). These rules restyle the
+   résumé subtree itself. */
+@media print {
+
+  /* Re-define the handful of semantic tokens the page consumes so the whole
+     subtree (including <Link> descendants) flips to an ink-on-white palette.
+     #b8320d is the brand at AA contrast on white. */
+  article.page {
+    --text-default: #1a1a1a;
+    --text-muted: #333333;
+    --text-subtle: #555555;
+    --text-link: #b8320d;
+    --text-brand: #b8320d;
+    --color-neutral-50: #111111;
+    --border-default: #d0d0d0;
+    --border-brand: #b8320d;
+
+    max-width: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    gap: 14pt;
+    color: #1a1a1a;
+    font-size: 10.5pt;
+  }
+
+  /* Interactive-only affordances are noise in a printed/exported résumé. */
+  .topRow,
+  .footerCta {
+    display: none !important;
+  }
+
+  /* Tighten rhythm so the content lands on a single page. */
+  .header {
+    padding-bottom: 8pt;
+  }
+  .section {
+    gap: 6pt;
+  }
+  .entries {
+    gap: 9pt;
+  }
+  .skillRow {
+    gap: 4pt 16pt;
+  }
+
+  /* Avoid ugly mid-entry page breaks. */
+  .header,
+  .entry,
+  .skillRow,
+  .section h2 {
+    break-inside: avoid;
+  }
+  .section h2 {
+    break-after: avoid;
+  }
+
+  /* External-link affordances aren't useful on paper. */
+  .entryLink :global(svg),
+  .contact :global(svg) {
+    display: none;
+  }
+}

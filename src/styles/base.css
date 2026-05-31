@@ -177,3 +177,25 @@ textarea.field-control {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* ============================================================================
+   Print / "Save as PDF". Drop the site chrome so document pages (the résumé in
+   particular) export as clean, text-based, ATS-parseable files. Per-page print
+   styling (light palette, layout) lives in each page's CSS module.
+   ========================================================================== */
+@page {
+  size: letter;
+  margin: 0.5in;
+}
+@media print {
+  html,
+  body {
+    background: #ffffff !important;
+  }
+  .skip-link,
+  nav[aria-label="Primary"],
+  footer,
+  [class*="RecruiterHubTrigger"] {
+    display: none !important;
+  }
+}

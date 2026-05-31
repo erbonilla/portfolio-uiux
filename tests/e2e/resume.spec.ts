@@ -67,6 +67,30 @@ for (const r of pages) {
       });
     }
 
+    test("print/PDF export hides site chrome and uses an ink-on-white palette", async ({
+      page,
+    }) => {
+      await page.goto(r.path);
+      await page.emulateMedia({ media: "print" });
+      const probe = await page.evaluate(() => {
+        const disp = (s: string) => {
+          const el = document.querySelector(s);
+          return el ? getComputedStyle(el).display : "absent";
+        };
+        const h1 = document.querySelector("h1");
+        return {
+          nav: disp('nav[aria-label="Primary"]'),
+          footer: disp("footer"),
+          nameColor: h1 ? getComputedStyle(h1).color : "absent",
+        };
+      });
+      // Chrome is dropped so the résumé exports as a standalone document.
+      expect(probe.nav).toBe("none");
+      expect(probe.footer).toBe("none");
+      // Palette flips to dark ink (on-screen it is near-white) → readable on paper.
+      expect(probe.nameColor).toBe("rgb(17, 17, 17)");
+    });
+
     test("no critical/serious axe violations (WCAG 2.2 AA)", async ({ page }) => {
       await page.goto(r.path);
       const results = await new AxeBuilder({ page })
