@@ -1,0 +1,192 @@
+/* ============================================================================
+   Local text styles (§18, §25). The 22 named styles, each binding every
+   supported property to typography tokens. Applied via `.ts-*` classes so
+   components stay token-pure (no raw font values in component code).
+   ========================================================================== */
+
+.ts-display-lg,
+.ts-display-md,
+.ts-display-sm,
+.ts-heading-h1,
+.ts-heading-h2,
+.ts-heading-h3,
+.ts-heading-h4,
+.ts-heading-h5,
+.ts-heading-h6,
+.ts-title-lg,
+.ts-title-md,
+.ts-title-sm {
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+}
+
+.ts-display-lg {
+  font-size: var(--font-size-5xl);
+  line-height: var(--line-height-5xl);
+  letter-spacing: var(--letter-spacing-tighter);
+}
+.ts-display-md {
+  font-size: var(--font-size-4xl);
+  line-height: var(--line-height-4xl);
+  letter-spacing: var(--letter-spacing-tighter);
+}
+.ts-display-sm {
+  font-size: var(--font-size-3xl);
+  line-height: var(--line-height-3xl);
+  letter-spacing: var(--letter-spacing-tighter);
+}
+
+.ts-heading-h1 {
+  font-size: var(--font-size-5xl);
+  line-height: var(--line-height-6xl);
+  letter-spacing: var(--letter-spacing-tighter);
+}
+.ts-heading-h2 {
+  font-size: var(--font-size-4xl);
+  line-height: var(--line-height-4xl);
+  letter-spacing: var(--letter-spacing-tighter);
+}
+.ts-heading-h3 {
+  font-size: var(--font-size-3xl);
+  line-height: var(--line-height-3xl);
+  letter-spacing: var(--letter-spacing-tight);
+}
+.ts-heading-h4 {
+  font-size: var(--font-size-2xl);
+  line-height: var(--line-height-2xl);
+  letter-spacing: var(--letter-spacing-tight);
+}
+.ts-heading-h5 {
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-lg);
+  letter-spacing: var(--letter-spacing-normal);
+}
+.ts-heading-h6 {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-lg);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+.ts-title-lg {
+  font-size: var(--font-size-2xl);
+  line-height: var(--line-height-2xl);
+  letter-spacing: var(--letter-spacing-tight);
+}
+.ts-title-md {
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-lg);
+  letter-spacing: var(--letter-spacing-normal);
+}
+.ts-title-sm {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-lg);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+/* Body / readable copy */
+.ts-body-lg {
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-md);
+  letter-spacing: var(--letter-spacing-normal);
+  text-transform: none;
+}
+.ts-body-md {
+  /* source-defined: uppercase, tracked label-like body */
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-xs);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+}
+.ts-body-sm {
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-xs);
+  letter-spacing: var(--letter-spacing-normal);
+  text-transform: none;
+}
+
+/* Labels */
+.ts-label-lg {
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-sm);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+}
+.ts-label-md {
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-xs);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+}
+.ts-label-sm {
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-2xs);
+  line-height: var(--line-height-2xs);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+/* Captions */
+.ts-caption-md {
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-xs);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+}
+.ts-caption-sm {
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-2xs);
+  line-height: var(--line-height-2xs);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+/* Code */
+.ts-code-md {
+  font-family: var(--font-family-code);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-xs);
+  letter-spacing: var(--letter-spacing-normal);
+  text-transform: none;
+}
+.ts-code-sm {
+  font-family: var(--font-family-code);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-2xs);
+  line-height: var(--line-height-2xs);
+  letter-spacing: var(--letter-spacing-normal);
+  text-transform: none;
+}
+
+/* Fluid display helpers (design-sync §2) */
+.ts-display-hero {
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--display-hero);
+  line-height: 1.02;
+  letter-spacing: var(--letter-spacing-tighter);
+  text-transform: uppercase;
+}
+.ts-display-section {
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--display-section);
+  line-height: 1.05;
+  letter-spacing: var(--letter-spacing-tighter);
+  text-transform: uppercase;
+}

@@ -1,0 +1,136 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-inline-sm);
+  border: var(--stroke-width-default) solid transparent;
+  border-radius: var(--radius-control-md);
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  text-decoration: none;
+  transition:
+    background-color var(--motion-duration-hover) var(--motion-easing-default),
+    color var(--motion-duration-hover) var(--motion-easing-default),
+    border-color var(--motion-duration-hover) var(--motion-easing-default);
+}
+
+/* sizes — min target ≥44px on md/lg for touch (§22) */
+.root[data-size="sm"] {
+  min-height: 36px;
+  padding-inline: var(--space-inset-md);
+}
+.root[data-size="md"] {
+  min-height: 44px;
+  padding-inline: var(--space-inset-xl);
+}
+.root[data-size="lg"] {
+  min-height: 52px;
+  padding-inline: var(--space-inset-2xl);
+}
+
+/* primary */
+.root[data-variant="primary"] {
+  background-color: var(--surface-control-brand);
+  color: var(--text-on-brand);
+  border-color: var(--border-brand);
+}
+.root[data-variant="primary"]:hover {
+  background-color: var(--surface-control-brand-hover);
+}
+.root[data-variant="primary"]:active {
+  background-color: var(--surface-control-brand-pressed);
+}
+
+/* secondary — brand text, transparent fill, brand border */
+.root[data-variant="secondary"] {
+  background-color: transparent;
+  color: var(--text-brand);
+  border-color: var(--border-brand);
+}
+.root[data-variant="secondary"]:hover {
+  background-color: var(--surface-control-selected);
+}
+.root[data-variant="secondary"]:active {
+  background-color: var(--state-pressed);
+}
+
+/* tertiary — muted text on subtle control surface */
+.root[data-variant="tertiary"] {
+  background-color: var(--surface-control-default);
+  color: var(--text-default);
+  border-color: var(--border-default);
+}
+.root[data-variant="tertiary"]:hover {
+  background-color: var(--surface-control-hover);
+}
+.root[data-variant="tertiary"]:active {
+  background-color: var(--surface-control-pressed);
+}
+
+/* ghost — text only */
+.root[data-variant="ghost"] {
+  background-color: transparent;
+  color: var(--text-default);
+  border-color: transparent;
+}
+.root[data-variant="ghost"]:hover {
+  background-color: var(--state-hover);
+}
+.root[data-variant="ghost"]:active {
+  background-color: var(--state-pressed);
+}
+
+/* danger */
+.root[data-variant="danger"] {
+  background-color: var(--surface-control-danger);
+  color: var(--text-on-danger);
+  border-color: var(--border-danger);
+}
+.root[data-variant="danger"]:hover {
+  background-color: var(--surface-control-danger-hover);
+}
+.root[data-variant="danger"]:active {
+  background-color: var(--surface-control-danger-pressed);
+}
+
+.root:disabled {
+  cursor: not-allowed;
+  opacity: var(--opacity-disabled);
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon :global(svg) {
+  width: var(--component-size-icon-sm);
+  height: var(--component-size-icon-sm);
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+}
+
+.spinner {
+  width: var(--component-size-icon-sm);
+  height: var(--component-size-icon-sm);
+  border: var(--stroke-width-strong) solid currentColor;
+  border-top-color: transparent;
+  border-radius: var(--radius-pill);
+  animation: button-spin var(--duration-slower) linear infinite;
+}
+
+@keyframes button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation-duration: 2400ms;
+  }
+}

@@ -1,0 +1,27 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-xs);
+}
+
+.label {
+  color: var(--text-muted);
+}
+.required {
+  color: var(--text-danger);
+  margin-inline-start: var(--space-inline-2xs);
+}
+
+.message {
+  color: var(--text-muted);
+}
+.root[data-state="error"] .message {
+  color: var(--text-danger);
+}
+.root[data-state="success"] .message {
+  color: var(--text-success);
+}
+
+.root[data-disabled] {
+  opacity: var(--opacity-disabled);
+}

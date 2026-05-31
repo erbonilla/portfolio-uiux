@@ -1,0 +1,996 @@
+/* Shared section scaffolding. Section components import these classes. */
+
+.section {
+  padding-block: var(--space-section-md);
+  scroll-margin-top: var(--nav-h);
+}
+@media (min-width: 1024px) {
+  .section {
+    padding-block: var(--space-section-lg);
+  }
+}
+.brandBand,
+.contactSection {
+  background-color: var(--surface-bg-canvas);
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-sm);
+  margin-bottom: var(--space-section-sm);
+  max-width: 60ch;
+}
+.eyebrow {
+  color: var(--text-brand);
+}
+.heading {
+  color: var(--text-default);
+}
+[data-theme="dark"] .heading {
+  color: var(--static-white);
+}
+.lead {
+  color: var(--text-muted);
+  max-width: 62ch;
+}
+
+/* ---- Hero ---- */
+.hero {
+  padding-top: var(--space-section-xl);
+  padding-bottom: var(--space-section-xl);
+  background-color: var(--surface-bg-canvas);
+}
+.heroGrid {
+  display: grid;
+  gap: var(--space-section-sm);
+  align-items: center;
+}
+@media (min-width: 1024px) {
+  .heroGrid {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: var(--space-section-md);
+  }
+}
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-lg);
+  color: var(--static-black);
+}
+.heroContent > * {
+  animation: hero-rise var(--motion-duration-hero)
+    var(--motion-easing-expressive) both;
+}
+.heroContent > :nth-child(2) {
+  animation-delay: 80ms;
+}
+.heroContent > :nth-child(3) {
+  animation-delay: 140ms;
+}
+.heroContent > :nth-child(4) {
+  animation-delay: 190ms;
+}
+.heroContent > :nth-child(5) {
+  animation-delay: 240ms;
+}
+.heroContent > :nth-child(6) {
+  animation-delay: 280ms;
+}
+.heroGreeting {
+  color: var(--static-black);
+  opacity: var(--opacity-90);
+}
+.heroTitle {
+  display: flex;
+  flex-direction: column;
+  color: var(--static-black);
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.heroTitle span {
+  opacity: var(--opacity-90);
+}
+.heroTitle strong {
+  color: var(--static-black);
+  font-weight: var(--font-weight-bold);
+}
+.heroLead {
+  color: var(--static-black);
+  opacity: var(--opacity-80);
+}
+.heroDisciplines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-2xs);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  color: color-mix(in srgb, var(--static-black) 68%, transparent);
+  font-family: var(--font-family-heading);
+  font-size: clamp(var(--font-size-md), 2vw, var(--font-size-xl));
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-xl);
+  text-transform: uppercase;
+}
+.heroCtas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-inline-md);
+}
+.heroCtas :global([data-variant="primary"]) {
+  background-color: var(--static-black);
+  border-color: var(--static-black);
+  color: var(--static-white);
+  transition:
+    background-color var(--motion-duration-hover) var(--motion-easing-default),
+    border-color var(--motion-duration-hover) var(--motion-easing-default),
+    box-shadow var(--motion-duration-hover) var(--motion-easing-default);
+}
+.heroCtas :global([data-variant="primary"]:hover) {
+  background-color: var(--color-neutral-800);
+  border-color: var(--color-neutral-800);
+  box-shadow: var(--shadow-sm);
+}
+.heroCtas :global([data-variant="secondary"]) {
+  border-color: var(--static-black);
+  color: var(--static-black);
+}
+.heroCtas :global([data-variant="secondary"]:hover) {
+  background-color: var(--static-black);
+  color: var(--static-white);
+}
+.heroMeta {
+  color: var(--static-black);
+  opacity: var(--opacity-90);
+}
+.heroPortrait {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-surface-md);
+  overflow: hidden;
+  border: var(--stroke-width-default) solid
+    color-mix(in srgb, var(--static-black) 20%, transparent);
+  background-color: var(--surface-bg-default);
+  animation: portrait-settle var(--motion-duration-hero)
+    var(--motion-easing-expressive) 140ms both;
+}
+.heroPortrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 92% 50%;
+  transform: scale(1.04);
+}
+.heroPortrait::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-index-base);
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    var(--surface-bg-canvas),
+    color-mix(in srgb, var(--surface-bg-canvas) 35%, transparent),
+    transparent
+  );
+}
+
+/* ---- Tool strip (auto-scrolling brand marquee) ---- */
+.toolsHead {
+  align-items: center;
+  text-align: center;
+  max-width: none;
+  margin-inline: auto;
+  animation: hero-rise var(--motion-duration-layout)
+    var(--motion-easing-expressive) 260ms both;
+}
+/* "— BUILT WITH —": small-caps label flanked by short rules, set in a dark
+   tone for AA contrast on the lava-orange band (cf. hero text on canvas). */
+.builtWith {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-inline-md);
+  color: color-mix(in srgb, var(--static-black) 72%, transparent);
+}
+.builtWith::before,
+.builtWith::after {
+  content: "";
+  width: clamp(var(--size-8), 6vw, var(--size-16));
+  height: var(--stroke-width-default);
+  background-color: color-mix(in srgb, var(--static-black) 32%, transparent);
+}
+
+.toolsMarquee {
+  position: relative;
+  overflow: hidden;
+  /* Soft-fade the edges so logos glide in and out instead of clipping. */
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 6%,
+    #000 94%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 6%,
+    #000 94%,
+    transparent 100%
+  );
+}
+.toolsTrack {
+  display: flex;
+  width: max-content;
+  /* Two sequences sit side by side; shifting one full sequence (-50% of the
+     track) lands on an identical frame, so the loop is seamless. */
+  animation: tools-scroll 42s linear infinite;
+}
+.toolsMarquee:hover .toolsTrack,
+.toolsMarquee:focus-within .toolsTrack {
+  animation-play-state: paused;
+}
+.toolsSeq {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  /* Each pass spans at least the viewport, with every mark spaced evenly —
+     one uniform rhythm across the whole run, with no group separation. This
+     keeps the loop seamless while guaranteeing the identical second pass stays
+     one full viewport away, so no icon is ever on screen twice. */
+  min-width: 100vw;
+  gap: clamp(var(--size-6), 4vw, var(--size-14));
+  justify-content: space-evenly;
+}
+.tool {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-stack-xs);
+  min-width: var(--size-16);
+  color: var(--static-black);
+  opacity: var(--opacity-80);
+  white-space: nowrap;
+}
+.toolIcon {
+  display: inline-flex;
+}
+.toolIcon :global(svg) {
+  width: var(--component-size-icon-lg);
+  height: var(--component-size-icon-lg);
+}
+
+@keyframes tools-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Honour reduced-motion: stop the scroll, drop the duplicate, and let the
+   strip be scrolled manually instead (§21 reduced-motion). */
+@media (prefers-reduced-motion: reduce) {
+  .toolsMarquee {
+    overflow-x: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .toolsTrack {
+    animation: none;
+  }
+  .toolsSeq[aria-hidden="true"] {
+    display: none;
+  }
+}
+
+/* ---- Generic responsive grids ---- */
+.autoGrid {
+  display: grid;
+  gap: var(--space-inline-lg);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 600px) {
+  .autoGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .autoGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ---- Case-study cards ---- */
+.workStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-2xl);
+}
+.workCard {
+  position: relative;
+  overflow: hidden;
+}
+/* Compound `.workCard.workTile` (0,2,0) outranks the Card's single-class
+   `.root`, so the grid layout, zero padding, and soft radius actually apply —
+   a bare `.workTile` ties with `.root` and loses on bundle order.
+   Soft-card rounding matches the project's established cards (cf. `.storyPanel`),
+   not the tight 2px default surface radius. */
+.workCard.workTile {
+  display: grid;
+  gap: var(--space-stack-xl);
+  align-items: center;
+  padding: 0;
+  border-radius: var(--radius-rounded-2xl);
+}
+/* Text left, image right (single, consistent reading order — no alternation). */
+@media (min-width: 768px) {
+  .workCard.workTile {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.workMedia {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background-color: var(--surface-bg-muted);
+  border: var(--stroke-width-default) solid var(--border-subtle);
+  border-radius: var(--radius-rounded-lg);
+  overflow: hidden;
+  margin: var(--space-inset-xl);
+}
+.workMedia img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform var(--motion-duration-layout)
+    var(--motion-easing-expressive);
+}
+.workCard:hover .workMedia img,
+.workCard:focus-within .workMedia img {
+  transform: scale(1.02);
+}
+.workBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-md);
+  padding: var(--space-inset-xl);
+}
+/* Kicker + title travel together as one tight unit; the larger `.workBody`
+   gap then separates that unit from the teaser, sharpening the hierarchy. */
+.workHeading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-2xs);
+}
+.workTitle {
+  color: var(--text-default);
+  max-width: 20ch;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+/* Stretched link: the title anchor covers the whole card (one tab stop,
+   real link semantics) without nesting interactive elements. */
+.stretched {
+  color: inherit;
+  text-decoration: none;
+}
+.stretched::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.stretched:hover {
+  text-decoration: none;
+}
+[data-theme="dark"] .workTitle {
+  color: var(--static-white);
+}
+.workDomain {
+  /* Brand kicker set in Syne (heading family) to pair with the title. */
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--text-brand);
+  text-transform: uppercase;
+}
+.workTeaser {
+  color: var(--text-muted);
+  max-width: 50ch;
+}
+.workRoles {
+  color: var(--text-muted);
+  margin: 0;
+  text-transform: uppercase;
+}
+.tagRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-inline-xs);
+}
+/* CTA styled as a button: rounded to match the card, outline appears on card
+   hover/focus (the title's stretched link still carries the real navigation). */
+.workCta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-inline-sm);
+  width: fit-content;
+  margin-top: var(--space-stack-xs);
+  padding: var(--space-inset-sm) var(--space-inset-lg);
+  border: var(--stroke-width-default) solid var(--border-subtle);
+  border-radius: var(--radius-rounded-lg);
+  color: var(--static-white);
+  transition: border-color var(--motion-duration-hover)
+    var(--motion-easing-default);
+}
+.workCard:hover .workCta,
+.workCard:focus-within .workCta {
+  border-color: var(--border-brand);
+}
+.workCta :global(svg) {
+  transition: transform var(--motion-duration-hover)
+    var(--motion-easing-expressive);
+}
+.workCard:hover .workCta :global(svg),
+.workCard:focus-within .workCta :global(svg) {
+  transform: translate(var(--size-1), calc(var(--size-1) * -1));
+}
+
+/* ---- Case-study "coming soon" placeholder ---- */
+.workComingSoon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-stack-md);
+  padding: var(--space-inset-3xl) var(--space-inset-xl);
+  border: var(--stroke-width-default) dashed var(--border-default);
+  border-radius: var(--radius-rounded-2xl);
+  text-align: center;
+}
+.comingSoonIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-10);
+  height: var(--size-10);
+  border: var(--stroke-width-default) solid var(--border-default);
+  border-radius: var(--radius-rounded-lg);
+  color: var(--icon-muted);
+}
+.comingSoonLabel {
+  color: var(--text-muted);
+}
+
+/* ---- Range cards ---- */
+.rangeSection + .rangeSection {
+  padding-top: 0;
+}
+.centerHead {
+  margin-inline: auto;
+  text-align: center;
+}
+.rangeCard {
+  gap: 0;
+  overflow: hidden;
+}
+/* `.autoGrid .rangeCard` (0,2,0) outranks the Card's single-class `.root`, so
+   zero padding + the established soft radius apply (a bare `.rangeCard` ties
+   with `.root` and loses on bundle order — same fix as `.workCard.workTile`).
+   The `interactive` variant supplies the established border-brand + lift hover. */
+.autoGrid .rangeCard {
+  padding: 0;
+  border-radius: var(--radius-rounded-2xl);
+}
+.rangePreview {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 5 / 4;
+  overflow: hidden;
+  background-color: var(--surface-bg-subtle);
+  border-bottom: var(--stroke-width-default) solid var(--border-subtle);
+  transition:
+    background-color var(--motion-duration-hover) var(--motion-easing-default),
+    border-color var(--motion-duration-hover) var(--motion-easing-default);
+}
+.artifact {
+  position: absolute;
+  width: min(76%, 260px);
+  height: 68%;
+  color: var(--icon-muted);
+  transition:
+    filter var(--motion-duration-layout) var(--motion-easing-expressive),
+    transform var(--motion-duration-layout) var(--motion-easing-expressive);
+}
+.artifactPrimary,
+.artifactSecondary,
+.artifactTertiary {
+  position: absolute;
+  display: block;
+}
+.rangeCard:hover .rangePreview,
+.rangeCard:focus-within .rangePreview {
+  border-color: var(--border-brand);
+}
+.rangeCard:hover .artifact,
+.rangeCard:focus-within .artifact {
+  transform: translateY(calc(var(--size-1) * -1)) scale(1.02);
+  filter: saturate(1.08);
+}
+.rangePreview[data-art="studio-mark"] {
+  background:
+    radial-gradient(
+      circle at 22% 30%,
+      var(--surface-bg-brand-subtle),
+      transparent 34%
+    ),
+    var(--surface-bg-subtle);
+}
+.rangePreview[data-art="studio-mark"] .artifactPrimary {
+  inset: 7% auto auto 8%;
+  width: 44%;
+  aspect-ratio: 1;
+  border: var(--stroke-width-strong) solid var(--icon-muted);
+  border-radius: var(--radius-pill);
+  box-shadow:
+    var(--size-6) 0 0 calc(var(--stroke-width-strong) * -1)
+      var(--surface-bg-subtle),
+    var(--size-6) 0 0 0 var(--icon-muted);
+}
+.rangePreview[data-art="studio-mark"] .artifactSecondary {
+  right: 0;
+  bottom: 18%;
+  width: 52%;
+  height: var(--size-4);
+  background-color: var(--surface-bg-brand);
+}
+.rangePreview[data-art="studio-mark"] .artifactTertiary {
+  right: 10%;
+  bottom: 4%;
+  width: 34%;
+  height: var(--size-2);
+  background-color: var(--icon-muted);
+}
+.rangePreview[data-art="poster-series"] {
+  background:
+    linear-gradient(135deg, var(--surface-bg-brand-subtle), transparent 48%),
+    var(--surface-bg-subtle);
+}
+.rangePreview[data-art="poster-series"] .artifactPrimary,
+.rangePreview[data-art="poster-series"] .artifactSecondary,
+.rangePreview[data-art="poster-series"] .artifactTertiary {
+  width: 42%;
+  height: 76%;
+  border: var(--stroke-width-default) solid var(--border-muted);
+  background-color: var(--surface-bg-default);
+}
+.rangePreview[data-art="poster-series"] .artifactPrimary {
+  left: 8%;
+  top: 4%;
+}
+.rangePreview[data-art="poster-series"] .artifactSecondary {
+  left: 30%;
+  top: 13%;
+  background:
+    linear-gradient(var(--surface-bg-brand) 0 22%, transparent 22% 100%),
+    var(--surface-bg-default);
+}
+.rangePreview[data-art="poster-series"] .artifactTertiary {
+  right: 5%;
+  top: 22%;
+  background:
+    linear-gradient(
+      var(--icon-muted) 0 10%,
+      transparent 10% 32%,
+      var(--surface-bg-muted) 32% 40%,
+      transparent 40% 100%
+    ),
+    var(--surface-bg-default);
+}
+.rangePreview[data-art="editorial-layouts"] .artifactPrimary {
+  inset: 4% auto auto 2%;
+  width: 96%;
+  height: var(--size-3);
+  background-color: var(--icon-muted);
+}
+.rangePreview[data-art="editorial-layouts"] .artifactSecondary {
+  left: 2%;
+  top: 24%;
+  width: 36%;
+  height: 62%;
+  background: linear-gradient(
+    var(--surface-bg-muted) 0 14%,
+    transparent 14% 22%,
+    var(--surface-bg-muted) 22% 36%,
+    transparent 36% 44%,
+    var(--surface-bg-muted) 44% 58%,
+    transparent 58% 100%
+  );
+}
+.rangePreview[data-art="editorial-layouts"] .artifactTertiary {
+  right: 2%;
+  top: 24%;
+  width: 52%;
+  height: 62%;
+  border: var(--stroke-width-default) solid var(--border-muted);
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0 48%,
+      var(--border-subtle) 48% 52%,
+      transparent 52% 100%
+    ),
+    var(--surface-bg-default);
+}
+.rangePreview[data-art="atlan-campaign"] {
+  background: linear-gradient(
+    180deg,
+    var(--surface-bg-subtle) 0 58%,
+    var(--surface-bg-brand-subtle) 58% 100%
+  );
+}
+.rangePreview[data-art="atlan-campaign"] .artifactPrimary {
+  inset: 8% 4% auto auto;
+  width: 68%;
+  height: 56%;
+  border: var(--stroke-width-default) solid var(--border-muted);
+  background:
+    linear-gradient(var(--surface-bg-brand) 0 15%, transparent 15% 100%),
+    var(--surface-bg-default);
+}
+.rangePreview[data-art="atlan-campaign"] .artifactSecondary {
+  left: 5%;
+  bottom: 10%;
+  width: 66%;
+  height: var(--size-5);
+  background-color: var(--icon-muted);
+}
+.rangePreview[data-art="atlan-campaign"] .artifactTertiary {
+  right: 7%;
+  bottom: 10%;
+  width: var(--size-5);
+  height: var(--size-5);
+  border-radius: var(--radius-pill);
+  background-color: var(--surface-bg-brand);
+}
+.rangePreview[data-art="motion-stills"] .artifactPrimary {
+  inset: 2% auto auto 0;
+  width: 100%;
+  height: 78%;
+  border: var(--stroke-width-default) solid var(--border-muted);
+  background: linear-gradient(
+    90deg,
+    var(--surface-bg-default) 0 18%,
+    transparent 18% 22%,
+    var(--surface-bg-default) 22% 40%,
+    transparent 40% 44%,
+    var(--surface-bg-default) 44% 62%,
+    transparent 62% 66%,
+    var(--surface-bg-default) 66% 84%,
+    transparent 84% 100%
+  );
+}
+.rangePreview[data-art="motion-stills"] .artifactSecondary {
+  left: 8%;
+  bottom: 4%;
+  width: 46%;
+  height: var(--size-2);
+  background-color: var(--surface-bg-brand);
+}
+.rangePreview[data-art="motion-stills"] .artifactTertiary {
+  right: 8%;
+  bottom: 4%;
+  width: 22%;
+  height: var(--size-2);
+  background-color: var(--icon-muted);
+}
+.rangePreview[data-art="marketing-banners"] .artifactPrimary {
+  inset: 8% auto auto 0;
+  width: 100%;
+  height: 44%;
+  background:
+    linear-gradient(90deg, var(--surface-bg-brand) 0 34%, transparent 34% 100%),
+    var(--surface-bg-default);
+  border: var(--stroke-width-default) solid var(--border-muted);
+}
+.rangePreview[data-art="marketing-banners"] .artifactSecondary {
+  left: 14%;
+  bottom: 21%;
+  width: 70%;
+  height: var(--size-5);
+  background-color: var(--icon-muted);
+}
+.rangePreview[data-art="marketing-banners"] .artifactTertiary {
+  left: 24%;
+  bottom: 8%;
+  width: 52%;
+  height: var(--size-3);
+  background-color: var(--surface-bg-muted);
+}
+.rangeCardBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-sm);
+  padding: var(--space-inset-xl);
+}
+.rangeTitle {
+  color: var(--text-default);
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+[data-theme="dark"] .rangeTitle {
+  color: var(--static-white);
+}
+.rangeDesc {
+  color: var(--text-muted);
+}
+
+/* ---- Approach ---- */
+.approachRail {
+  display: grid;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: var(--stroke-width-default) solid var(--border-subtle);
+}
+@media (min-width: 760px) {
+  .approachRail {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.stepItem {
+  position: relative;
+  padding: var(--space-inset-xl) var(--space-inset-lg) var(--space-inset-xl) 0;
+  border-bottom: var(--stroke-width-default) solid var(--border-subtle);
+}
+@media (min-width: 760px) {
+  .stepItem {
+    padding-right: var(--space-inset-2xl);
+    border-bottom: 0;
+  }
+  .stepItem + .stepItem {
+    padding-left: var(--space-inset-2xl);
+    border-left: var(--stroke-width-default) solid var(--border-subtle);
+  }
+}
+.stepItem::before {
+  content: "";
+  position: absolute;
+  top: calc(var(--stroke-width-strong) * -1);
+  left: 0;
+  width: var(--size-3);
+  height: var(--size-3);
+  transform: translateY(-50%);
+  background-color: var(--surface-bg-brand);
+  border-radius: var(--radius-pill);
+}
+@media (min-width: 760px) {
+  .stepItem + .stepItem::before {
+    left: var(--space-inset-2xl);
+  }
+}
+.stepIndex {
+  color: var(--text-brand);
+}
+.stepTitle {
+  color: var(--text-default);
+  margin-top: var(--space-stack-sm);
+}
+[data-theme="dark"] .stepTitle {
+  color: var(--static-white);
+}
+.stepDesc {
+  color: var(--text-muted);
+  margin-top: var(--space-stack-xs);
+}
+
+/* ---- Story ---- */
+.story {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-lg);
+  max-width: 70ch;
+}
+.storyPanel {
+  max-width: 880px;
+  margin-inline: auto;
+  padding: var(--space-inset-2xl);
+  background-color: var(--surface-bg-default);
+  border: var(--stroke-width-default) solid var(--border-subtle);
+  /* Generously rounded "edges" card per the reference. The default radius mode
+     is tight (2px), so reach for the largest rounded primitive (16px) here to
+     match the soft corners in the design rather than the near-square default. */
+  border-radius: var(--radius-rounded-2xl);
+  box-shadow: var(--elevation-shadow-sm);
+  animation: story-settle var(--motion-duration-layout)
+    var(--motion-easing-expressive) 320ms both;
+  /* Active/interactive state mirrors `.aboutPanel`: brand border + lift on
+     hover/focus-within to signal the reader is engaging this section. */
+  transition:
+    border-color var(--motion-duration-hover) var(--motion-easing-default),
+    box-shadow var(--motion-duration-hover) var(--motion-easing-default);
+}
+.storyPanel:hover,
+.storyPanel:focus-within {
+  border-color: var(--border-brand);
+  box-shadow: var(--elevation-shadow-lg);
+}
+@media (min-width: 768px) {
+  .storyPanel {
+    padding: var(--space-inset-3xl);
+  }
+}
+.storyLead {
+  color: var(--static-white);
+}
+.storyBody {
+  color: var(--text-muted);
+}
+.storyEmphasis {
+  color: var(--text-brand);
+  margin-top: var(--space-stack-lg);
+}
+
+/* ---- About ---- */
+/* Plain feature panel (not a Card), so it mirrors the Card `interactive`
+   variant's tokens directly: established soft radius + border-brand/lift hover.
+   Keeps its own larger padding + subtle background. */
+.aboutPanel {
+  padding: var(--space-inset-2xl);
+  background-color: var(--surface-bg-subtle);
+  border: var(--stroke-width-default) solid var(--border-subtle);
+  border-radius: var(--radius-rounded-2xl);
+  box-shadow: var(--elevation-shadow-sm);
+  transition:
+    border-color var(--motion-duration-hover) var(--motion-easing-default),
+    box-shadow var(--motion-duration-hover) var(--motion-easing-default);
+}
+.aboutPanel:hover,
+.aboutPanel:focus-within {
+  border-color: var(--border-brand);
+  box-shadow: var(--elevation-shadow-lg);
+}
+@media (min-width: 768px) {
+  .aboutPanel {
+    padding: var(--space-inset-3xl);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aboutPanel {
+    transition: border-color var(--motion-duration-hover)
+      var(--motion-easing-default);
+  }
+}
+.aboutBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-lg);
+  max-width: 74ch;
+  color: var(--text-muted);
+}
+.aboutBody strong {
+  color: var(--static-white);
+  font-weight: var(--font-weight-semibold);
+}
+
+@keyframes hero-rise {
+  from {
+    transform: translateY(var(--size-3));
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes portrait-settle {
+  from {
+    transform: translateX(var(--size-5)) scale(0.99);
+  }
+  to {
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes story-settle {
+  from {
+    transform: translateY(var(--size-4));
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroContent > *,
+  .heroPortrait,
+  .toolsHead,
+  .storyPanel {
+    animation: none;
+  }
+  .storyPanel {
+    transition: border-color var(--motion-duration-hover)
+      var(--motion-easing-default);
+  }
+  .artifact,
+  .workMedia img,
+  .workCta :global(svg) {
+    transition: none;
+  }
+}
+
+/* ---- Contact ---- */
+.contactGrid {
+  display: grid;
+  gap: var(--space-section-sm);
+}
+@media (min-width: 1024px) {
+  .contactGrid {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: start;
+  }
+}
+.contactCopy {
+  min-width: 0;
+  color: var(--static-black);
+}
+.contactCopy .eyebrow,
+.contactCopy .lead {
+  color: var(--static-black);
+  opacity: var(--opacity-80);
+}
+.contactCopy .heading {
+  color: var(--static-black);
+  max-width: 12ch;
+}
+.contactLinks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-md);
+  margin-top: var(--space-stack-2xl);
+  padding-top: var(--space-inset-xl);
+  border-top: var(--stroke-width-divider) solid
+    color-mix(in srgb, var(--static-black) 25%, transparent);
+}
+.contactLinks a,
+.contactLinks span {
+  color: var(--static-black);
+  overflow-wrap: anywhere;
+}
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-lg);
+  min-width: 0;
+}
+.formPanel {
+  padding: var(--space-inset-2xl);
+  background-color: var(--surface-bg-default);
+  border: var(--stroke-width-default) solid var(--border-default);
+  border-radius: var(--radius-surface-lg);
+}
+.contactRow {
+  display: grid;
+  gap: var(--space-inline-md);
+}
+@media (min-width: 600px) {
+  .contactRow {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.contactActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-inline-md);
+  align-items: center;
+}
+.contactNote {
+  color: var(--text-muted);
+}

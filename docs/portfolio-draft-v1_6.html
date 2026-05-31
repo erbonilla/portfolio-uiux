@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Edgar Bonilla G. — UI/UX for digital health, wellness, and fitness.</title>
+<meta name="description" content="UI/UX designer for digital health, wellness, lifestyle and fitness. Evidence-disciplined, accessibility-first, WCAG 2.2 AA baseline." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+<style>
+/* ============================================================
+   VANGUARD DESIGN SYSTEM — token bootstrap (dark canonical)
+   Values sourced from portfolio-premium-uiux-design-system.md alpha.1
+   ============================================================ */
+:root{
+  /* brand ramp */
+  --color-brand-50:#FFF4F0; --color-brand-100:#FFE4DA; --color-brand-200:#FFC5B2;
+  --color-brand-400:#FF7248; --color-brand-500:#FF4F18; --color-brand-600:#E63D0D;
+  --color-brand-700:#B8320D; --color-brand-900:#5F1E0D;
+  /* neutral ramp */
+  --color-neutral-400:#A3A3A3; --color-neutral-600:#525252; --color-neutral-800:#262626;
+  --color-neutral-900:#171717; --color-neutral-950:#050505; --color-white:#FFFFFF; --color-black:#000000;
+
+  /* semantic surfaces (dark mode) */
+  --surface-bg-canvas:var(--color-brand-500);
+  --surface-bg-default:var(--color-neutral-950);
+  --surface-bg-subtle:var(--color-neutral-900);
+  --surface-bg-muted:var(--color-neutral-800);
+  --surface-bg-brand:var(--color-brand-500);
+  --surface-bg-brand-subtle:var(--color-brand-900);
+
+  /* text */
+  --text-default:var(--color-brand-500);
+  --text-on-default:#F5F5F5;       /* readable body on dark glass */
+  --text-muted:var(--color-neutral-400);
+  --text-brand:var(--color-brand-500);
+  --text-on-brand:var(--color-black);
+  --static-black:#0A0A0A;
+
+  /* borders */
+  --border-default:var(--color-neutral-800);
+  --border-subtle:var(--color-neutral-900);
+  --border-brand:var(--color-brand-500);
+  --border-focus:var(--color-brand-500);
+
+  /* radius */
+  --radius-control-md:8px;
+  --radius-surface-sm:10px;
+  --radius-surface-md:16px;
+  --radius-surface-lg:24px;
+  --radius-pill:9999px;
+
+  /* spacing scale */
+  --space-2xs:2px; --space-xs:4px; --space-sm:8px; --space-md:16px; --space-lg:24px;
+  --space-xl:32px; --space-2xl:48px; --space-3xl:64px;
+  --section-sm:32px; --section-md:56px; --section-lg:80px; --section-2xl:96px; --section-3xl:128px;
+
+  /* type */
+  --font-display:'Syne',sans-serif;
+  --font-body:'Inter',sans-serif;
+
+  /* motion */
+  --dur-fast:160ms; --dur-normal:240ms; --dur-layout:600ms;
+  --ease-standard:cubic-bezier(.2,0,0,1);
+  --ease-expressive:cubic-bezier(.2,.6,0,1);
+
+  --container-max:1320px;
+  --gutter:56px;
+  --nav-h:64px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:var(--nav-h)}
+body{
+  font-family:var(--font-body);
+  background:var(--surface-bg-canvas);
+  color:var(--text-on-default);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body.no-scroll{overflow:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--border-focus);outline-offset:3px;border-radius:2px}
+
+.container{max-width:var(--container-max);margin:0 auto;padding-inline:var(--gutter)}
+.eyebrow{font-family:var(--font-body);font-weight:500;font-size:12px;letter-spacing:1.6px;text-transform:uppercase}
+.display{font-family:var(--font-display);font-weight:800;text-transform:uppercase;letter-spacing:-.02em;line-height:1}
+.heading{font-family:var(--font-display);font-weight:700;text-transform:uppercase;letter-spacing:-.01em;line-height:1.05}
+
+/* ---------- reveal on scroll ---------- */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s var(--ease-expressive),transform .7s var(--ease-expressive)}
+.reveal.in{opacity:1;transform:none}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:400;height:var(--nav-h);
+  display:flex;align-items:center;
+  transition:background var(--dur-normal) var(--ease-standard),border-color var(--dur-normal);
+  border-bottom:1px solid transparent;
+}
+.nav.scrolled{background:rgba(5,5,5,.78);backdrop-filter:blur(14px);border-bottom-color:var(--border-subtle)}
+.nav .container{display:flex;align-items:center;justify-content:space-between;width:100%;gap:var(--space-lg)}
+.wordmark{font-family:var(--font-display);font-weight:800;font-size:20px;letter-spacing:-.01em;color:var(--static-black);white-space:nowrap}
+.nav.scrolled .wordmark{color:var(--text-brand)}
+.nav-cluster{display:flex;align-items:center;gap:var(--space-xl)}
+.nav-links{display:flex;align-items:center;gap:var(--space-xl);list-style:none}
+.nav-link{
+  font-weight:500;font-size:13px;letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--static-black);opacity:.62;position:relative;padding-block:6px;
+  transition:opacity var(--dur-normal),color var(--dur-normal);
+}
+.nav.scrolled .nav-link{color:#E8E8E8;opacity:.65}
+.nav-link:hover{opacity:1}
+.nav-link.active{opacity:1}
+.nav-link.active::after{
+  content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;
+  background:var(--static-black);
+}
+.nav.scrolled .nav-link.active{color:var(--text-brand)}
+.nav.scrolled .nav-link.active::after{background:var(--text-brand)}
+
+.hub-trigger{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--static-black);border-radius:var(--radius-pill);
+  padding:9px 18px;background:transparent;color:var(--static-black);
+  font-family:var(--font-display);font-weight:800;font-size:13px;letter-spacing:.8px;text-transform:uppercase;white-space:nowrap;
+  transition:background var(--dur-normal),color var(--dur-normal),transform var(--dur-normal);
+}
+.hub-trigger .dot{width:7px;height:7px;border-radius:50%;background:var(--static-black);transition:background var(--dur-normal)}
+.nav.scrolled .hub-trigger{border-color:var(--border-brand);color:var(--text-brand)}
+.nav.scrolled .hub-trigger .dot{background:var(--text-brand)}
+.hub-trigger:hover{background:var(--static-black);color:var(--surface-bg-canvas)}
+.nav.scrolled .hub-trigger:hover{background:var(--text-brand);color:var(--surface-bg-default)}
+.hub-trigger:hover .dot{background:currentColor}
+
+.nav-toggle{display:none;background:none;border:none;color:var(--static-black);padding:6px;line-height:0}
+.nav.scrolled .nav-toggle{color:#F2F2F2}
+
+/* ---------- mobile drawer menu ---------- */
+.mobile-menu{
+  position:fixed;inset:0;z-index:390;background:rgba(5,5,5,.97);backdrop-filter:blur(8px);
+  display:flex;flex-direction:column;justify-content:center;gap:var(--space-xl);
+  padding:var(--space-3xl) var(--gutter);
+  transform:translateY(-100%);opacity:0;visibility:hidden;
+  transition:transform var(--dur-layout) var(--ease-expressive),opacity var(--dur-normal),visibility var(--dur-normal);
+}
+.mobile-menu.open{transform:translateY(0);opacity:1;visibility:visible}
+.mobile-menu a{
+  font-family:var(--font-display);font-weight:700;font-size:30px;letter-spacing:-.01em;text-transform:uppercase;
+  color:#F2F2F2;transition:color var(--dur-normal)
+}
+.mobile-menu a:hover,.mobile-menu a.active{color:var(--text-brand)}
+.mobile-menu .hub-trigger{align-self:flex-start;border-color:var(--border-brand);color:var(--text-brand);margin-top:var(--space-md)}
+.mobile-menu .hub-trigger .dot{background:var(--text-brand)}
+
+/* ============================================================
+   HERO  —  hierarchy reworked, sizes reduced, underline removed
+   ============================================================ */
+.hero{
+  background:var(--surface-bg-canvas);
+  padding-top:calc(var(--nav-h) + var(--section-2xl));padding-bottom:var(--section-2xl);
+  position:relative;overflow:hidden;
+}
+.hero .container{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:var(--space-3xl);align-items:center;
+}
+.hero-copy{color:var(--static-black)}
+.hero-greet{font-family:var(--font-body);font-weight:500;font-size:clamp(15px,1.4vw,18px);letter-spacing:.5px;opacity:.7;margin-bottom:10px}
+/* Primary level: the discipline. Largest, boldest. */
+.hero-stack{margin-bottom:6px}
+.hero-stack .l1{display:block;font-size:clamp(40px,6vw,72px);opacity:.92;font-weight:700}
+.hero-stack .l2{display:block;font-size:clamp(52px,8vw,96px);font-weight:800}
+/* Secondary level: the supporting capabilities. Clearly subordinate. */
+.hero-sub{margin-top:var(--space-lg);display:flex;flex-direction:column;gap:3px}
+.hero-sub span{
+  font-family:var(--font-display);font-weight:700;text-transform:uppercase;letter-spacing:0;
+  font-size:clamp(15px,1.8vw,20px);opacity:.62;line-height:1.25;
+}
+.hero-cta{display:flex;gap:var(--space-md);margin-top:var(--space-2xl);flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:14px 26px;border-radius:var(--radius-control-md);
+  font-family:var(--font-display);font-weight:700;font-size:14px;letter-spacing:.6px;text-transform:uppercase;
+  transition:transform var(--dur-normal) var(--ease-expressive),background var(--dur-normal),color var(--dur-normal);
+  border:1px solid transparent;
+}
+.btn-primary{background:var(--surface-bg-default);color:#F5F5F5}
+.btn-primary:hover{transform:translateY(-2px)}
+.btn-secondary{background:transparent;color:var(--static-black);border-color:var(--static-black)}
+.btn-secondary:hover{background:var(--static-black);color:var(--surface-bg-canvas)}
+.hero-meta{margin-top:var(--space-2xl);font-size:12px;letter-spacing:1.4px;text-transform:uppercase;opacity:.7;font-weight:500}
+
+.hero-portrait{
+  aspect-ratio:4/5;border-radius:var(--radius-surface-md);overflow:hidden;position:relative;
+  background:var(--surface-bg-default);width:100%;
+}
+.hero-portrait img{width:100%;height:100%;object-fit:cover;object-position:95% 50%;transform:scale(1.05);transform-origin:right center}
+.hero-portrait::before{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(to right,var(--surface-bg-canvas) 0%,rgba(255,79,24,.4) 15%,transparent 30%);
+}
+
+/* ============================================================
+   TOOLS STRIP
+   ============================================================ */
+.tools{background:var(--surface-bg-canvas);padding-block:var(--section-md);text-align:center}
+.tools-label{color:var(--static-black);opacity:.7;display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:28px}
+.tools-label::before,.tools-label::after{content:"";height:1px;width:40px;background:var(--static-black);opacity:.4}
+.tools-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:clamp(24px,4vw,56px)}
+.tool{display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--static-black)}
+.tool iconify-icon{font-size:32px}
+.tool span{font-size:10px;letter-spacing:1.4px;text-transform:uppercase;font-weight:500;opacity:.75}
+
+/* ============================================================
+   STORY
+   ============================================================ */
+.band-dark{background:var(--surface-bg-canvas);padding-block:var(--section-lg)}
+.story-panel{
+  max-width:880px;margin:0 auto;background:var(--surface-bg-default);
+  border:1px solid var(--border-subtle);border-radius:var(--radius-surface-lg);
+  padding:clamp(32px,6vw,64px);
+}
+.story-panel p{font-size:clamp(18px,2.4vw,24px);line-height:1.5;color:#D8D8D8}
+.story-panel p strong{color:var(--text-brand);font-weight:600}
+.story-panel p+p{margin-top:var(--space-lg)}
+
+/* ============================================================
+   CASE STUDIES  (restored)
+   ============================================================ */
+.work{background:var(--surface-bg-default);padding-block:var(--section-lg)}
+.work .section-head{text-align:left;margin-bottom:var(--space-2xl)}
+.tiles{display:flex;flex-direction:column;gap:var(--space-xl)}
+.tile{
+  display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3xl);align-items:center;
+  background:var(--surface-bg-default);border:1px solid var(--border-default);
+  border-radius:var(--radius-surface-md);padding:clamp(28px,4vw,56px);
+  transition:border-color .3s var(--ease-standard),transform var(--dur-fast);
+}
+.tile:hover{border-color:var(--border-brand)}
+.tile:active{transform:scale(.99)}
+.tile.img-left .tile-media{order:-1}
+.tile-chips{display:flex;gap:2px;margin-bottom:var(--space-lg);flex-wrap:wrap}
+.chip{
+  font-family:var(--font-body);font-weight:500;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;
+  padding:7px 13px;border-radius:var(--radius-pill);border:1px solid transparent;white-space:nowrap;
+}
+.chip-concept{border-color:var(--border-default);background:var(--surface-bg-default);color:var(--text-muted)}
+.chip-built{border-color:var(--border-brand);background:var(--surface-bg-brand-subtle);color:var(--text-brand)}
+.chip-domain{background:var(--surface-bg-muted);border-color:var(--border-subtle);color:var(--text-muted)}
+.tile-brand{font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:var(--text-muted);font-weight:500;margin-bottom:12px}
+.tile-headline{font-family:var(--font-display);font-weight:800;text-transform:uppercase;letter-spacing:-.02em;line-height:1.02;font-size:clamp(26px,3.4vw,40px);color:#F2F2F2;margin-bottom:var(--space-md);text-wrap:balance}
+.tile-teaser{font-size:15.5px;line-height:1.6;color:var(--text-muted);margin-bottom:var(--space-lg);max-width:46ch}
+.tile-roles{font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-muted);font-weight:500;margin-bottom:var(--space-lg)}
+.tile-cta{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-display);font-weight:700;font-size:13px;letter-spacing:.8px;text-transform:uppercase;color:#F2F2F2;border:1px solid var(--border-default);border-radius:var(--radius-control-md);padding:11px 20px;transition:border-color var(--dur-normal),background var(--dur-normal)}
+.tile:hover .tile-cta{border-color:var(--border-brand)}
+.tile-cta iconify-icon{transition:transform var(--dur-normal) var(--ease-expressive)}
+.tile:hover .tile-cta iconify-icon{transform:translate(3px,-3px)}
+.tile-media{aspect-ratio:4/3;border-radius:var(--radius-surface-sm);overflow:hidden;border:1px solid var(--border-subtle);background:var(--surface-bg-subtle)}
+.tile-media img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform var(--dur-layout) var(--ease-expressive)}
+.tile:hover .tile-media img{transform:scale(1.02)}
+/* ghost tile */
+.tile-ghost{
+  border:1px dashed var(--border-default);opacity:.55;border-radius:var(--radius-surface-md);
+  padding:clamp(28px,4vw,56px);text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px;
+}
+.tile-ghost iconify-icon{font-size:30px;color:var(--text-muted)}
+.tile-ghost p{font-size:13px;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-muted)}
+
+/* ============================================================
+   RANGE GRIDS — Graphic Design + Digital Content (v1.3 spec §9.5–9.6)
+   Restored. Paired sections share identical chrome by design.
+   ============================================================ */
+.range{background:var(--surface-bg-default);padding-block:var(--section-lg)}
+.range+.range{padding-top:0}
+.range .range-head{text-align:center;margin-bottom:var(--space-2xl)}
+.range .range-head .eyebrow{color:var(--text-muted);margin-bottom:14px}
+.range .range-head h2{font-family:var(--font-display);font-weight:800;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(28px,4vw,46px);color:#F2F2F2;line-height:1}
+.range-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-lg)}
+.range-card{
+  display:block;background:var(--surface-bg-default);border:1px solid var(--border-default);
+  border-radius:var(--radius-surface-md);overflow:hidden;
+  transition:border-color .3s var(--ease-standard),transform var(--dur-fast);
+}
+.range-card:hover{border-color:var(--border-brand)}
+.range-card:active{transform:scale(.99)}
+.range-preview{aspect-ratio:5/4;background:var(--surface-bg-subtle);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.range-preview .ph-tag{
+  position:absolute;top:12px;left:12px;z-index:3;
+  font-size:9px;letter-spacing:1.4px;text-transform:uppercase;font-weight:600;
+  color:var(--text-muted);background:rgba(5,5,5,.72);border:1px solid var(--border-default);
+  padding:4px 9px;border-radius:var(--radius-pill);
+}
+.range-card-body{padding:var(--space-xl)}
+.range-tag{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--text-muted);font-weight:500;margin-bottom:10px}
+.range-title{font-family:var(--font-display);font-weight:700;text-transform:uppercase;letter-spacing:-.01em;font-size:19px;color:var(--text-brand);line-height:1.1;text-wrap:balance}
+/* CSS-art placeholder previews (no images yet) */
+.ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.85}
+.ph-brand::before{content:"";width:46%;aspect-ratio:1;border-radius:50%;border:2px solid var(--color-neutral-600);box-shadow:18px 0 0 -2px var(--surface-bg-subtle),18px 0 0 0 var(--color-neutral-600)}
+.ph-poster{flex-direction:column;gap:7px;padding:22%}
+.ph-poster::before{content:"";width:70%;height:14px;background:var(--color-neutral-600);align-self:flex-start}
+.ph-poster::after{content:"";width:42%;height:14px;background:var(--color-neutral-800);align-self:flex-start}
+.ph-editorial{flex-direction:column;gap:6px;align-items:stretch;padding:24%}
+.ph-editorial::before{content:"";height:10px;background:var(--color-neutral-600)}
+.ph-editorial::after{content:"";height:38px;background:repeating-linear-gradient(var(--color-neutral-800) 0 3px,transparent 3px 8px)}
+.ph-social::before{content:"";width:44%;aspect-ratio:1;border-radius:14px;border:2px solid var(--color-neutral-600)}
+.ph-motion::before{content:"";width:60%;height:60%;background:repeating-linear-gradient(90deg,var(--color-neutral-600) 0 3px,transparent 3px 14px)}
+.ph-banner{flex-direction:column;gap:9px;padding:26% 18%}
+.ph-banner::before{content:"";height:20px;background:var(--color-neutral-600)}
+.ph-banner::after{content:"";height:20px;width:55%;background:var(--color-neutral-800)}
+
+/* ============================================================
+   APPROACH — How I Approach Design
+   ============================================================ */
+.approach{background:var(--surface-bg-default);padding-block:var(--section-lg);border-top:1px solid var(--border-subtle)}
+.section-head{margin-bottom:var(--space-2xl)}
+.section-head .eyebrow{color:var(--text-muted);margin-bottom:14px}
+.section-head h2{font-family:var(--font-display);font-weight:800;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(30px,4.5vw,52px);color:#F2F2F2;line-height:1}
+.section-head h2 em{font-style:normal;color:var(--text-brand)}
+.cards-3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-lg)}
+.card{
+  background:var(--surface-bg-default);border:1px solid var(--border-default);
+  border-radius:var(--radius-surface-md);padding:var(--space-2xl) var(--space-xl);
+  transition:border-color var(--dur-normal),transform var(--dur-normal);
+}
+.card:hover{border-color:var(--border-brand);transform:translateY(-3px)}
+.card .num{
+  width:38px;height:38px;border-radius:50%;border:1px solid var(--border-brand);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text-brand);font-size:12px;letter-spacing:1px;font-weight:600;margin-bottom:24px;
+}
+.card h3{font-family:var(--font-display);font-weight:700;text-transform:uppercase;font-size:19px;letter-spacing:-.005em;color:#F2F2F2;margin-bottom:14px}
+.card p{font-size:14.5px;line-height:1.6;color:var(--text-muted)}
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+.about{background:var(--surface-bg-default);padding-block:var(--section-lg)}
+.about-panel{
+  background:var(--surface-bg-subtle);border:1px solid var(--border-subtle);
+  border-radius:var(--radius-surface-lg);padding:clamp(32px,6vw,72px);
+}
+.about-panel .eyebrow{color:var(--text-muted);margin-bottom:18px}
+.about-panel h2{font-family:var(--font-display);font-weight:800;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(28px,4vw,46px);color:#F2F2F2;line-height:1.02;max-width:16ch;text-wrap:balance;margin-bottom:var(--space-xl)}
+.about-body{max-width:720px}
+.about-body p{font-size:17px;line-height:1.65;color:#C9C9C9}
+.about-body p+p{margin-top:var(--space-md)}
+.about-body strong{color:#F2F2F2;font-weight:600}
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.contact{background:var(--surface-bg-canvas);padding-block:var(--section-2xl)}
+.contact .container{display:grid;grid-template-columns:1fr 1.1fr;gap:var(--space-3xl);align-items:start}
+.contact-copy{color:var(--static-black)}
+.contact-copy .eyebrow{opacity:.7;margin-bottom:18px}
+.contact-copy h2{font-family:var(--font-display);font-weight:800;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(38px,5.5vw,68px);line-height:.95;margin-bottom:var(--space-lg)}
+.contact-copy>p{font-size:17px;line-height:1.6;opacity:.85;max-width:42ch}
+.contact-links{margin-top:var(--space-2xl);border-top:1px solid rgba(10,10,10,.25);padding-top:var(--space-xl);display:flex;flex-direction:column;gap:14px}
+.contact-links a,.contact-links span{display:flex;align-items:center;gap:12px;font-weight:600;font-size:15px;color:var(--static-black)}
+.contact-links iconify-icon{font-size:20px}
+
+.form-panel{
+  background:var(--surface-bg-default);border-radius:var(--radius-surface-lg);
+  padding:clamp(28px,4vw,44px);
+}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md)}
+.field{margin-bottom:var(--space-lg)}
+.field label{display:block;font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--text-muted);font-weight:500;margin-bottom:9px}
+.field input,.field select,.field textarea{
+  width:100%;background:var(--surface-bg-subtle);border:1px solid var(--border-default);
+  border-radius:var(--radius-control-md);padding:13px 15px;color:#EDEDED;font-family:var(--font-body);font-size:15px;
+  transition:border-color var(--dur-normal);
+}
+.field input::placeholder,.field textarea::placeholder{color:var(--color-neutral-600)}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--border-brand)}
+.field textarea{resize:vertical;min-height:120px}
+.field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%23A3A3A3' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center}
+.form-submit{
+  width:100%;background:var(--surface-bg-brand);color:var(--text-on-brand);
+  border:none;border-radius:var(--radius-control-md);padding:16px;
+  font-family:var(--font-display);font-weight:800;font-size:14px;letter-spacing:1px;text-transform:uppercase;
+  transition:background var(--dur-normal),transform var(--dur-normal);
+}
+.form-submit:hover{background:var(--color-brand-600);transform:translateY(-2px)}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer{background:var(--surface-bg-default);border-top:1px solid var(--border-subtle);padding-block:var(--section-md);position:relative}
+.footer-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:var(--space-2xl)}
+.footer .wordmark{font-size:30px;color:var(--text-brand);margin-bottom:18px}
+.footer-name{font-weight:600;color:#EDEDED;font-size:15px}
+.footer-role{color:var(--text-muted);font-size:13px;letter-spacing:1.2px;text-transform:uppercase;margin-top:4px}
+.footer h4{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:var(--text-muted);font-weight:500;margin-bottom:20px}
+.footer-list{display:flex;flex-direction:column;gap:14px}
+.footer-list a{color:#D8D8D8;font-size:15px;transition:color var(--dur-normal)}
+.footer-list a:first-child{color:#F2F2F2;font-weight:600}
+.footer-list a:hover{color:var(--text-brand)}
+.footer-compliance p{color:#C9C9C9;font-size:14px;line-height:1.55}
+.footer-compliance a{display:inline-flex;align-items:center;gap:7px;color:var(--text-brand);font-weight:600;font-size:13px;letter-spacing:1px;text-transform:uppercase;margin-top:18px}
+.footer-bottom{
+  margin-top:var(--section-sm);padding-top:var(--space-lg);border-top:1px solid var(--border-subtle);
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+}
+.footer-bottom p{color:var(--text-muted);font-size:12px;letter-spacing:1px}
+.footer .hub-trigger{border-color:var(--border-brand);color:var(--text-brand)}
+.footer .hub-trigger .dot{background:var(--text-brand)}
+.footer .hub-trigger:hover{background:var(--text-brand);color:var(--surface-bg-default)}
+
+/* ============================================================
+   RECRUITER HUB — drawer
+   ============================================================ */
+.scrim{
+  position:fixed;inset:0;z-index:490;background:rgba(5,5,5,.7);
+  opacity:0;visibility:hidden;transition:opacity var(--dur-normal),visibility var(--dur-normal);
+}
+.scrim.open{opacity:1;visibility:visible}
+.drawer{
+  position:fixed;top:0;right:0;bottom:0;z-index:500;width:min(440px,100%);
+  background:var(--surface-bg-default);border-left:1px solid var(--border-default);
+  display:flex;flex-direction:column;
+  transform:translateX(100%);transition:transform var(--dur-layout) var(--ease-expressive);
+}
+.drawer.open{transform:translateX(0)}
+.drawer-head{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-md);
+  padding:var(--space-xl);border-bottom:1px solid var(--border-subtle);
+}
+.drawer-head .eyebrow{color:var(--text-brand);margin-bottom:8px}
+.drawer-head h2{font-family:var(--font-display);font-weight:800;text-transform:uppercase;letter-spacing:-.01em;font-size:24px;color:#F2F2F2;line-height:1}
+.drawer-close{
+  flex:none;width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+  background:transparent;border:1px solid var(--border-default);border-radius:var(--radius-control-md);
+  color:var(--text-muted);transition:border-color var(--dur-normal),color var(--dur-normal)
+}
+.drawer-close:hover{border-color:var(--border-brand);color:var(--text-brand)}
+.drawer-body{padding:var(--space-xl);overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:var(--space-2xl)}
+.hub-panel-label{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--text-brand);font-weight:600;margin-bottom:10px}
+.hub-panel-desc{font-size:14px;line-height:1.55;color:var(--text-muted);margin-bottom:var(--space-md)}
+.seg{display:flex;gap:6px;background:var(--surface-bg-subtle);padding:5px;border-radius:var(--radius-control-md)}
+.seg button{
+  flex:1;border:none;background:transparent;color:var(--text-muted);
+  padding:11px 8px;border-radius:6px;font-size:12px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;
+  transition:background var(--dur-normal),color var(--dur-normal)
+}
+.seg button[aria-pressed="true"]{background:var(--surface-bg-brand);color:var(--text-on-brand)}
+.hub-list{display:flex;flex-direction:column;gap:1px;border:1px solid var(--border-subtle);border-radius:var(--radius-control-md);overflow:hidden}
+.hub-list-item{display:flex;align-items:center;justify-content:space-between;padding:13px 15px;background:var(--surface-bg-default);font-size:13.5px;color:#D8D8D8}
+.hub-list-item .pass{color:var(--color-success,#4ADE80);font-weight:600;font-size:11px;letter-spacing:1px}
+.hub-list-item .todo{color:var(--text-muted);font-size:11px;letter-spacing:1px}
+.hub-progress{margin-top:var(--space-md)}
+.hub-progress-track{height:6px;background:var(--surface-bg-muted);border-radius:var(--radius-pill);overflow:hidden}
+.hub-progress-fill{height:100%;width:50%;background:var(--surface-bg-brand)}
+.hub-progress-label{display:flex;justify-content:space-between;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px}
+.drawer-foot{padding:var(--space-xl);border-top:1px solid var(--border-subtle)}
+.drawer-foot .form-submit{margin-bottom:12px}
+.drawer-foot .colophon{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);text-align:center}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:1023px){
+  :root{--gutter:32px}
+  .hero .container{grid-template-columns:1fr;gap:var(--space-2xl)}
+  .hero-portrait{aspect-ratio:3/4;max-width:380px}
+  .contact .container{grid-template-columns:1fr;gap:var(--space-2xl)}
+  .cards-3{grid-template-columns:repeat(3,1fr)}
+  .range-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .tile{grid-template-columns:1fr;gap:var(--space-xl)}
+  .tile .tile-media,.tile.img-left .tile-media{order:-1}
+  .tile-media{aspect-ratio:16/10}
+}
+@media (max-width:767px){
+  :root{--gutter:18px}
+  .nav-links,.nav .hub-trigger{display:none}
+  .nav-toggle{display:block}
+  .hero{padding-top:calc(var(--nav-h) + var(--section-md))}
+  .hero-cta{flex-direction:column;align-items:stretch}
+  .hero-cta .btn{width:100%}
+  .form-row{grid-template-columns:1fr}
+  .cards-3{grid-template-columns:1fr}
+  .range-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;align-items:flex-start}
+  .drawer{width:100%;border-left:none}
+}
+@media (min-width:600px) and (max-width:1023px){
+  .tile{grid-template-columns:1fr 1fr}
+  .tile .tile-media{order:0}
+  .tile.img-left .tile-media{order:-1}
+  .tile-media{aspect-ratio:4/3}
+}
+@media (min-width:768px) and (max-width:1100px){
+  .nav-cluster{gap:var(--space-md)}
+  .nav-links{gap:var(--space-md)}
+  .nav-link{font-size:12px;letter-spacing:1px}
+  .hub-trigger{padding:8px 14px;font-size:12px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav class="nav" id="nav">
+  <div class="container">
+    <a href="#top" class="wordmark">(ed)studio</a>
+    <div class="nav-cluster">
+      <ul class="nav-links">
+        <li><a href="#work" class="nav-link" data-section="work">Work</a></li>
+        <li><a href="#graphic" class="nav-link" data-section="graphic">Graphic</a></li>
+        <li><a href="#digital" class="nav-link" data-section="digital">Digital</a></li>
+        <li><a href="#approach" class="nav-link" data-section="approach">Approach</a></li>
+        <li><a href="#about" class="nav-link" data-section="about">About</a></li>
+        <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
+      </ul>
+      <button class="hub-trigger" type="button" data-hub-open aria-haspopup="dialog" aria-controls="recruiter-hub" aria-label="Open recruiter toolkit">
+        <span class="dot"></span> Recruiter Hub
+      </button>
+    </div>
+    <button class="nav-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+      <iconify-icon icon="solar:hamburger-menu-linear" width="28"></iconify-icon>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== MOBILE MENU ===== -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#work" class="nav-link-m" data-section="work">Work</a>
+  <a href="#graphic" class="nav-link-m" data-section="graphic">Graphic</a>
+  <a href="#digital" class="nav-link-m" data-section="digital">Digital</a>
+  <a href="#approach" class="nav-link-m" data-section="approach">Approach</a>
+  <a href="#about" class="nav-link-m" data-section="about">About</a>
+  <a href="#contact" class="nav-link-m" data-section="contact">Contact</a>
+  <button class="hub-trigger" type="button" data-hub-open aria-haspopup="dialog" aria-controls="recruiter-hub" aria-label="Open recruiter toolkit">
+    <span class="dot"></span> Recruiter Hub
+  </button>
+</div>
+
+<!-- ===== HERO ===== -->
+<header class="hero" id="top">
+  <div class="container">
+    <div class="hero-copy reveal in">
+      <p class="hero-greet">Hey, I'm a</p>
+      <h1 class="display hero-stack">
+        <span class="l1">Creative</span>
+        <span class="l2">UI UX</span>
+      </h1>
+      <div class="hero-sub">
+        <span>Graphic Design</span>
+        <span>Visual Identity</span>
+        <span>Digital Content</span>
+      </div>
+      <div class="hero-cta">
+        <a href="#work" class="btn btn-primary">View Case Studies</a>
+        <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+      </div>
+      <p class="hero-meta">Based in Costa Rica · Available for new roles · ES · EN</p>
+    </div>
+
+    <div class="hero-portrait reveal in">
+      <img src="./assets/hero-portfolio-2.png" alt="Portrait of Edgar Bonilla G." fetchpriority="high" />
+    </div>
+  </div>
+</header>
+
+<!-- ===== TOOLS STRIP ===== -->
+<section class="tools">
+  <div class="container">
+    <p class="eyebrow tools-label">Built with</p>
+    <div class="tools-row reveal">
+      <div class="tool"><iconify-icon icon="simple-icons:figma"></iconify-icon><span>Figma</span></div>
+      <div class="tool"><iconify-icon icon="simple-icons:anthropic"></iconify-icon><span>Anthropic</span></div>
+      <div class="tool"><iconify-icon icon="simple-icons:react"></iconify-icon><span>React</span></div>
+      <div class="tool"><iconify-icon icon="simple-icons:nextdotjs"></iconify-icon><span>Next.js</span></div>
+      <div class="tool"><iconify-icon icon="simple-icons:typescript"></iconify-icon><span>TypeScript</span></div>
+      <div class="tool"><iconify-icon icon="simple-icons:tailwindcss"></iconify-icon><span>Tailwind</span></div>
+      <div class="tool"><iconify-icon icon="simple-icons:adobe"></iconify-icon><span>Adobe</span></div>
+      <div class="tool"><iconify-icon icon="simple-icons:openai"></iconify-icon><span>OpenAI</span></div>
+      <!-- Cursor: not in Simple Icons set — neutral fallback glyph until self-hosted mark is added -->
+      <div class="tool"><iconify-icon icon="solar:code-square-linear"></iconify-icon><span>Cursor*</span></div>
+      <div class="tool"><iconify-icon icon="simple-icons:github"></iconify-icon><span>GitHub</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STORY ===== -->
+<section class="band-dark">
+  <div class="container">
+    <div class="story-panel reveal">
+      <p>I design for the edges that other products treat as exceptions. Rehab patients who can't read 14px type. Triathletes whose 6 AM self and 11 PM self are functionally different users. Seniors who give up and call the clinic.</p>
+      <p><strong>I build for those edges first. The middle tends to follow.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CASE STUDIES ===== -->
+<section class="work" id="work">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Selected Work</p>
+      <h2>Case Studies</h2>
+    </div>
+    <div class="tiles">
+
+      <!-- Osteóplus — image right -->
+      <a class="tile reveal" href="#" rel="noopener">
+        <div class="tile-body">
+          <div class="tile-chips">
+            <span class="chip chip-concept">Concept · Solo · 2026</span>
+            <span class="chip chip-domain">Digital Health</span>
+          </div>
+          <p class="tile-brand">Osteóplus</p>
+          <h3 class="tile-headline">From medical repository to action dashboard.</h3>
+          <p class="tile-teaser">A recovery portal rebuilt around post-op clarity — large-target controls, plain-language guidance, and a booking flow a senior can complete without calling the clinic.</p>
+          <p class="tile-roles">Role · UX · UI · Design System · Accessibility</p>
+          <span class="tile-cta">Read Case Study <iconify-icon icon="solar:arrow-right-up-linear"></iconify-icon></span>
+        </div>
+        <div class="tile-media">
+          <img src="./assets/osteoplus-screenshoot.png" alt="Osteóplus marketing site hero — headline 'Empower your health, live with comfort' on a teal canvas, with primary booking CTA and a portrait photograph." loading="lazy" />
+        </div>
+      </a>
+
+      <!-- Atlan — image left -->
+      <a class="tile img-left reveal" href="#" rel="noopener">
+        <div class="tile-body">
+          <div class="tile-chips">
+            <span class="chip chip-built">Built · Solo · 2026</span>
+            <span class="chip chip-domain">Sports &amp; Endurance</span>
+          </div>
+          <p class="tile-brand">Atlan Performance</p>
+          <h3 class="tile-headline">Telemetry built for the open water.</h3>
+          <p class="tile-teaser">Endurance coaching designed with science, born from the ocean. Swim cadence and cardiovascular maps translated into high-contrast pacing visuals readable under sunlight glare and fatigue.</p>
+          <p class="tile-roles">Role · UX · UI · Design System · Wet Mode</p>
+          <span class="tile-cta">Read Case Study <iconify-icon icon="solar:arrow-right-up-linear"></iconify-icon></span>
+        </div>
+        <div class="tile-media">
+          <img src="./assets/atlan-screenshot.png" alt="Atlan Performance marketing site hero — Spanish headline 'Coaching de resistencia diseñado con ciencia, nacido del océano' over an underwater swimmer photograph." loading="lazy" />
+        </div>
+      </a>
+
+      <!-- Ghost slot -->
+      <div class="tile-ghost reveal">
+        <iconify-icon icon="solar:add-square-linear"></iconify-icon>
+        <p>Third case study — coming soon</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== GRAPHIC DESIGN GRID ===== -->
+<section class="range" id="graphic">
+  <div class="container">
+    <div class="range-head reveal">
+      <p class="eyebrow">Range · 2024–2026</p>
+      <h2>Graphic Design</h2>
+    </div>
+    <div class="range-grid">
+      <a class="range-card reveal" href="#" rel="noopener">
+        <div class="range-preview">
+          <span class="ph-tag">Placeholder</span>
+          <span class="ph ph-brand"></span>
+        </div>
+        <div class="range-card-body">
+          <p class="range-tag">Brand identity · 2026</p>
+          <h3 class="range-title">Studio mark &amp; logo system</h3>
+        </div>
+      </a>
+      <a class="range-card reveal" href="#" rel="noopener">
+        <div class="range-preview">
+          <span class="ph-tag">Placeholder</span>
+          <span class="ph ph-poster"></span>
+        </div>
+        <div class="range-card-body">
+          <p class="range-tag">Poster · 2025</p>
+          <h3 class="range-title">Typography poster series</h3>
+        </div>
+      </a>
+      <a class="range-card reveal" href="#" rel="noopener">
+        <div class="range-preview">
+          <span class="ph-tag">Placeholder</span>
+          <span class="ph ph-editorial"></span>
+        </div>
+        <div class="range-card-body">
+          <p class="range-tag">Editorial · 2025</p>
+          <h3 class="range-title">Long-form editorial layouts</h3>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DIGITAL CONTENT GRID ===== -->
+<section class="range" id="digital">
+  <div class="container">
+    <div class="range-head reveal">
+      <p class="eyebrow">Range · 2024–2026</p>
+      <h2>Digital Content</h2>
+    </div>
+    <div class="range-grid">
+      <a class="range-card reveal" href="#" rel="noopener">
+        <div class="range-preview">
+          <span class="ph-tag">Placeholder</span>
+          <span class="ph ph-social"></span>
+        </div>
+        <div class="range-card-body">
+          <p class="range-tag">Social campaign · 2026</p>
+          <h3 class="range-title">Atlan launch campaign</h3>
+        </div>
+      </a>
+      <a class="range-card reveal" href="#" rel="noopener">
+        <div class="range-preview">
+          <span class="ph-tag">Placeholder</span>
+          <span class="ph ph-motion"></span>
+        </div>
+        <div class="range-card-body">
+          <p class="range-tag">Motion · 2025</p>
+          <h3 class="range-title">Brand motion stills</h3>
+        </div>
+      </a>
+      <a class="range-card reveal" href="#" rel="noopener">
+        <div class="range-preview">
+          <span class="ph-tag">Placeholder</span>
+          <span class="ph ph-banner"></span>
+        </div>
+        <div class="range-card-body">
+          <p class="range-tag">Web banner · 2025</p>
+          <h3 class="range-title">Marketing banners &amp; OG images</h3>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== APPROACH ===== -->
+<section class="approach" id="approach">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Methods &amp; Integrity</p>
+      <h2>How I <em>Approach Design</em></h2>
+    </div>
+    <div class="cards-3">
+      <article class="card reveal">
+        <div class="num">01</div>
+        <h3>Clinical Rigor</h3>
+        <p>Interfaces validated against physiological standards. Ensuring zero confusion during patient diagnostics or home-bound cognitive rehab routines.</p>
+      </article>
+      <article class="card reveal">
+        <div class="num">02</div>
+        <h3>Endurance Science</h3>
+        <p>Translating complex swim cadence and cardiovascular telemetry maps into high-impact pacing visuals under harsh natural conditions and sunlight glare.</p>
+      </article>
+      <article class="card reveal">
+        <div class="num">03</div>
+        <h3>Tokenized Systems</h3>
+        <p>Eliminating code drift by engineering direct parity between Figma Variables structure and CSS custom properties for instant styling pivots.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-panel reveal">
+      <p class="eyebrow">About</p>
+      <h2>Designing for the edges. Building for resilience.</h2>
+      <div class="about-body">
+        <p>I'm Edgar Bonilla G., a UI/UX designer specializing in digital health, wellness, lifestyle and fitness. I believe that good design in healthcare isn't just about aesthetics — it's about clarity, accessibility, and trust.</p>
+        <p>Over the past few years, I've focused on creating interfaces that work for people in vulnerable or high-stress states. Whether it's a senior trying to navigate a post-op recovery portal, or an endurance athlete checking their stats immediately after a grueling swim, the interface needs to be resilient.</p>
+        <p>My approach is <strong>evidence-disciplined</strong>. I rely on research, accessibility standards (WCAG 2.2 AA is my baseline), and a deep understanding of the user's physical and cognitive context. I design for stories that make it easy to understand the problem, the decisions, and the evidence — building designs that are inclusive, robust, and beautifully functional.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-copy reveal">
+      <p class="eyebrow">Direct Collaboration</p>
+      <h2>Let's build<br />for the edges.</h2>
+      <p>Partner with me on clinical healthcare applications, sports data telemetry, or the construction of tokenized, design-to-code components.</p>
+      <div class="contact-links">
+        <a href="mailto:erbonilla@outlook.com"><iconify-icon icon="solar:letter-linear"></iconify-icon> erbonilla@outlook.com</a>
+        <span><iconify-icon icon="solar:bolt-linear"></iconify-icon> Available for hire or contract</span>
+      </div>
+    </div>
+
+    <!-- Design-only form: no action/backend wired -->
+    <div class="form-panel reveal">
+      <div class="form-row">
+        <div class="field">
+          <label for="f-name">Hiring Manager / Name</label>
+          <input id="f-name" type="text" placeholder="e.g. Dr. Sarah Chen" />
+        </div>
+        <div class="field">
+          <label for="f-email">Corporate Email</label>
+          <input id="f-email" type="email" placeholder="e.g. sarah@healthtech.com" />
+        </div>
+      </div>
+      <div class="field">
+        <label for="f-need">Design Need / Engagement</label>
+        <select id="f-need">
+          <option>Choose engagement structure…</option>
+          <option>Full-time role</option>
+          <option>Contract / project</option>
+          <option>Design system consult</option>
+          <option>Audit &amp; advisory</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-msg">Message / Outline</label>
+        <textarea id="f-msg" placeholder="Share a brief scope of what you are targeting…"></textarea>
+      </div>
+      <button class="form-submit" type="button">Log Collaboration Request</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="wordmark">(ed)studio</div>
+        <p class="footer-name">Edgar Bonilla G.</p>
+        <p class="footer-role">UI/UX · Costa Rica</p>
+      </div>
+      <div>
+        <h4>Inquiries &amp; Networks</h4>
+        <div class="footer-list">
+          <a href="mailto:erbonilla@outlook.com">erbonilla@outlook.com</a>
+          <a href="#">LinkedIn Profile</a>
+          <a href="#">Read.cv Resume</a>
+        </div>
+      </div>
+      <div class="footer-compliance">
+        <h4>Compliance</h4>
+        <p>This portfolio is built to WCAG 2.2 AA. Fully navigable by keyboard and verified with contrast ratios.</p>
+        <a href="#">View Accessibility Details <iconify-icon icon="solar:info-circle-linear"></iconify-icon></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 (ed)studio · Edgar Bonilla G.</p>
+      <p>Built with Syne &amp; Inter · Vanguard Design System · Costa Rica</p>
+      <button class="hub-trigger" type="button" data-hub-open aria-haspopup="dialog" aria-controls="recruiter-hub" aria-label="Open recruiter toolkit">
+        <span class="dot"></span> Recruiter Hub
+      </button>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== RECRUITER HUB DRAWER ===== -->
+<div class="scrim" data-hub-close></div>
+<aside class="drawer" id="recruiter-hub" role="dialog" aria-modal="true" aria-labelledby="hub-title" tabindex="-1">
+  <div class="drawer-head">
+    <div>
+      <p class="eyebrow hub-panel-label">Recruiter Toolkit</p>
+      <h2 id="hub-title">Hiring Manager Hub</h2>
+    </div>
+    <button class="drawer-close" type="button" data-hub-close aria-label="Close recruiter toolkit">
+      <iconify-icon icon="solar:close-square-linear" width="20"></iconify-icon>
+    </button>
+  </div>
+  <div class="drawer-body">
+    <div>
+      <p class="hub-panel-label">01 · Adaptable view mode</p>
+      <p class="hub-panel-desc">Optimize the page layout for your available time.</p>
+      <div class="seg" role="group" aria-label="View mode">
+        <button type="button" aria-pressed="true">⚡ 30s Quick Scan</button>
+        <button type="button" aria-pressed="false">🔍 5m Deep Dive</button>
+      </div>
+    </div>
+    <div>
+      <p class="hub-panel-label">02 · Vanguard system audit</p>
+      <p class="hub-panel-desc">Static snapshot from the last build — wire to live checks before launch.</p>
+      <div class="hub-list">
+        <div class="hub-list-item">TypeScript Strict Parity <span class="pass">PASS</span></div>
+        <div class="hub-list-item">WCAG 2.2 AA Contrast <span class="pass">PASS</span></div>
+        <div class="hub-list-item">No-outline focus fallback <span class="pass">PASS</span></div>
+        <div class="hub-list-item">Token Leakage Index <span class="pass">PASS</span></div>
+        <div class="hub-list-item">Shortlist Edgar to board <span class="todo">TODO</span></div>
+      </div>
+      <div class="hub-progress">
+        <div class="hub-progress-label"><span>Specifications Integrity</span><span>4/8 Passed</span></div>
+        <div class="hub-progress-track"><div class="hub-progress-fill"></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <button class="form-submit" type="button">☆ Shortlist Edgar</button>
+    <p class="colophon">Vanguard Premium Spec v1.3 · Edgar Bonilla G.</p>
+  </div>
+</aside>
+
+<script>
+/* ---------- nav glass on scroll ---------- */
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>64),{passive:true});
+
+/* ---------- reveal on scroll ---------- */
+const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal:not(.in)').forEach(el=>io.observe(el));
+
+/* ---------- active nav link via section in view ---------- */
+const links=[...document.querySelectorAll('.nav-link, .nav-link-m')];
+const secObserver=new IntersectionObserver((es)=>es.forEach(e=>{
+  if(e.isIntersecting){
+    links.forEach(l=>{
+      const on=l.dataset.section===e.target.id;
+      l.classList.toggle('active',on);
+      if(on)l.setAttribute('aria-current','true');else l.removeAttribute('aria-current');
+    });
+  }
+}),{rootMargin:'-45% 0px -50% 0px'});
+['work','graphic','digital','approach','about','contact'].forEach(id=>{const s=document.getElementById(id);if(s)secObserver.observe(s)});
+
+/* ---------- mobile menu ---------- */
+const menu=document.getElementById('mobile-menu');
+const toggle=document.querySelector('[data-menu-toggle]');
+function setMenu(open){
+  menu.classList.toggle('open',open);
+  toggle.setAttribute('aria-expanded',open);
+  toggle.querySelector('iconify-icon').setAttribute('icon',open?'solar:close-square-linear':'solar:hamburger-menu-linear');
+  document.body.classList.toggle('no-scroll',open);
+}
+toggle.addEventListener('click',()=>setMenu(!menu.classList.contains('open')));
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+
+/* ---------- recruiter hub drawer ---------- */
+const drawer=document.getElementById('recruiter-hub');
+const scrim=document.querySelector('.scrim');
+let lastFocus=null;
+function openHub(){
+  lastFocus=document.activeElement;
+  setMenu(false);
+  scrim.classList.add('open');drawer.classList.add('open');
+  document.body.classList.add('no-scroll');
+  drawer.focus();
+}
+function closeHub(){
+  scrim.classList.remove('open');drawer.classList.remove('open');
+  document.body.classList.remove('no-scroll');
+  if(lastFocus)lastFocus.focus();
+}
+document.querySelectorAll('[data-hub-open]').forEach(b=>b.addEventListener('click',openHub));
+document.querySelectorAll('[data-hub-close]').forEach(b=>b.addEventListener('click',closeHub));
+addEventListener('keydown',e=>{
+  if(e.key==='Escape'){if(drawer.classList.contains('open'))closeHub();else if(menu.classList.contains('open'))setMenu(false);}
+});
+
+/* segmented control toggle (visual only) */
+drawer.querySelectorAll('.seg').forEach(seg=>{
+  seg.querySelectorAll('button').forEach(btn=>btn.addEventListener('click',()=>{
+    seg.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed','false'));
+    btn.setAttribute('aria-pressed','true');
+  }));
+});
+
+/* ---------- magnetic primary CTA ---------- */
+if(!matchMedia('(prefers-reduced-motion:reduce)').matches){
+  document.querySelectorAll('.btn-primary').forEach(btn=>{
+    btn.addEventListener('mousemove',e=>{
+      const r=btn.getBoundingClientRect();
+      btn.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.18}px,${(e.clientY-r.top-r.height/2)*.28}px)`;
+    });
+    btn.addEventListener('mouseleave',()=>btn.style.transform='');
+  });
+}
+</script>
+</body>
+</html>

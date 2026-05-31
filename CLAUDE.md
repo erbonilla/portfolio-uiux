@@ -11,9 +11,15 @@ Guidance for Claude Code when working in this repository.
 
 ## Current state (read first)
 
-**The app is scaffolded and builds.** Next 16 (App Router) + React 19 + Tailwind v4 live at the repo root (`src/`, `package.json`, `next.config.ts`); runtime/dev/test deps are installed and `pnpm build` is green. Git is initialized (`main`; remote `origin` → the GitHub repo above) — **no commits pushed yet**. PWA uses **Serwist** (`@serwist/next`), not next-pwa (next-pwa is webpack-only and Next 16 builds with Turbopack).
+**The app is scaffolded and builds.** Next 16 (App Router) + React 19 + Tailwind v4 live at the repo root (`src/`, `package.json`, `next.config.ts`); runtime/dev/test deps are installed and `pnpm build` is green. Git is initialized (`main`; remote `origin` → the GitHub repo above) — **no commits pushed yet**. PWA uses **Serwist** (`@serwist/next`), not next-pwa.
 
-Still to do — execute `docs/portfolio-action-plan-v2_0.md` from **Phase 2** onward: project structure/config + manifest + root layout (Phase 2), **design-system token layer** (Phase 3), asset normalization (Phase 4), launch-subset components (Phase 5), content models (Phase 7), portfolio sections (Phase 8), Recruiter Hub (Phase 9), PWA wiring via Serwist (Phase 10), tests + deploy (Phases 11–12). `assets/` screenshots are still un-normalized (JPEG-as-PNG + the `screenshoot` typo).
+> **Build-tool correction (verified 2026-05-29):** stable `@serwist/next` injects a **webpack** config and does **not** support Turbopack — only the experimental `@serwist/turbopack` preview does. So `dev` stays on Turbopack (SW is disabled in dev anyway) and **`build` runs `next build --webpack`** so Serwist can bundle the service worker. The original "Serwist supports Turbopack builds" premise was inaccurate; Serwist is still the chosen SW lib, the production build just opts into webpack.
+
+**Phases 2–11 are built and green (2026-05-29).** Token layer (`src/styles/{tokens,base,typography}.css`), launch-subset components (`src/components/**`, see `COMPONENTS.md`), content models (`src/content/**`), full shell + sections (`src/components/{layout,sections}`), the Recruiter Hub with all 5 working panels (`src/components/recruiter-hub/**`), `/work/[slug]` stub + `/offline`, and the Serwist PWA are all in place. The full gate passes: `pnpm assets:normalize && typecheck && lint && test (17 unit) && build && test:e2e (10 e2e incl. axe WCAG 2.2 AA)`. View-mode reflow, live tokenizer, persona annotations, drawer focus/ESC, and 320→1440 no-overflow are all verified in a real browser.
+
+Only **Phase 12 (deploy)** remains — push to GitHub + import to Vercel (owner action). Work lives on branch `feat/portfolio-build-phase2-12`, **not yet committed**. Open blockers below (B1 social URLs, B2 final app-icon export, B3 contact endpoint) are unresolved by design and use their documented fallbacks.
+
+Asset reality differed from the docs: the screenshots were already valid PNGs (not JPEG-as-PNG); the `screenshoot` typo was real and is fixed; and `(ed)studio-primary/secondary.svg` were PNG data mislabelled `.svg` (re-encoded to `.png`). Only `(ed)studio-text-primary.svg` is a true vector (the wordmark).
 
 ## Documentation map (authority for detail)
 
@@ -57,7 +63,7 @@ Always defer to these docs; they are the source of truth. When in doubt, cite th
 Package manager is **pnpm** (via Corepack):
 
 ```bash
-pnpm dev               # next dev (:3000)
+pnpm dev               # next dev --turbopack (:3000)
 pnpm build             # next build
 pnpm start             # next start
 pnpm lint              # next lint (+ jsx-a11y)

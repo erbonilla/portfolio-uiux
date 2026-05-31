@@ -1,0 +1,271 @@
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - navigation "Primary" [ref=e3]:
+    - generic [ref=e4]:
+      - link "studio (ed)studio — Edgar Bonilla G., home" [ref=e6] [cursor=pointer]:
+        - /url: "#top"
+        - generic [ref=e7]: (ed)
+        - generic [ref=e8]: studio
+        - generic [ref=e9]: (ed)studio — Edgar Bonilla G., home
+      - list [ref=e10]:
+        - listitem [ref=e11]:
+          - link "Work" [ref=e12] [cursor=pointer]:
+            - /url: "#work"
+        - listitem [ref=e13]:
+          - link "Graphic" [ref=e14] [cursor=pointer]:
+            - /url: "#graphic"
+        - listitem [ref=e15]:
+          - link "Digital" [ref=e16] [cursor=pointer]:
+            - /url: "#digital"
+        - listitem [ref=e17]:
+          - link "Approach" [ref=e18] [cursor=pointer]:
+            - /url: "#approach"
+        - listitem [ref=e19]:
+          - link "About" [ref=e20] [cursor=pointer]:
+            - /url: "#about"
+        - listitem [ref=e21]:
+          - link "Contact" [ref=e22] [cursor=pointer]:
+            - /url: "#contact"
+  - main [ref=e23]:
+    - generic [ref=e26]:
+      - generic [ref=e27]:
+        - paragraph [ref=e28]: Hey, I’m Edgar, a
+        - heading "Creative UI UX" [level=1] [ref=e29]:
+          - generic [ref=e30]: Creative
+          - strong [ref=e31]: UI UX
+        - paragraph [ref=e32]: UI/UX designer for digital health, wellness, fitness, sports, and lifestyle.
+        - list "Creative services" [ref=e33]:
+          - listitem [ref=e34]: Graphic design
+          - listitem [ref=e35]: Visual identity
+          - listitem [ref=e36]: Digital content
+        - generic [ref=e37]:
+          - link "View case studies" [ref=e38] [cursor=pointer]:
+            - /url: "#work"
+            - generic [ref=e39]: View case studies
+          - link "Get in touch" [ref=e40] [cursor=pointer]:
+            - /url: "#contact"
+            - generic [ref=e41]: Get in touch
+        - paragraph [ref=e42]: Based in Costa Rica · Available for new roles · ES · EN
+      - img "Portrait of Edgar Bonilla G." [ref=e44]
+    - region "Tools and stack" [ref=e45]:
+      - generic [ref=e46]:
+        - paragraph [ref=e48]: Built with
+        - list [ref=e49]:
+          - listitem [ref=e50]:
+            - img [ref=e52]
+            - text: Next.js
+          - listitem [ref=e54]:
+            - img [ref=e56]
+            - text: React
+          - listitem [ref=e58]:
+            - img [ref=e60]
+            - text: TypeScript
+          - listitem [ref=e62]:
+            - img [ref=e64]
+            - text: Tailwind CSS
+          - listitem [ref=e66]:
+            - img [ref=e68]
+            - text: Figma
+          - listitem [ref=e70]: Motion
+          - listitem [ref=e71]:
+            - img [ref=e73]
+            - text: Radix UI
+          - listitem [ref=e75]:
+            - img [ref=e77]
+            - text: Vercel
+    - region "Story" [ref=e79]:
+      - generic [ref=e81]:
+        - paragraph [ref=e82]: I design for the edges that other products treat as exceptions.
+        - generic [ref=e83]:
+          - paragraph [ref=e84]: Rehab patients who cannot read tiny type. Triathletes whose 6 AM self and 11 PM self are functionally different users. Seniors who give up and call the clinic.
+          - paragraph [ref=e85]: I build for those edges first. The middle tends to follow.
+    - generic [ref=e87]:
+      - generic [ref=e88]:
+        - paragraph [ref=e89]: Selected work
+        - heading "Case studies" [level=2] [ref=e90]
+        - paragraph [ref=e91]: A closer look at product and visual-system work across digital health and wellness.
+      - generic [ref=e92]:
+        - article [ref=e93]:
+          - img "Osteóplus product screens showing the digital-health interface." [ref=e95]
+          - generic [ref=e96]:
+            - generic [ref=e97]:
+              - generic [ref=e98]: Concept · Solo · 2026
+              - generic [ref=e99]: Digital health
+            - paragraph [ref=e100]: Osteóplus
+            - heading "From medical repository to action dashboard." [level=3] [ref=e102]:
+              - link "From medical repository to action dashboard." [ref=e103] [cursor=pointer]:
+                - /url: /work/osteoplus
+            - paragraph [ref=e104]: "A recovery portal rebuilt around post-op clarity: large-target controls, plain-language guidance, and a booking flow a senior can complete without calling the clinic."
+            - paragraph [ref=e105]: Role · UX · UI · Design system · Accessibility
+            - generic [ref=e106]:
+              - generic [ref=e107]: Digital health
+              - generic [ref=e108]: Accessibility
+              - generic [ref=e109]: Clinical clarity
+            - generic [ref=e110]:
+              - text: Read case study
+              - img [ref=e111]
+        - article [ref=e114]:
+          - generic [ref=e115]:
+            - img "Atlan product screens showing the wellness and fitness interface."
+          - generic [ref=e116]:
+            - generic [ref=e117]:
+              - generic [ref=e118]: Built · Solo · 2026
+              - generic [ref=e119]: Sports & endurance
+            - paragraph [ref=e120]: Atlan Performance
+            - heading "Telemetry built for the open water." [level=3] [ref=e122]:
+              - link "Telemetry built for the open water." [ref=e123] [cursor=pointer]:
+                - /url: /work/atlan
+            - paragraph [ref=e124]: Endurance coaching designed with science, born from the ocean. Swim cadence and cardiovascular maps translate into high-contrast pacing visuals for glare, fatigue, and motion.
+            - paragraph [ref=e125]: Role · UX · UI · Design system · Wet mode
+            - generic [ref=e126]:
+              - generic [ref=e127]: Sports
+              - generic [ref=e128]: Telemetry
+              - generic [ref=e129]: Performance
+            - generic [ref=e130]:
+              - text: Read case study
+              - img [ref=e131]
+    - generic [ref=e135]:
+      - generic [ref=e136]:
+        - paragraph [ref=e137]: Range · 2024-2026
+        - heading "Graphic design" [level=2] [ref=e138]
+      - generic [ref=e139]:
+        - generic [ref=e140]:
+          - generic [ref=e142]: Placeholder
+          - generic [ref=e144]:
+            - generic [ref=e146]: Brand identity · 2026
+            - heading "Studio mark & logo system" [level=3] [ref=e147]
+            - paragraph [ref=e148]: Exploration of the (ed)studio wordmark, symbol system, and brand usage rules.
+        - generic [ref=e149]:
+          - generic [ref=e151]: Placeholder
+          - generic [ref=e153]:
+            - generic [ref=e155]: Poster · 2025
+            - heading "Typography poster series" [level=3] [ref=e156]
+            - paragraph [ref=e157]: Large-scale type studies for rhythm, hierarchy, contrast, and campaign presence.
+        - generic [ref=e158]:
+          - generic [ref=e160]: Placeholder
+          - generic [ref=e162]:
+            - generic [ref=e164]: Editorial · 2025
+            - heading "Long-form editorial layouts" [level=3] [ref=e165]
+            - paragraph [ref=e166]: Content-led systems for readable, accessible stories across long-scroll pages.
+    - generic [ref=e168]:
+      - generic [ref=e169]:
+        - paragraph [ref=e170]: Range · 2024-2026
+        - heading "Digital content" [level=2] [ref=e171]
+      - generic [ref=e172]:
+        - generic [ref=e173]:
+          - generic [ref=e175]: Placeholder
+          - generic [ref=e177]:
+            - generic [ref=e179]: Social campaign · 2026
+            - heading "Atlan launch campaign" [level=3] [ref=e180]
+            - paragraph [ref=e181]: Digital launch assets shaped around ocean endurance, coaching, and legible performance cues.
+        - generic [ref=e182]:
+          - generic [ref=e184]: Placeholder
+          - generic [ref=e186]:
+            - generic [ref=e188]: Motion · 2025
+            - heading "Brand motion stills" [level=3] [ref=e189]
+            - paragraph [ref=e190]: Static frames and motion directions for product moments that need pace without noise.
+        - generic [ref=e191]:
+          - generic [ref=e193]: Placeholder
+          - generic [ref=e195]:
+            - generic [ref=e197]: Web banner · 2025
+            - heading "Marketing banners & OG images" [level=3] [ref=e198]
+            - paragraph [ref=e199]: Responsive campaign compositions for web, social previews, and content distribution.
+    - generic [ref=e201]:
+      - generic [ref=e202]:
+        - paragraph [ref=e203]: Approach
+        - heading "How the work gets made" [level=2] [ref=e204]
+      - list [ref=e205]:
+        - listitem [ref=e206]:
+          - generic [ref=e207]:
+            - generic [ref=e208]: "01"
+            - heading "Clinical rigor" [level=3] [ref=e209]
+            - paragraph [ref=e210]: "Design for vulnerable states first: patient confusion, small touch targets, cognitive load, and the moments when a screen has to reduce stress."
+        - listitem [ref=e211]:
+          - generic [ref=e212]:
+            - generic [ref=e213]: "02"
+            - heading "Endurance science" [level=3] [ref=e214]
+            - paragraph [ref=e215]: Translate complex performance signals into visuals that stay readable under fatigue, glare, motion, and time pressure.
+        - listitem [ref=e216]:
+          - generic [ref=e217]:
+            - generic [ref=e218]: "03"
+            - heading "Tokenized systems" [level=3] [ref=e219]
+            - paragraph [ref=e220]: Keep design and code aligned through semantic tokens, reusable components, accessibility checks, and responsive behavior.
+    - generic [ref=e223]:
+      - generic [ref=e224]:
+        - paragraph [ref=e225]: About
+        - heading "Designing for the edges. Building for resilience." [level=2] [ref=e226]
+      - generic [ref=e227]:
+        - paragraph [ref=e228]: I specialize in digital health, wellness, lifestyle, and fitness. Good design in those spaces is not decoration; it is clarity, accessibility, and trust under real pressure.
+        - paragraph [ref=e229]: I design accessible product interfaces and visual systems from first structure through shipped, responsive screens. My work favors clarity, calm motion, and design systems that hold up as products grow.
+        - paragraph [ref=e230]:
+          - strong [ref=e231]: "My approach is evidence-disciplined: WCAG 2.2 AA as a baseline, plain-language decisions, and product stories that make the problem, tradeoffs, and interface logic easy to understand."
+    - generic [ref=e234]:
+      - generic [ref=e235]:
+        - paragraph [ref=e236]: Direct collaboration
+        - heading "Let’s build for the edges." [level=2] [ref=e237]
+        - paragraph [ref=e238]: Partner with me on clinical healthcare applications, sports data telemetry, or tokenized design-to-code components.
+        - generic [ref=e239]:
+          - link "erbonilla@outlook.com" [ref=e240] [cursor=pointer]:
+            - /url: mailto:erbonilla@outlook.com
+          - generic [ref=e241]: Available for hire or contract
+      - generic [ref=e242]:
+        - generic [ref=e243]:
+          - generic [ref=e244]:
+            - generic [ref=e245]: Hiring manager / name
+            - textbox "Hiring manager / name" [ref=e246]:
+              - /placeholder: Your name
+          - generic [ref=e247]:
+            - generic [ref=e248]: Corporate email
+            - textbox "Corporate email" [ref=e249]:
+              - /placeholder: name@company.com
+        - generic [ref=e250]:
+          - generic [ref=e251]: Design need / engagement
+          - combobox "Design need / engagement" [ref=e252]:
+            - option "Full-time role" [selected]
+            - option "Contract / project"
+            - option "Design system consult"
+            - option "Audit & advisory"
+        - generic [ref=e253]:
+          - generic [ref=e254]: Message / outline
+          - textbox "Message / outline" [ref=e255]:
+            - /placeholder: Share the role, product, or scope you are targeting.
+          - paragraph [ref=e256]: This opens your email client with the message prefilled.
+        - generic [ref=e257]:
+          - button "Compose collaboration email" [ref=e258] [cursor=pointer]:
+            - generic [ref=e259]: Compose collaboration email
+          - link "Direct email" [ref=e260] [cursor=pointer]:
+            - /url: mailto:erbonilla@outlook.com
+            - generic [ref=e261]: Direct email
+  - contentinfo [ref=e262]:
+    - generic [ref=e263]:
+      - generic [ref=e264]:
+        - generic [ref=e265]:
+          - link "studio (ed)studio — Edgar Bonilla G., home" [ref=e266] [cursor=pointer]:
+            - /url: "#top"
+            - generic [ref=e267]: (ed)
+            - generic [ref=e268]: studio
+            - generic [ref=e269]: (ed)studio — Edgar Bonilla G., home
+          - paragraph [ref=e270]: UI/UX designer for digital health, wellness, fitness, sports, and lifestyle.
+        - navigation "Footer" [ref=e271]:
+          - list [ref=e272]:
+            - listitem [ref=e273]:
+              - link "Work" [ref=e274] [cursor=pointer]:
+                - /url: "#work"
+            - listitem [ref=e275]:
+              - link "Graphic" [ref=e276] [cursor=pointer]:
+                - /url: "#graphic"
+            - listitem [ref=e277]:
+              - link "Digital" [ref=e278] [cursor=pointer]:
+                - /url: "#digital"
+            - listitem [ref=e279]:
+              - link "Approach" [ref=e280] [cursor=pointer]:
+                - /url: "#approach"
+            - listitem [ref=e281]:
+              - link "About" [ref=e282] [cursor=pointer]:
+                - /url: "#about"
+            - listitem [ref=e283]:
+              - link "Contact" [ref=e284] [cursor=pointer]:
+                - /url: "#contact"
+      - paragraph [ref=e286]: © 2026 Edgar Bonilla G.. Built with Next.js.
+  - button "Recruiter Hub" [ref=e287] [cursor=pointer]: Recruiter Hub

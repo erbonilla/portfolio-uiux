@@ -1,0 +1,60 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-inline-xs);
+  border-radius: var(--radius-pill);
+  border: var(--stroke-width-default) solid transparent;
+  white-space: nowrap;
+}
+.root[data-size="sm"] {
+  padding: var(--space-inset-2xs) var(--space-inset-sm);
+}
+.root[data-size="md"] {
+  padding: var(--space-inset-xs) var(--space-inset-md);
+}
+
+.root[data-tone="neutral"] {
+  background-color: var(--surface-bg-muted);
+  color: var(--text-default);
+  border-color: var(--border-default);
+}
+.root[data-tone="brand"] {
+  /* brand text on the default surface = 6.2:1 (§22); brand-subtle fill is too
+     low-contrast for 11px label text. Border keeps the brand chip identity. */
+  background-color: var(--surface-bg-default);
+  color: var(--text-brand);
+  border-color: var(--border-brand);
+}
+.root[data-tone="accent"] {
+  background-color: var(--surface-bg-accent-subtle);
+  color: var(--text-accent);
+  border-color: var(--border-accent);
+}
+.root[data-tone="success"] {
+  background-color: var(--surface-bg-success-subtle);
+  color: var(--text-success);
+  border-color: var(--border-success);
+}
+.root[data-tone="warning"] {
+  background-color: var(--surface-bg-warning-subtle);
+  color: var(--text-warning);
+  border-color: var(--border-warning);
+}
+.root[data-tone="danger"] {
+  background-color: var(--surface-bg-danger-subtle);
+  color: var(--text-danger);
+  border-color: var(--border-danger);
+}
+.root[data-tone="info"] {
+  background-color: var(--surface-bg-info-subtle);
+  color: var(--text-info);
+  border-color: var(--border-info);
+}
+
+.icon {
+  display: inline-flex;
+}
+.icon :global(svg) {
+  width: var(--component-size-icon-xs);
+  height: var(--component-size-icon-xs);
+}

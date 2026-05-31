@@ -1,0 +1,179 @@
+/* ============================================================================
+   Base layer — element defaults, canvas, focus, skip link, glass material,
+   container, and the view-mode reflow contract (design-sync §3).
+   Tailwind Preflight handles the low-level reset; this layer applies the
+   Vanguard semantics on top.
+   ========================================================================== */
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  /* Dark glass is canonical: the brand canvas sits behind near-black glass. */
+  background-color: var(--surface-bg-default);
+  color: var(--text-muted);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-md);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Honour the brand full-bleed canvas behind glass surfaces (§24.1) without
+   tinting body copy: scope the brand canvas to the document edges. */
+[data-theme="dark"] body {
+  background-color: var(--surface-bg-default);
+}
+
+::selection {
+  background-color: var(--color-brand-500);
+  color: var(--color-black);
+}
+
+/* --- Focus: visible everywhere (§22) -------------------------------------- */
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: var(--stroke-width-focus) solid var(--state-focus-ring);
+  outline-offset: 2px;
+  border-radius: var(--radius-focus-ring);
+}
+
+/* --- Screen-reader-only utility ------------------------------------------- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --- Skip link ------------------------------------------------------------ */
+.skip-link {
+  position: fixed;
+  top: var(--safe-top);
+  left: var(--gutter);
+  z-index: var(--z-index-toast);
+  transform: translateY(-150%);
+  padding: var(--space-inset-sm) var(--space-inset-lg);
+  background-color: var(--surface-bg-brand);
+  color: var(--text-on-brand);
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--radius-control-md);
+  transition: transform var(--motion-duration-transition)
+    var(--motion-easing-default);
+}
+.skip-link:focus {
+  transform: translateY(0);
+  outline: var(--stroke-width-focus) solid var(--color-white);
+}
+
+/* --- Layout container ----------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: max(var(--gutter), var(--safe-left), var(--safe-right));
+}
+
+/* --- Glass material recipe (§19.3) ---------------------------------------- */
+.glass {
+  background-color: var(--surface-bg-default);
+  border: var(--stroke-width-default) solid var(--border-default);
+  box-shadow: var(--elevation-shadow-lg);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+}
+.glass-sm {
+  box-shadow: var(--elevation-shadow-sm);
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* --- Persona annotations (injected by the Recruiter Hub persona filter) --- */
+.persona-annotation {
+  display: inline-flex;
+  align-items: center;
+  margin-top: var(--space-stack-sm);
+  margin-inline-start: var(--space-inline-sm);
+  padding: var(--space-inset-2xs) var(--space-inset-sm);
+  background-color: var(--surface-bg-default);
+  color: var(--text-brand);
+  border: var(--stroke-width-default) solid var(--border-brand);
+  border-radius: var(--radius-pill);
+  vertical-align: middle;
+}
+
+/* --- Form control surface (consumed by FormField children) ---------------- */
+.field-control {
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-inset-sm) var(--space-inset-md);
+  background-color: var(--surface-control-default);
+  color: var(--text-default);
+  border: var(--stroke-width-default) solid var(--border-default);
+  border-radius: var(--radius-control-md);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-md);
+  transition: border-color var(--motion-duration-hover)
+    var(--motion-easing-default);
+}
+.field-control::placeholder {
+  color: var(--text-subtle);
+  opacity: var(--opacity-placeholder);
+}
+.field-control:hover {
+  border-color: var(--border-muted);
+}
+.field-control:focus-visible {
+  border-color: var(--border-focus);
+  outline: var(--stroke-width-focus) solid var(--state-focus-ring);
+  outline-offset: 1px;
+}
+.field-control:disabled {
+  background-color: var(--surface-control-disabled);
+  cursor: not-allowed;
+}
+textarea.field-control {
+  min-height: 120px;
+  resize: vertical;
+}
+[data-state="error"] .field-control {
+  border-color: var(--border-danger);
+}
+
+/* ============================================================================
+   View-mode reflow contract (design-sync §3, recruiter-hub §3.2).
+   Default = deep (full portfolio). Quick Scan hides supporting detail only —
+   never content the page can't otherwise reach.
+   ========================================================================== */
+[data-view-mode="quick"] .tile-teaser,
+[data-view-mode="quick"] .story-longform,
+[data-view-mode="quick"] .tile-roles,
+[data-view-mode="quick"] .range-card-desc {
+  display: none;
+}
+
+/* Case-study teaser collapses to a single line in Quick Scan. */
+[data-view-mode="quick"] .tile-teaser-line {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

@@ -1,26 +1,16 @@
 @import "tailwindcss";
+@import "../styles/tokens.css";
+@import "../styles/base.css";
+@import "../styles/typography.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* Expose a small set of Vanguard semantics to Tailwind's utility layer.
+   Components consume the CSS custom properties directly; this mapping only
+   lets layout utilities reach brand/canvas/surface + the font families. */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  --color-brand: var(--color-brand-500);
+  --color-canvas: var(--surface-bg-canvas);
+  --color-surface: var(--surface-bg-default);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-code: var(--font-code);
 }

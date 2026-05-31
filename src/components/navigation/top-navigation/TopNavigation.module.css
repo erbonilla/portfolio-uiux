@@ -1,0 +1,96 @@
+.root {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-index-sticky);
+  width: 100%;
+  padding-top: var(--safe-top);
+  border-bottom: var(--stroke-width-default) solid var(--border-default);
+}
+
+.root[data-variant="transparent"] {
+  background-color: transparent;
+  border-bottom-color: transparent;
+}
+.root[data-variant="solid"] {
+  background-color: var(--surface-bg-default);
+}
+.root[data-variant="glass"] {
+  background-color: color-mix(in srgb, var(--surface-bg-default) 72%, transparent);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-inline-lg);
+  min-height: var(--nav-h-mobile);
+}
+@media (min-width: 1024px) {
+  .inner {
+    min-height: var(--nav-h);
+  }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+}
+
+/* Desktop nav list — hidden on compact; menu trigger takes over */
+.list {
+  display: none;
+  align-items: center;
+  gap: var(--space-inline-md);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+@media (min-width: 768px) {
+  .list {
+    display: flex;
+    /* nav-crowding safeguard: tighten gaps on tablet */
+    gap: var(--space-inline-sm);
+  }
+}
+@media (min-width: 1024px) {
+  .list {
+    gap: var(--space-inline-lg);
+  }
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-inset-sm) var(--space-inset-sm);
+  border-radius: var(--radius-control-sm);
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--motion-duration-hover) var(--motion-easing-default);
+}
+.link:hover {
+  color: var(--text-brand);
+}
+.link[data-active] {
+  color: var(--text-brand);
+  text-decoration: underline;
+  text-decoration-thickness: var(--stroke-width-default);
+  text-underline-offset: var(--space-inset-xs);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-inline-sm);
+}
+
+/* Menu trigger only below desktop */
+.menuTrigger {
+  display: inline-flex;
+}
+@media (min-width: 768px) {
+  .menuTrigger {
+    display: none;
+  }
+}

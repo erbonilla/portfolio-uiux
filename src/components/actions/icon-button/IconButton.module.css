@@ -1,0 +1,75 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--stroke-width-default) solid transparent;
+  border-radius: var(--radius-control-md);
+  cursor: pointer;
+  color: var(--icon-default);
+  background-color: transparent;
+  transition:
+    background-color var(--motion-duration-hover) var(--motion-easing-default),
+    color var(--motion-duration-hover) var(--motion-easing-default),
+    border-color var(--motion-duration-hover) var(--motion-easing-default);
+}
+
+/* sizes — all ≥44px hit area where it matters on touch */
+.root[data-size="sm"] {
+  width: 36px;
+  height: 36px;
+}
+.root[data-size="md"] {
+  width: 44px;
+  height: 44px;
+}
+.root[data-size="lg"] {
+  width: var(--component-size-control-lg);
+  height: var(--component-size-control-lg);
+}
+
+.root[data-variant="primary"] {
+  background-color: var(--surface-control-brand);
+  color: var(--icon-on-brand);
+  border-color: var(--border-brand);
+}
+.root[data-variant="primary"]:hover {
+  background-color: var(--surface-control-brand-hover);
+}
+
+.root[data-variant="secondary"] {
+  color: var(--icon-brand);
+  border-color: var(--border-brand);
+}
+.root[data-variant="secondary"]:hover {
+  background-color: var(--surface-control-selected);
+}
+
+.root[data-variant="ghost"]:hover {
+  background-color: var(--state-hover);
+}
+
+.root[data-variant="danger"] {
+  color: var(--icon-danger);
+  border-color: var(--border-danger);
+}
+.root[data-variant="danger"]:hover {
+  background-color: var(--surface-control-danger);
+  color: var(--icon-on-danger);
+}
+
+.root:disabled {
+  cursor: not-allowed;
+  opacity: var(--opacity-disabled);
+}
+
+.icon {
+  display: inline-flex;
+}
+.icon :global(svg) {
+  width: var(--component-size-icon-md);
+  height: var(--component-size-icon-md);
+}
+.root[data-size="sm"] .icon :global(svg) {
+  width: var(--component-size-icon-sm);
+  height: var(--component-size-icon-sm);
+}

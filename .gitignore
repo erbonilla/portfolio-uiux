@@ -17,6 +17,15 @@
 /.next/
 /out/
 
+# serwist (generated service worker)
+public/sw*
+public/swe-worker*
+
+# playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
+
 # production
 /build
 
