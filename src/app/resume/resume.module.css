@@ -1,0 +1,209 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-section-sm);
+  padding-block: var(--space-section-md);
+  max-width: 80ch;
+}
+
+.topRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-inline-md);
+}
+.back {
+  align-self: flex-start;
+}
+.actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-inline-md);
+}
+
+/* Download button — plain anchor styled as a primary Button (token-matched). */
+.download {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-inline-sm);
+  min-height: 44px;
+  padding-inline: var(--space-inset-xl);
+  border: var(--stroke-width-default) solid var(--border-brand);
+  border-radius: var(--radius-control-md);
+  background-color: var(--surface-control-brand);
+  color: var(--text-on-brand);
+  text-decoration: none;
+  white-space: nowrap;
+  font-family: var(--font-family-heading, inherit);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: background-color var(--motion-duration-hover) var(--motion-easing-default);
+}
+.download:hover {
+  background-color: var(--surface-control-brand-hover);
+}
+.download:active {
+  background-color: var(--surface-control-brand-pressed);
+}
+
+/* ---------- Header ---------- */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-sm);
+  padding-bottom: var(--space-stack-lg);
+  border-bottom: var(--stroke-width-strong) solid var(--border-brand);
+}
+.eyebrow {
+  color: var(--text-brand);
+  text-transform: uppercase;
+}
+.name {
+  color: var(--color-neutral-50);
+  text-transform: uppercase;
+}
+.role {
+  color: var(--text-brand);
+}
+.role .domains {
+  color: var(--text-muted);
+  font-weight: var(--font-weight-medium);
+}
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-inline-xs) var(--space-inline-md);
+  margin: var(--space-stack-2xs) 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--text-muted);
+}
+.contact li {
+  display: inline-flex;
+  align-items: center;
+}
+.contact li + li::before {
+  content: "·";
+  margin-right: var(--space-inline-md);
+  color: var(--border-default);
+}
+
+/* ---------- Sections ---------- */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-md);
+}
+.heading {
+  color: var(--text-brand);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding-bottom: var(--space-stack-2xs);
+  border-bottom: var(--stroke-width-default) solid var(--border-default);
+}
+.summary {
+  color: var(--text-muted);
+  text-wrap: pretty;
+}
+
+/* skills */
+.skills {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-sm);
+  margin: 0;
+}
+.skillRow {
+  display: grid;
+  gap: var(--space-stack-2xs);
+}
+@media (min-width: 640px) {
+  .skillRow {
+    grid-template-columns: 120px 1fr;
+    gap: var(--space-inline-lg);
+    align-items: baseline;
+  }
+}
+.skillLabel {
+  color: var(--color-neutral-50);
+  text-transform: uppercase;
+}
+.skillValue {
+  color: var(--text-muted);
+}
+
+/* entries */
+.entries {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-lg);
+}
+.entry {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-2xs);
+}
+.entryHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-inline-sm);
+}
+.entryTitle {
+  color: var(--color-neutral-50);
+}
+.entryTitle .org {
+  color: var(--text-brand);
+}
+.entryDate {
+  color: var(--text-muted);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.entryKind {
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.entryDesc {
+  color: var(--text-muted);
+  text-wrap: pretty;
+}
+.entryLink {
+  align-self: flex-start;
+  margin-top: var(--space-stack-2xs);
+}
+.note {
+  color: var(--text-muted);
+  text-wrap: pretty;
+}
+.note strong {
+  color: var(--text-default);
+}
+
+/* education */
+.eduList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--text-muted);
+}
+.eduList strong {
+  color: var(--color-neutral-50);
+}
+
+.footerCta {
+  display: flex;
+  justify-content: center;
+  padding-top: var(--space-stack-md);
+  border-top: var(--stroke-width-default) solid var(--border-default);
+}

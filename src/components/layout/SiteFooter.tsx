@@ -1,3 +1,6 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import { SiFacebook, SiInstagram } from "@icons-pack/react-simple-icons";
 import { Brand } from "./Brand";
 import { LinkedInGlyph } from "./LinkedInGlyph";
@@ -5,6 +8,7 @@ import { navItems } from "@/content/navItems";
 import { visibleSocials } from "@/content/socials";
 import { aboutCopy } from "@/content/approach";
 import { cn } from "@/lib/cn";
+import { resolveSectionHref } from "@/lib/navHref";
 import styles from "./SiteFooter.module.css";
 
 // LinkedIn is self-hosted (Simple Icons dropped the mark); FB/IG via Simple Icons.
@@ -20,6 +24,7 @@ const socialIcons: Record<string, React.ReactNode> = {
  */
 export function SiteFooter() {
   const year = new Date().getFullYear();
+  const pathname = usePathname();
 
   return (
     <footer className={styles.root}>
@@ -36,7 +41,10 @@ export function SiteFooter() {
             <ul className={cn(styles.navList, "ts-label-md")}>
               {navItems.map((item) => (
                 <li key={item.href}>
-                  <a href={item.href} className={styles.navLink}>
+                  <a
+                    href={resolveSectionHref(item.href, pathname)}
+                    className={styles.navLink}
+                  >
                     {item.label}
                   </a>
                 </li>

@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
+import { ButtonLink } from "@/components/actions/button/ButtonLink";
+import { Link as TextLink } from "@/components/actions/link/Link";
 import { Card } from "@/components/data/card/Card";
 import { Badge } from "@/components/feedback/badge/Badge";
 import { caseStudies } from "@/content/caseStudies";
@@ -13,14 +15,14 @@ import s from "./sections.module.css";
  */
 export function CaseStudiesSection() {
   return (
-    <section id="work" className={s.section}>
+    <section id="work" className={cn(s.section, s.brandBand)}>
       <div className="container">
         <div className={s.head}>
           <p className={cn(s.eyebrow, "ts-label-md")}>Selected work</p>
           <h2 className={cn(s.heading, "ts-display-section")}>Case studies</h2>
           <p className={cn(s.lead, "ts-body-lg")}>
-            Two product stories showing accessibility, interface structure, and
-            visual-system decisions across health and endurance.
+            Two recruiter-ready summaries, each linked to a full standalone case
+            study with decisions, artifacts, and honest evidence boundaries.
           </p>
         </div>
 
@@ -45,7 +47,9 @@ export function CaseStudiesSection() {
                     </Link>
                   </h3>
                 </div>
-                <p className={cn(s.workTeaser, "ts-body-lg", "tile-teaser-line")}>
+                <p
+                  className={cn(s.workTeaser, "ts-body-lg", "tile-teaser-line")}
+                >
                   {cs.teaser}
                 </p>
                 <p className={cn(s.workRoles, "ts-caption-sm", "tile-roles")}>
@@ -58,9 +62,18 @@ export function CaseStudiesSection() {
                     </Badge>
                   ))}
                 </div>
-                <span className={cn(s.workCta, "ts-label-md")} aria-hidden="true">
-                  Read case study <ArrowUpRight size={16} />
-                </span>
+                <div className={s.workActions}>
+                  <ButtonLink href={cs.href} variant="tertiary" size="md">
+                    View summary
+                  </ButtonLink>
+                  <TextLink
+                    href={cs.fullCaseStudyUrl}
+                    variant="brand"
+                    className={cn(s.workFullLink, "ts-label-md")}
+                  >
+                    Full case study
+                  </TextLink>
+                </div>
               </div>
               <div className={s.workMedia}>
                 <Image

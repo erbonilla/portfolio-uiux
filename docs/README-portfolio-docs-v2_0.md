@@ -23,6 +23,7 @@ This set applies four new project requirements on top of the v1.8 baseline:
 | `portfolio-design-system-sync-v2_0.md` | Delta tokens: fluid type, safe-area, PWA, view-mode contract, footer-social rules. |
 | `portfolio-recruiter-hub-spec-v2_0.md` | Panel 01 promoted to launch scope with real reflow; emoji→icon. |
 | `portfolio-improvements-roadmap-v2_0.md` | Updated P0s, blocked items, phased plan. |
+| `product-dna-v1_0.md` | Product/Project DNA — one-page synthesis of identity, audience, principles, signature behavior, system/tech DNA, non-negotiables, and success signals. |
 
 The v1.8 docs remain valid for anything not overridden here (full token set, contrast rules, token-name mapping, accessibility detail).
 

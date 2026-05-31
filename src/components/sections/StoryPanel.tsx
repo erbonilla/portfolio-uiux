@@ -7,7 +7,7 @@ import s from "./sections.module.css";
  */
 export function StoryPanel() {
   return (
-    <section className={cn(s.section, s.brandBand)} aria-label="Story">
+    <section className={cn(s.section, s.storyBand)} aria-label="Story">
       <div className="container">
         <div className={cn(s.story, s.storyPanel)}>
           <p className={cn(s.storyLead, "ts-title-lg")}>

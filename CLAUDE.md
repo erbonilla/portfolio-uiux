@@ -35,6 +35,7 @@ Always defer to these docs; they are the source of truth. When in doubt, cite th
 | `docs/portfolio-recruiter-hub-spec-v2_0.md` | Recruiter Hub: 5 panels, drawer, Panel 01 reflow. |
 | `docs/portfolio-improvements-roadmap-v2_0.md` | Priorities, blockers, post-launch phases. |
 | `docs/README-portfolio-docs-v2_0.md` | Index + requirements-coverage matrix. |
+| `docs/product-dna-v1_0.md` | **Product/Project DNA** — one-page synthesis of identity, audience, design principles, the Recruiter Hub signature behavior, system/tech DNA, honesty non-negotiables, and success signals. Orientation, not binding detail. |
 
 ## Key decisions (already made — don't relitigate)
 

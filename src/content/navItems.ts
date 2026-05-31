@@ -7,5 +7,6 @@ export const navItems: NavItem[] = [
   { label: "Digital", href: "#digital" },
   { label: "Approach", href: "#approach" },
   { label: "About", href: "#about" },
+  { label: "Résumé", href: "/resume" },
   { label: "Contact", href: "#contact" },
 ];

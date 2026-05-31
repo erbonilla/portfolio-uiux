@@ -14,6 +14,26 @@
   background-color: var(--surface-bg-canvas);
 }
 
+/* Story section: dark surface (one step up from the page's default surface) so
+   the darker story card reads as a recessed panel instead of the lava band. */
+.storyBand {
+  background-color: var(--surface-bg-subtle);
+}
+
+/* Section header text sitting directly on the lava-orange band uses dark tones
+   for AA contrast — mirrors the hero/tool-strip treatment (cf. `.builtWith`).
+   Scoped to `.brandBand` so dark sections keep their default header colors. */
+.brandBand .eyebrow {
+  color: var(--static-black);
+}
+.brandBand .heading,
+[data-theme="dark"] .brandBand .heading {
+  color: var(--static-black);
+}
+.brandBand .lead {
+  color: color-mix(in srgb, var(--static-black) 72%, transparent);
+}
+
 .head {
   display: flex;
   flex-direction: column;
@@ -375,16 +395,9 @@
   text-transform: uppercase;
   text-wrap: balance;
 }
-/* Stretched link: the title anchor covers the whole card (one tab stop,
-   real link semantics) without nesting interactive elements. */
 .stretched {
   color: inherit;
   text-decoration: none;
-}
-.stretched::after {
-  content: "";
-  position: absolute;
-  inset: 0;
 }
 .stretched:hover {
   text-decoration: none;
@@ -413,6 +426,16 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-inline-xs);
+}
+.workActions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-inline-md);
+  margin-top: var(--space-stack-xs);
+}
+.workFullLink {
+  min-height: 44px;
 }
 /* CTA styled as a button: rounded to match the card, outline appears on card
    hover/focus (the title's stretched link still carries the real navigation). */
@@ -466,6 +489,19 @@
 }
 .comingSoonLabel {
   color: var(--text-muted);
+}
+/* On the lava-orange band the muted neutrals wash out — switch the dashed
+   frame, the "+" glyph, and the label to dark tones for AA contrast, matching
+   the band's hero/tool-strip text treatment. */
+.brandBand .workComingSoon {
+  border-color: color-mix(in srgb, var(--static-black) 45%, transparent);
+}
+.brandBand .comingSoonIcon {
+  border-color: color-mix(in srgb, var(--static-black) 45%, transparent);
+  color: var(--static-black);
+}
+.brandBand .comingSoonLabel {
+  color: var(--static-black);
 }
 
 /* ---- Range cards ---- */
@@ -792,6 +828,66 @@
   margin-top: var(--space-stack-xs);
 }
 
+/* Approach rail on the lava-orange band: brand/muted tones wash out, so the
+   dividers, step dot, index, title, and copy switch to dark tones for AA —
+   matching the band's hero/tool-strip treatment. */
+.brandBand .approachRail,
+.brandBand .stepItem,
+.brandBand .stepItem + .stepItem {
+  border-color: color-mix(in srgb, var(--static-black) 28%, transparent);
+}
+.brandBand .stepItem::before {
+  background-color: var(--static-black);
+}
+.brandBand .stepIndex {
+  color: var(--static-black);
+}
+.brandBand .stepTitle,
+[data-theme="dark"] .brandBand .stepTitle {
+  color: var(--static-black);
+}
+.brandBand .stepDesc {
+  color: color-mix(in srgb, var(--static-black) 78%, transparent);
+}
+
+/* Step hover/motion: lift the item, grow the dot marker, and fade in a soft
+   panel tint so each step reads as an interactive card. Uses the shared hover
+   motion tokens; reduced-motion keeps the tint cue but drops the movement. */
+.stepItem {
+  border-radius: var(--radius-rounded-lg);
+  transition:
+    transform var(--motion-duration-hover) var(--motion-easing-default),
+    background-color var(--motion-duration-hover) var(--motion-easing-default);
+}
+.stepItem::before {
+  transition: transform var(--motion-duration-hover)
+    var(--motion-easing-expressive);
+}
+.stepItem:hover,
+.stepItem:focus-within {
+  transform: translateY(-4px);
+  background-color: color-mix(in srgb, var(--static-black) 10%, transparent);
+}
+.stepItem:hover::before,
+.stepItem:focus-within::before {
+  transform: translateY(-50%) scale(1.6);
+}
+@media (prefers-reduced-motion: reduce) {
+  .stepItem,
+  .stepItem::before {
+    transition: background-color var(--motion-duration-hover)
+      var(--motion-easing-default);
+  }
+  .stepItem:hover,
+  .stepItem:focus-within {
+    transform: none;
+  }
+  .stepItem:hover::before,
+  .stepItem:focus-within::before {
+    transform: translateY(-50%);
+  }
+}
+
 /* ---- Story ---- */
 .story {
   display: flex;
@@ -880,6 +976,27 @@
   color: var(--static-white);
   font-weight: var(--font-weight-semibold);
 }
+.aboutCta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-inline-lg);
+  margin-top: var(--space-stack-xl);
+}
+.aboutDownloadLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-inline-xs);
+  min-height: 44px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  transition: color var(--motion-duration-hover) var(--motion-easing-default);
+}
+.aboutDownloadLink:hover {
+  color: var(--text-default);
+  text-decoration: underline;
+}
 
 @keyframes hero-rise {
   from {
@@ -892,10 +1009,10 @@
 
 @keyframes portrait-settle {
   from {
-    transform: translateX(var(--size-5)) scale(0.99);
+    transform: translateY(var(--size-3)) scale(0.99);
   }
   to {
-    transform: translateX(0) scale(1);
+    transform: translateY(0) scale(1);
   }
 }
 

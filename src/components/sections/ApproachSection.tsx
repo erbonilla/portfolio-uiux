@@ -5,7 +5,7 @@ import s from "./sections.module.css";
 /** Approach — how the work gets made. */
 export function ApproachSection() {
   return (
-    <section id="approach" className={s.section}>
+    <section id="approach" className={cn(s.section, s.brandBand)}>
       <div className="container">
         <div className={s.head}>
           <p className={cn(s.eyebrow, "ts-label-md")}>Approach</p>

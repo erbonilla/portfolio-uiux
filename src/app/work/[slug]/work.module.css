@@ -28,6 +28,15 @@
 .teaser {
   color: var(--text-muted);
 }
+.ctas {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-inline-md);
+}
+.inlineCta {
+  min-height: 44px;
+}
 .media {
   border-radius: var(--radius-surface-lg);
   overflow: hidden;
@@ -39,23 +48,81 @@
   height: auto;
 }
 .meta {
+  display: grid;
+  gap: var(--space-inline-lg);
+}
+@media (min-width: 900px) {
+  .meta {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    align-items: stretch;
+  }
+}
+.summaryCard,
+.factGrid,
+.detailBlock {
+  border: var(--stroke-width-default) solid var(--border-default);
+  border-radius: var(--radius-surface-lg);
+  background-color: var(--surface-bg-subtle);
+}
+.summaryCard {
   display: flex;
   flex-direction: column;
-  gap: var(--space-stack-sm);
+  gap: var(--space-stack-md);
+  padding: var(--space-inset-xl);
 }
 .metaHeading {
   color: var(--text-brand);
 }
-.roles {
+.factGrid {
+  display: grid;
+  gap: var(--space-stack-md);
+  margin: 0;
+  padding: var(--space-inset-xl);
+}
+.factGrid div {
   display: flex;
   flex-direction: column;
   gap: var(--space-stack-2xs);
-  color: var(--text-muted);
-  list-style: none;
-  margin: 0;
-  padding: 0;
 }
-.note {
+.factGrid dt,
+.kicker {
+  color: var(--text-brand);
+  text-transform: uppercase;
+}
+.factGrid dd {
   color: var(--text-muted);
-  margin-top: var(--space-stack-md);
+  margin: 0;
+}
+.detailGrid {
+  display: grid;
+  gap: var(--space-inline-lg);
+}
+@media (min-width: 768px) {
+  .detailGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.detailBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-sm);
+  padding: var(--space-inset-xl);
+}
+.blockHeading {
+  color: var(--color-neutral-50);
+  text-wrap: balance;
+}
+.detailBlock p:not(.kicker),
+.proofList {
+  color: var(--text-muted);
+}
+.proofList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-sm);
+  margin: 0;
+  padding-inline-start: var(--space-inset-lg);
+}
+.proofList li::marker {
+  color: var(--text-brand);
 }

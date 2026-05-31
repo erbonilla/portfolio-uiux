@@ -33,7 +33,7 @@ export const approach: ApproachStep[] = [
 export const aboutCopy = {
   name: "Edgar Bonilla G.",
   positioning:
-    "UI/UX designer for accessible health, wellness, fitness, sports, and lifestyle products.",
+    "UI/UX designer building accessible product interfaces for health, rehabilitation, wellness, and endurance products.",
   body: "I take product interfaces from structure to shipped responsive screens, with visual systems that stay readable as products grow.",
   about:
     "I specialize in health, wellness, lifestyle, and fitness products where clear interaction design supports trust, safety, and momentum.",

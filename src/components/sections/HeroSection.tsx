@@ -4,7 +4,11 @@ import { aboutCopy } from "@/content/approach";
 import { cn } from "@/lib/cn";
 import s from "./sections.module.css";
 
-const disciplines = ["Health products", "Design systems", "Accessible UI"];
+const disciplines = [
+  "Health & rehab PWAs",
+  "Endurance coaching",
+  "Design systems",
+];
 
 /** Hero — name, positioning, CTAs, domain meta, portrait (impl §1.1). */
 export function HeroSection() {
@@ -14,11 +18,14 @@ export function HeroSection() {
         <div className={s.heroGrid}>
           <div className={s.heroContent}>
             <p className={cn(s.heroGreeting, "ts-body-lg")}>
-              Hey, I&rsquo;m Edgar, a
+              Hey, I&rsquo;m Edgar Bonilla G., a
             </p>
-            <h1 className={cn(s.heroTitle, "ts-display-hero")}>
-              <span>Product</span>
-              <strong>UI UX</strong>
+            <h1
+              className={cn(s.heroTitle, "ts-display-hero")}
+              aria-label="Product UI/UX designer"
+            >
+              <span aria-hidden="true">Product</span>
+              <strong aria-hidden="true">UI UX</strong>
             </h1>
             <p className={cn(s.lead, s.heroLead, "ts-body-lg")}>
               {aboutCopy.positioning}

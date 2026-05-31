@@ -6,7 +6,11 @@ export type Social = { id: string; label: string; href: string };
  * (see `visibleSocials`) — no dead links ship (impl §3, no-fake-links rule).
  */
 export const socials: Social[] = [
-  { id: "linkedin", label: "Edgar Bonilla on LinkedIn", href: "TODO" },
+  {
+    id: "linkedin",
+    label: "Edgar Bonilla on LinkedIn",
+    href: "https://www.linkedin.com/in/edgarbonillag",
+  },
   { id: "facebook", label: "Edgar Bonilla on Facebook", href: "TODO" },
   { id: "instagram", label: "Edgar Bonilla on Instagram", href: "TODO" },
 ];
