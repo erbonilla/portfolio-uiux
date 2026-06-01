@@ -9,9 +9,12 @@
     padding-block: var(--space-section-lg);
   }
 }
+/* The "lava-orange" branded bands stay orange in BOTH themes — anchored to the
+   brand surface (not canvas, which flips to light) so the identity survives the
+   light/dark toggle. No-op in dark (brand == canvas == brand-500). */
 .brandBand,
 .contactSection {
-  background-color: var(--surface-bg-canvas);
+  background-color: var(--surface-bg-brand);
 }
 
 /* Story section: dark surface (one step up from the page's default surface) so
@@ -59,7 +62,7 @@
 .hero {
   padding-top: var(--space-section-xl);
   padding-bottom: var(--space-section-xl);
-  background-color: var(--surface-bg-canvas);
+  background-color: var(--surface-bg-brand);
 }
 .heroGrid {
   display: grid;
@@ -195,8 +198,8 @@
   pointer-events: none;
   background: linear-gradient(
     to right,
-    var(--surface-bg-canvas),
-    color-mix(in srgb, var(--surface-bg-canvas) 35%, transparent),
+    var(--surface-bg-brand),
+    color-mix(in srgb, var(--surface-bg-brand) 35%, transparent),
     transparent
   );
 }
@@ -713,6 +716,9 @@
   }
 }
 .storyLead {
+  color: var(--text-default);
+}
+[data-theme="dark"] .storyLead {
   color: var(--static-white);
 }
 .storyBody {
@@ -761,8 +767,11 @@
   color: var(--text-muted);
 }
 .aboutBody strong {
-  color: var(--static-white);
+  color: var(--text-default);
   font-weight: var(--font-weight-semibold);
+}
+[data-theme="dark"] .aboutBody strong {
+  color: var(--static-white);
 }
 .aboutCta {
   display: flex;

@@ -6,6 +6,16 @@
   max-width: 80ch;
 }
 
+/* Light mode (screen only): the résumé reads as ink-on-white. The four headings
+   that use neutral-50 as "max-contrast text" (.name, .skillLabel, .entryTitle,
+   .eduList strong) flip to near-black. Scoped to `screen` so the @media print
+   block below keeps its own deliberately softer print ink. */
+@media screen {
+  [data-theme="light"] .page {
+    --color-neutral-50: var(--color-neutral-950);
+  }
+}
+
 .topRow {
   display: flex;
   align-items: center;

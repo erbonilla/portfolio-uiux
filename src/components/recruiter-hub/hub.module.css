@@ -82,7 +82,9 @@
 .choice[aria-checked="true"],
 .choice[aria-selected="true"] {
   background-color: var(--surface-control-selected);
-  color: var(--text-brand);
+  /* Lighter brand for AA contrast: text-brand (brand-500) on the brand-900
+     selected fill is only ~3.8:1; brand-400 clears 4.5:1 while staying orange. */
+  color: var(--color-brand-400);
   border-color: var(--border-brand);
 }
 
