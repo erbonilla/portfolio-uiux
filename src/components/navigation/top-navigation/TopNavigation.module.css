@@ -31,6 +31,13 @@
     min-height: var(--nav-h);
   }
 }
+/* Tablet: the theme toggle now lives in `.actions`; tighten the inter-group gap
+   so brand + full nav list + toggle still fit without horizontal overflow. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .inner {
+    gap: var(--space-inline-sm);
+  }
+}
 
 .brand {
   display: flex;

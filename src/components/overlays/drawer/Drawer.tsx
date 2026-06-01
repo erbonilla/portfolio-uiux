@@ -56,6 +56,10 @@ export function Drawer({
           className={cn(styles.content, className)}
           data-side={side}
           data-size={size}
+          /* The overlay surface is always dark glass (--surface-bg-overlay is
+             neutral-950 in both themes), so scope its subtree to the dark token
+             set — otherwise theme-aware text goes dark-on-dark in light mode. */
+          data-theme="dark"
         >
           <div className={styles.header}>
             {hideTitle ? (

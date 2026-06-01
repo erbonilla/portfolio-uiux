@@ -96,4 +96,37 @@ test.describe("accessibility (axe, WCAG 2.2 AA)", () => {
     );
     expect(serious, JSON.stringify(serious, null, 2)).toEqual([]);
   });
+
+  test("light theme (prefers-color-scheme) has no critical/serious violations", async ({
+    page,
+  }) => {
+    await page.emulateMedia({ colorScheme: "light" });
+    await page.goto("/");
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+    const results = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
+      .analyze();
+    const serious = results.violations.filter(
+      (v) => v.impact === "critical" || v.impact === "serious",
+    );
+    expect(serious, JSON.stringify(serious, null, 2)).toEqual([]);
+  });
+});
+
+test.describe("theme toggle", () => {
+  test("flips the theme, updates its label, and persists", async ({ page }) => {
+    await page.emulateMedia({ colorScheme: "dark" });
+    await page.goto("/");
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+
+    await page.getByRole("button", { name: /switch to light theme/i }).click();
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+    await expect(
+      page.getByRole("button", { name: /switch to dark theme/i }),
+    ).toBeVisible();
+
+    // Choice persists across a reload (localStorage).
+    await page.reload();
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+  });
 });
