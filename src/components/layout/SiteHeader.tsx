@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { TopNavigation } from "@/components/navigation/top-navigation/TopNavigation";
 import { Brand } from "./Brand";
 import { MobileMenu } from "./MobileMenu";
+import { ThemeToggle } from "./ThemeToggle";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { navItems } from "@/content/navItems";
 import { resolveSectionHref } from "@/lib/navHref";
@@ -26,6 +27,7 @@ export function SiteHeader() {
       brand={<Brand />}
       items={items}
       activeHref={activeHref}
+      actions={<ThemeToggle />}
       menuTrigger={<MobileMenu items={items} />}
     />
   );
