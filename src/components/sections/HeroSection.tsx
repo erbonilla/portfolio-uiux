@@ -50,10 +50,10 @@ export function HeroSection() {
 
           <div className={s.heroPortrait}>
             <Image
-              src="/assets/hero-photo.jpg"
+              src="/assets/next-hero-photo.jpg"
               alt="Portrait of Edgar Bonilla G."
-              width={864}
-              height={1184}
+              width={1122}
+              height={1402}
               priority
               sizes="(min-width: 1024px) 40vw, 100vw"
             />

@@ -40,7 +40,7 @@ async function ensureDirs() {
  * (this is where the screenshoot->screenshot typo gets fixed).
  */
 const RASTER = [
-  { in: "hero-photo.png", out: "hero-photo", maxWidth: 1200 },
+  { in: "next-hero-photo.png", out: "next-hero-photo", maxWidth: 1200 },
   { in: "atlan-screenshot.png", out: "atlan-screenshot", maxWidth: 1600 },
   { in: "atlan-screenshot-m.png", out: "atlan-screenshot-m", maxWidth: 900 },
   { in: "osteoplus-screenshoot.png", out: "osteoplus-screenshot", maxWidth: 1600 },
