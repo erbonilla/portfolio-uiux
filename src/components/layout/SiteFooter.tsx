@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { SiFacebook, SiInstagram } from "@icons-pack/react-simple-icons";
+import { SiFacebook, SiInstagram, SiGithub } from "@icons-pack/react-simple-icons";
 import { Brand } from "./Brand";
 import { LinkedInGlyph } from "./LinkedInGlyph";
 import { navItems } from "@/content/navItems";
@@ -14,6 +14,7 @@ import styles from "./SiteFooter.module.css";
 // LinkedIn is self-hosted (Simple Icons dropped the mark); FB/IG via Simple Icons.
 const socialIcons: Record<string, React.ReactNode> = {
   linkedin: <LinkedInGlyph size={22} />,
+  github: <SiGithub size={22} aria-hidden="true" />,
   facebook: <SiFacebook size={22} aria-hidden="true" />,
   instagram: <SiInstagram size={22} aria-hidden="true" />,
 };
