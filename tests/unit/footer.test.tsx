@@ -19,8 +19,13 @@ describe("SiteFooter", () => {
     }
   });
 
-  it("omits the social row entirely while URLs are placeholders (B1)", () => {
+  it("renders the social row with real links only (LinkedIn + GitHub; TODO filtered)", () => {
     render(<SiteFooter />);
-    expect(screen.queryByLabelText(/social links/i)).not.toBeInTheDocument();
+    expect(screen.getByLabelText(/social links/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/on linkedin/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/on github/i)).toBeInTheDocument();
+    // Facebook + Instagram are still TODO → must not render (no dead links).
+    expect(screen.queryByLabelText(/on facebook/i)).not.toBeInTheDocument();
+    expect(screen.queryByLabelText(/on instagram/i)).not.toBeInTheDocument();
   });
 });

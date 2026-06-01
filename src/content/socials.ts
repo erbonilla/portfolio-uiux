@@ -11,6 +11,11 @@ export const socials: Social[] = [
     label: "Edgar Bonilla on LinkedIn",
     href: "https://www.linkedin.com/in/edgarbonillag",
   },
+  {
+    id: "github",
+    label: "Edgar Bonilla on GitHub",
+    href: "https://github.com/erbonilla",
+  },
   { id: "facebook", label: "Edgar Bonilla on Facebook", href: "TODO" },
   { id: "instagram", label: "Edgar Bonilla on Instagram", href: "TODO" },
 ];

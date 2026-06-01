@@ -20,7 +20,7 @@ describe("Recruiter Hub open/close", () => {
     const dialog = await screen.findByRole("dialog");
     expect(dialog).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: /hiring manager hub/i }),
+      screen.getByRole("heading", { name: /recruiter hub/i }),
     ).toBeInTheDocument();
 
     await user.click(screen.getByRole("button", { name: /close panel/i }));

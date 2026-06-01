@@ -9,19 +9,22 @@ const rangeGroups = [
     id: "graphic",
     eyebrow: "Range · 2024-2026",
     title: "Graphic design",
+    subtitle: "Brand, type, and editorial explorations — supporting range, not standalone case studies.",
     projects: rangeProjects.filter((project) => project.category === "graphic"),
   },
   {
     id: "digital",
     eyebrow: "Range · 2024-2026",
     title: "Digital content",
+    subtitle: "Launch, social, and content-design pieces produced around the product work.",
     projects: rangeProjects.filter((project) => project.category === "digital"),
   },
 ];
 
 /**
- * Range — breadth across domains. Descriptions hide in Quick Scan via
- * `.range-card-desc` (view-mode contract). Grid is fluid 1/2/3-up.
+ * Range — breadth across domains, framed honestly as supporting focus areas
+ * (not clickable case studies, no placeholder thumbnails). Descriptions hide in
+ * Quick Scan via `.range-card-desc` (view-mode contract). Grid is fluid 1/2/3-up.
  */
 export function RangeSection() {
   return (
@@ -38,44 +41,38 @@ export function RangeSection() {
               <h2 className={cn(s.heading, "ts-display-section")}>
                 {group.title}
               </h2>
+              <p className={cn(s.rangeSubtitle, "ts-body-md", "range-card-desc")}>
+                {group.subtitle}
+              </p>
             </div>
 
-            <div className={s.autoGrid}>
+            <ul className={s.autoGrid}>
               {group.projects.map((p) => (
-                <Card key={p.id} variant="interactive" className={s.rangeCard}>
-                  <div
-                    className={s.rangePreview}
-                    data-art={p.id}
-                    aria-hidden="true"
-                  >
-                    <span className={s.artifact}>
-                      <span className={s.artifactPrimary} />
-                      <span className={s.artifactSecondary} />
-                      <span className={s.artifactTertiary} />
-                    </span>
-                  </div>
-                  <div className={s.rangeCardBody}>
-                    <div className={s.tagRow}>
-                      <Badge tone="brand" size="sm">
-                        {p.tag}
-                      </Badge>
+                <li key={p.id}>
+                  <Card variant="flat" className={s.rangeCard}>
+                    <div className={s.rangeCardBody}>
+                      <div className={s.tagRow}>
+                        <Badge tone="brand" size="sm">
+                          {p.tag}
+                        </Badge>
+                      </div>
+                      <h3 className={cn(s.rangeTitle, "ts-title-md")}>
+                        {p.title}
+                      </h3>
+                      <p
+                        className={cn(
+                          s.rangeDesc,
+                          "ts-body-sm",
+                          "range-card-desc",
+                        )}
+                      >
+                        {p.description}
+                      </p>
                     </div>
-                    <h3 className={cn(s.rangeTitle, "ts-title-md")}>
-                      {p.title}
-                    </h3>
-                    <p
-                      className={cn(
-                        s.rangeDesc,
-                        "ts-body-sm",
-                        "range-card-desc",
-                      )}
-                    >
-                      {p.description}
-                    </p>
-                  </div>
-                </Card>
+                  </Card>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </section>
       ))}

@@ -6,6 +6,7 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { MainView } from "@/components/layout/MainView";
 import { RecruiterHub } from "@/components/recruiter-hub/RecruiterHub";
+import { SITE_URL } from "@/lib/siteUrl";
 
 const syne = Syne({
   subsets: ["latin"],
@@ -36,25 +37,57 @@ const outfit = Outfit({
   display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://edstudio-portfolio.vercel.app";
-
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(SITE_URL),
   title: "Edgar Bonilla G. | UI/UX for health, wellness and fitness",
   description:
     "Accessible product interfaces and design systems for health, wellness, endurance, and digital content.",
   manifest: "/manifest.webmanifest",
+  alternates: {
+    canonical: "/",
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
     title: "(ed)studio",
   },
   openGraph: {
+    type: "website",
+    url: SITE_URL,
+    siteName: "(ed)studio",
     title: "Edgar Bonilla G. | (ed)studio",
     description:
       "UI/UX for accessible health, wellness, fitness, sports, and lifestyle products.",
     images: ["/og/home.png"],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Edgar Bonilla G. | (ed)studio",
+    description:
+      "UI/UX for accessible health, wellness, fitness, sports, and lifestyle products.",
+    images: ["/og/home.png"],
+  },
+};
+
+/** Structured data — Person schema for richer search/knowledge-panel results. */
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Edgar Bonilla G.",
+  alternateName: "(ed)studio",
+  url: SITE_URL,
+  image: `${SITE_URL}/og/home.png`,
+  jobTitle: "Product UI/UX Designer",
+  email: "mailto:erbonilla@outlook.com",
+  address: {
+    "@type": "PostalAddress",
+    addressCountry: "CR",
+  },
+  knowsLanguage: ["es", "en"],
+  sameAs: [
+    "https://www.linkedin.com/in/edgarbonillag",
+    "https://github.com/erbonilla",
+  ],
 };
 
 export const viewport: Viewport = {
@@ -74,6 +107,10 @@ export default function RootLayout({
       className={`${syne.variable} ${inter.variable} ${jetbrainsMono.variable} ${outfit.variable}`}
     >
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>

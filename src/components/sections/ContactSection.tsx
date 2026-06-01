@@ -9,19 +9,27 @@ import { cn } from "@/lib/cn";
 import s from "./sections.module.css";
 
 /**
- * Contact — mail-first (B3). Composes a prefilled `mailto:` from the fields
- * and opens the user's mail client. A direct mailto link is the no-JS fallback.
+ * Contact — progressive enhancement (B3):
+ *  - If NEXT_PUBLIC_FORMSPREE_ID is set, the form POSTs to Formspree and shows
+ *    inline success/error status (no secrets in the repo).
+ *  - Otherwise it composes a prefilled `mailto:` and opens the mail client.
+ * The direct mailto link is always present as a no-JS / no-config fallback.
  */
+const FORMSPREE_ID = process.env.NEXT_PUBLIC_FORMSPREE_ID;
+
+type SubmitState = "idle" | "submitting" | "success" | "error";
+
 export function ContactSection() {
   const [name, setName] = React.useState("");
   const [emailFrom, setEmailFrom] = React.useState("");
   const [need, setNeed] = React.useState("Full-time role");
   const [message, setMessage] = React.useState("");
+  const [status, setStatus] = React.useState<SubmitState>("idle");
 
   const email = aboutCopy.email;
+  const usesFormspree = Boolean(FORMSPREE_ID);
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  function openMailto() {
     const subject = encodeURIComponent(
       name ? `Portfolio enquiry from ${name}` : "Portfolio enquiry",
     );
@@ -38,6 +46,64 @@ export function ContactSection() {
     );
     window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
   }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+
+    if (!usesFormspree) {
+      openMailto();
+      return;
+    }
+
+    setStatus("submitting");
+    try {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email: emailFrom,
+          need,
+          message,
+          _subject: name
+            ? `Portfolio enquiry from ${name}`
+            : "Portfolio enquiry",
+        }),
+      });
+
+      if (res.ok) {
+        setStatus("success");
+        setName("");
+        setEmailFrom("");
+        setNeed("Full-time role");
+        setMessage("");
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  }
+
+  const submitting = status === "submitting";
+  const helperText = usesFormspree
+    ? "Sends straight to my inbox — I'll reply by email."
+    : "Submitting opens your email client with this message prefilled.";
+  const submitLabel = usesFormspree
+    ? submitting
+      ? "Sending…"
+      : "Send message"
+    : "Draft email to Edgar";
+
+  const statusMessage =
+    status === "success"
+      ? "Thanks — your message is on its way. I'll reply by email soon."
+      : status === "error"
+        ? `Something went wrong. Please email me directly at ${email}.`
+        : "";
 
   return (
     <section id="contact" className={cn(s.section, s.contactSection)}>
@@ -85,6 +151,7 @@ export function ContactSection() {
                     onChange={(e) => setEmailFrom(e.target.value)}
                     autoComplete="email"
                     placeholder="name@company.com"
+                    required={usesFormspree}
                   />
                 )}
               </FormField>
@@ -106,10 +173,7 @@ export function ContactSection() {
               )}
             </FormField>
 
-            <FormField
-              label="Message"
-              helperText="Submitting opens your email client with this message prefilled."
-            >
+            <FormField label="Message" helperText={helperText}>
               {({ id, describedBy }) => (
                 <textarea
                   id={id}
@@ -119,18 +183,35 @@ export function ContactSection() {
                   onChange={(e) => setMessage(e.target.value)}
                   rows={5}
                   placeholder="Share the role, product, timeline, or scope you want to discuss."
+                  required={usesFormspree}
                 />
               )}
             </FormField>
 
             <div className={s.contactActions}>
-              <Button type="submit" variant="primary" size="lg">
-                Draft email to Edgar
+              <Button
+                type="submit"
+                variant="primary"
+                size="lg"
+                disabled={submitting}
+              >
+                {submitLabel}
               </Button>
               <ButtonLink href={`mailto:${email}`} variant="ghost" size="lg">
                 Email Edgar directly
               </ButtonLink>
             </div>
+
+            {statusMessage ? (
+              <p
+                className={cn(s.contactStatus, "ts-body-sm")}
+                data-state={status}
+                role="status"
+                aria-live="polite"
+              >
+                {statusMessage}
+              </p>
+            ) : null}
           </form>
         </div>
       </div>

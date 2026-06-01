@@ -33,7 +33,7 @@ test.describe("homepage", () => {
     const dialog = page.getByRole("dialog");
     await expect(dialog).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: /hiring manager hub/i }),
+      page.getByRole("heading", { name: /recruiter hub/i }),
     ).toBeVisible();
 
     await page.keyboard.press("Escape");

@@ -23,7 +23,7 @@ export function RecruiterHub() {
       onOpenChange={setOpen}
       side="right"
       size="md"
-      title="Hiring Manager Hub"
+      title="Recruiter Hub"
       description="Change the reading mode, add reader notes, review launch checks, or request a session."
       trigger={<RecruiterHubTrigger />}
     >
