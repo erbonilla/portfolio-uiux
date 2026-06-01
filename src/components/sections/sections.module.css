@@ -315,6 +315,9 @@
   display: grid;
   gap: var(--space-inline-lg);
   grid-template-columns: 1fr;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 @media (min-width: 600px) {
   .autoGrid {
@@ -524,233 +527,6 @@
   padding: 0;
   border-radius: var(--radius-rounded-2xl);
 }
-.rangePreview {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  aspect-ratio: 5 / 4;
-  overflow: hidden;
-  background-color: var(--surface-bg-subtle);
-  border-bottom: var(--stroke-width-default) solid var(--border-subtle);
-  transition:
-    background-color var(--motion-duration-hover) var(--motion-easing-default),
-    border-color var(--motion-duration-hover) var(--motion-easing-default);
-}
-.artifact {
-  position: absolute;
-  width: min(76%, 260px);
-  height: 68%;
-  color: var(--icon-muted);
-  transition:
-    filter var(--motion-duration-layout) var(--motion-easing-expressive),
-    transform var(--motion-duration-layout) var(--motion-easing-expressive);
-}
-.artifactPrimary,
-.artifactSecondary,
-.artifactTertiary {
-  position: absolute;
-  display: block;
-}
-.rangeCard:hover .rangePreview,
-.rangeCard:focus-within .rangePreview {
-  border-color: var(--border-brand);
-}
-.rangeCard:hover .artifact,
-.rangeCard:focus-within .artifact {
-  transform: translateY(calc(var(--size-1) * -1)) scale(1.02);
-  filter: saturate(1.08);
-}
-.rangePreview[data-art="studio-mark"] {
-  background:
-    radial-gradient(
-      circle at 22% 30%,
-      var(--surface-bg-brand-subtle),
-      transparent 34%
-    ),
-    var(--surface-bg-subtle);
-}
-.rangePreview[data-art="studio-mark"] .artifactPrimary {
-  inset: 7% auto auto 8%;
-  width: 44%;
-  aspect-ratio: 1;
-  border: var(--stroke-width-strong) solid var(--icon-muted);
-  border-radius: var(--radius-pill);
-  box-shadow:
-    var(--size-6) 0 0 calc(var(--stroke-width-strong) * -1)
-      var(--surface-bg-subtle),
-    var(--size-6) 0 0 0 var(--icon-muted);
-}
-.rangePreview[data-art="studio-mark"] .artifactSecondary {
-  right: 0;
-  bottom: 18%;
-  width: 52%;
-  height: var(--size-4);
-  background-color: var(--surface-bg-brand);
-}
-.rangePreview[data-art="studio-mark"] .artifactTertiary {
-  right: 10%;
-  bottom: 4%;
-  width: 34%;
-  height: var(--size-2);
-  background-color: var(--icon-muted);
-}
-.rangePreview[data-art="poster-series"] {
-  background:
-    linear-gradient(135deg, var(--surface-bg-brand-subtle), transparent 48%),
-    var(--surface-bg-subtle);
-}
-.rangePreview[data-art="poster-series"] .artifactPrimary,
-.rangePreview[data-art="poster-series"] .artifactSecondary,
-.rangePreview[data-art="poster-series"] .artifactTertiary {
-  width: 42%;
-  height: 76%;
-  border: var(--stroke-width-default) solid var(--border-muted);
-  background-color: var(--surface-bg-default);
-}
-.rangePreview[data-art="poster-series"] .artifactPrimary {
-  left: 8%;
-  top: 4%;
-}
-.rangePreview[data-art="poster-series"] .artifactSecondary {
-  left: 30%;
-  top: 13%;
-  background:
-    linear-gradient(var(--surface-bg-brand) 0 22%, transparent 22% 100%),
-    var(--surface-bg-default);
-}
-.rangePreview[data-art="poster-series"] .artifactTertiary {
-  right: 5%;
-  top: 22%;
-  background:
-    linear-gradient(
-      var(--icon-muted) 0 10%,
-      transparent 10% 32%,
-      var(--surface-bg-muted) 32% 40%,
-      transparent 40% 100%
-    ),
-    var(--surface-bg-default);
-}
-.rangePreview[data-art="editorial-layouts"] .artifactPrimary {
-  inset: 4% auto auto 2%;
-  width: 96%;
-  height: var(--size-3);
-  background-color: var(--icon-muted);
-}
-.rangePreview[data-art="editorial-layouts"] .artifactSecondary {
-  left: 2%;
-  top: 24%;
-  width: 36%;
-  height: 62%;
-  background: linear-gradient(
-    var(--surface-bg-muted) 0 14%,
-    transparent 14% 22%,
-    var(--surface-bg-muted) 22% 36%,
-    transparent 36% 44%,
-    var(--surface-bg-muted) 44% 58%,
-    transparent 58% 100%
-  );
-}
-.rangePreview[data-art="editorial-layouts"] .artifactTertiary {
-  right: 2%;
-  top: 24%;
-  width: 52%;
-  height: 62%;
-  border: var(--stroke-width-default) solid var(--border-muted);
-  background:
-    linear-gradient(
-      90deg,
-      transparent 0 48%,
-      var(--border-subtle) 48% 52%,
-      transparent 52% 100%
-    ),
-    var(--surface-bg-default);
-}
-.rangePreview[data-art="atlan-campaign"] {
-  background: linear-gradient(
-    180deg,
-    var(--surface-bg-subtle) 0 58%,
-    var(--surface-bg-brand-subtle) 58% 100%
-  );
-}
-.rangePreview[data-art="atlan-campaign"] .artifactPrimary {
-  inset: 8% 4% auto auto;
-  width: 68%;
-  height: 56%;
-  border: var(--stroke-width-default) solid var(--border-muted);
-  background:
-    linear-gradient(var(--surface-bg-brand) 0 15%, transparent 15% 100%),
-    var(--surface-bg-default);
-}
-.rangePreview[data-art="atlan-campaign"] .artifactSecondary {
-  left: 5%;
-  bottom: 10%;
-  width: 66%;
-  height: var(--size-5);
-  background-color: var(--icon-muted);
-}
-.rangePreview[data-art="atlan-campaign"] .artifactTertiary {
-  right: 7%;
-  bottom: 10%;
-  width: var(--size-5);
-  height: var(--size-5);
-  border-radius: var(--radius-pill);
-  background-color: var(--surface-bg-brand);
-}
-.rangePreview[data-art="motion-stills"] .artifactPrimary {
-  inset: 2% auto auto 0;
-  width: 100%;
-  height: 78%;
-  border: var(--stroke-width-default) solid var(--border-muted);
-  background: linear-gradient(
-    90deg,
-    var(--surface-bg-default) 0 18%,
-    transparent 18% 22%,
-    var(--surface-bg-default) 22% 40%,
-    transparent 40% 44%,
-    var(--surface-bg-default) 44% 62%,
-    transparent 62% 66%,
-    var(--surface-bg-default) 66% 84%,
-    transparent 84% 100%
-  );
-}
-.rangePreview[data-art="motion-stills"] .artifactSecondary {
-  left: 8%;
-  bottom: 4%;
-  width: 46%;
-  height: var(--size-2);
-  background-color: var(--surface-bg-brand);
-}
-.rangePreview[data-art="motion-stills"] .artifactTertiary {
-  right: 8%;
-  bottom: 4%;
-  width: 22%;
-  height: var(--size-2);
-  background-color: var(--icon-muted);
-}
-.rangePreview[data-art="marketing-banners"] .artifactPrimary {
-  inset: 8% auto auto 0;
-  width: 100%;
-  height: 44%;
-  background:
-    linear-gradient(90deg, var(--surface-bg-brand) 0 34%, transparent 34% 100%),
-    var(--surface-bg-default);
-  border: var(--stroke-width-default) solid var(--border-muted);
-}
-.rangePreview[data-art="marketing-banners"] .artifactSecondary {
-  left: 14%;
-  bottom: 21%;
-  width: 70%;
-  height: var(--size-5);
-  background-color: var(--icon-muted);
-}
-.rangePreview[data-art="marketing-banners"] .artifactTertiary {
-  left: 24%;
-  bottom: 8%;
-  width: 52%;
-  height: var(--size-3);
-  background-color: var(--surface-bg-muted);
-}
 .rangeCardBody {
   display: flex;
   flex-direction: column;
@@ -767,6 +543,13 @@
 }
 .rangeDesc {
   color: var(--text-muted);
+}
+.rangeSubtitle {
+  margin-top: var(--space-stack-md);
+  margin-inline: auto;
+  max-width: 56ch;
+  color: var(--text-muted);
+  text-wrap: balance;
 }
 
 /* ---- Approach ---- */
@@ -1036,7 +819,6 @@
     transition: border-color var(--motion-duration-hover)
       var(--motion-easing-default);
   }
-  .artifact,
   .workMedia img,
   .workCta :global(svg) {
     transition: none;
@@ -1110,4 +892,14 @@
 }
 .contactNote {
   color: var(--text-muted);
+}
+.contactStatus {
+  margin: 0;
+  color: var(--text-muted);
+}
+.contactStatus[data-state="success"] {
+  color: var(--text-success);
+}
+.contactStatus[data-state="error"] {
+  color: var(--text-danger);
 }
