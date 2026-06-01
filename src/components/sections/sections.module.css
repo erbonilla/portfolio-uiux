@@ -115,6 +115,11 @@
   color: var(--static-black);
   font-weight: var(--font-weight-bold);
 }
+.heroTitleRole {
+  font-size: 0.4em;
+  letter-spacing: var(--letter-spacing-wide);
+  opacity: var(--opacity-80);
+}
 .heroLead {
   color: var(--static-black);
   opacity: var(--opacity-80);

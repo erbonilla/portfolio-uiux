@@ -20,12 +20,10 @@ export function HeroSection() {
             <p className={cn(s.heroGreeting, "ts-body-lg")}>
               Hey, I&rsquo;m Edgar Bonilla G., a
             </p>
-            <h1
-              className={cn(s.heroTitle, "ts-display-hero")}
-              aria-label="Product UI/UX designer"
-            >
-              <span aria-hidden="true">Product</span>
-              <strong aria-hidden="true">UI UX</strong>
+            <h1 className={cn(s.heroTitle, "ts-display-hero")}>
+              <span>Product </span>
+              <strong>UI/UX </strong>
+              <span className={s.heroTitleRole}>designer</span>
             </h1>
             <p className={cn(s.lead, s.heroLead, "ts-body-lg")}>
               {aboutCopy.positioning}
