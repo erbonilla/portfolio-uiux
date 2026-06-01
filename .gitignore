@@ -46,6 +46,14 @@ yarn-error.log*
 # vercel
 .vercel
 
+# local audit / preview artifacts (screenshots, snapshots, eval dumps)
+/portfolio-*.png
+/portfolio-*.md
+/portfolio-*.json
+/*-audit.png
+/*-snapshot.md
+/.playwright-mcp/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
