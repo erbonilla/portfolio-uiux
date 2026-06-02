@@ -28,7 +28,7 @@ const rangeGroups = [
  */
 export function RangeSection() {
   return (
-    <>
+    <div id="range">
       {rangeGroups.map((group) => (
         <section
           key={group.id}
@@ -76,6 +76,6 @@ export function RangeSection() {
           </div>
         </section>
       ))}
-    </>
+    </div>
   );
 }

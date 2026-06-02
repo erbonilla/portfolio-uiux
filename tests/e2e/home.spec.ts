@@ -13,8 +13,7 @@ test.describe("homepage", () => {
     const nav = page.getByRole("navigation", { name: /primary/i });
     for (const label of [
       "Work",
-      "Graphic",
-      "Digital",
+      "Range",
       "Approach",
       "About",
       "Contact",
