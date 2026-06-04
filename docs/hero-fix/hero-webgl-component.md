@@ -1,3 +1,14 @@
+# Replacement File — `HeroCylindersBackground.tsx`
+
+Replace the full contents of:
+
+```txt
+src/components/sections/HeroCylindersBackground.tsx
+```
+
+with this file.
+
+```tsx
 'use client';
 
 import { useEffect, useRef } from 'react';
@@ -45,9 +56,8 @@ export default function HeroCylindersBackground() {
   useEffect(() => {
     const mount = mountRef.current;
     if (!mount) return;
-    const el = mount as HTMLDivElement;
 
-    const stage = el.closest('section') ?? el;
+    const stage = mount.closest('section') ?? mount;
     const reduceMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)',
     ).matches;
@@ -55,9 +65,9 @@ export default function HeroCylindersBackground() {
     const scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2('#050100', 0.047);
 
-    const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
-    camera.position.set(-3.4, 10.6, 14.8);
-    camera.lookAt(-2.2, 0, -1.8);
+    const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 100);
+    camera.position.set(-1.6, 11.8, 14.2);
+    camera.lookAt(-1.2, 0, -1.6);
 
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
@@ -76,7 +86,7 @@ export default function HeroCylindersBackground() {
     renderer.domElement.style.height = '100%';
     renderer.domElement.style.pointerEvents = 'none';
 
-    el.appendChild(renderer.domElement);
+    mount.appendChild(renderer.domElement);
 
     scene.add(new THREE.AmbientLight('#ff2a05', 0.55));
 
@@ -135,10 +145,8 @@ export default function HeroCylindersBackground() {
       for (let x = 0; x < GRID_X; x++) {
         const px = x * SPACING - offsetX;
         const pz = z * SPACING - offsetZ;
-        const noise =
-          Math.sin(x * 1.37 + z * 0.91) * 0.5 +
-          Math.sin(x * 0.47 - z * 1.63) * 0.5;
-        const baseHeight = BASE_HEIGHT + noise * 0.018;
+        const jitter = Math.sin(x * 1.77 + z * 0.83) * 0.025;
+        const baseHeight = BASE_HEIGHT + jitter;
 
         instances.push({
           x: px,
@@ -177,7 +185,7 @@ export default function HeroCylindersBackground() {
     let frameId = 0;
 
     function resize() {
-      const rect = el.getBoundingClientRect();
+      const rect = mount.getBoundingClientRect();
 
       width = Math.max(1, rect.width);
       height = Math.max(1, rect.height);
@@ -215,16 +223,16 @@ export default function HeroCylindersBackground() {
     }
 
     function updatePointerWorld() {
-      pointer.lerp(pointerTarget, reduceMotion ? 1 : 0.055);
+      pointer.lerp(pointerTarget, reduceMotion ? 1 : 0.085);
       raycaster.setFromCamera(pointer, camera);
       raycaster.ray.intersectPlane(groundPlane, pointerWorld);
-      pointerTargetWorld.lerp(pointerWorld, reduceMotion ? 1 : 0.085);
+      pointerTargetWorld.lerp(pointerWorld, reduceMotion ? 1 : 0.13);
     }
 
     function resolveColor(influence: number) {
-      if (influence > 0.84) return PEAK_COLOR;
-      if (influence > 0.52) return HOT_COLOR;
-      if (influence > 0.22) return MID_COLOR;
+      if (influence > 0.82) return PEAK_COLOR;
+      if (influence > 0.48) return HOT_COLOR;
+      if (influence > 0.2) return MID_COLOR;
       if (influence > 0.06) return LOW_COLOR;
       return BASE_COLOR;
     }
@@ -232,7 +240,7 @@ export default function HeroCylindersBackground() {
     function animate(time: number) {
       updatePointerWorld();
 
-      const t = reduceMotion ? 0 : time * 0.00042;
+      const t = reduceMotion ? 0 : time * 0.00075;
       const pointerRadius = 5.8;
       const activeBoost = isPointerInside && !reduceMotion ? 1 : 0;
 
@@ -248,57 +256,29 @@ export default function HeroCylindersBackground() {
 
         const ambientWave = reduceMotion
           ? 0
-          : Math.max(0, Math.sin(t + item.x * 0.46 + item.z * 0.39)) * 0.08;
+          : Math.max(0, Math.sin(t + item.x * 0.5 + item.z * 0.44)) * 0.18;
 
-        const primaryHotspot =
-          1 - smoothstep(0, 6.8, Math.hypot(item.x + 5.6, item.z - 1.8));
-
-        const secondaryHotspot =
-          1 - smoothstep(0, 4.2, Math.hypot(item.x + 1.8, item.z + 1.2));
-
-        const rightSideFade = smoothstep(-1.5, 9.5, item.x);
-
-        const compositionalInfluence =
-          (primaryHotspot * 0.72 + secondaryHotspot * 0.32) *
-          (1 - rightSideFade * 0.68);
-
-        const rightFade = smoothstep(1.5, 10.5, item.x);
-        const rearFade = smoothstep(5.5, 10.5, item.z);
-
-        const visibilityDampening =
-          1 - clamp01(rightFade * 0.55 + rearFade * 0.25);
-
-        const ctaX = item.x + 4.2;
-        const ctaZ = item.z + 3.4;
-
-        const ctaValley =
-          1 - smoothstep(0, 2.4, Math.hypot(ctaX, ctaZ));
+        const hotX = item.x + 4.8;
+        const hotZ = item.z - 2.2;
+        const compositionalHotspot =
+          1 - smoothstep(0, 9.2, Math.sqrt(hotX * hotX + hotZ * hotZ));
 
         const totalInfluence = clamp01(
-          (
-            pointerInfluence * 0.9 +
-            ambientWave +
-            compositionalInfluence -
-            ctaValley * 0.22
-          ) * visibilityDampening,
+          pointerInfluence + ambientWave + compositionalHotspot * 0.68,
         );
 
-        const columnVariation =
-          0.88 + Math.sin(item.x * 0.73 + item.z * 1.17) * 0.16;
-
-        item.targetHeight =
-          item.baseHeight + totalInfluence * MAX_HEIGHT * columnVariation;
+        item.targetHeight = item.baseHeight + totalInfluence * MAX_HEIGHT;
         item.targetColor.copy(resolveColor(totalInfluence));
 
         item.currentHeight = lerp(
           item.currentHeight,
           item.targetHeight,
-          reduceMotion ? 1 : 0.075,
+          reduceMotion ? 1 : 0.105,
         );
 
         item.currentColor.lerp(
           item.targetColor,
-          reduceMotion ? 1 : 0.065,
+          reduceMotion ? 1 : 0.09,
         );
 
         dummy.position.set(item.x, item.currentHeight / 2, item.z);
@@ -335,7 +315,7 @@ export default function HeroCylindersBackground() {
     animate(0);
 
     const observer = new ResizeObserver(resize);
-    observer.observe(el);
+    observer.observe(mount);
 
     window.addEventListener('pointermove', updatePointerFromEvent, {
       passive: true,
@@ -367,3 +347,4 @@ export default function HeroCylindersBackground() {
     />
   );
 }
+```
