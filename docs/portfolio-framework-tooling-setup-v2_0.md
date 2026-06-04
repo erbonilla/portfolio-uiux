@@ -21,14 +21,14 @@ Trade-off acknowledged: Next.js adds a server runtime and framework surface the 
 
 | Layer | Choice | Why |
 |---|---|---|
-| Framework | **Next.js 15 (App Router)** | Native Vercel target; metadata/manifest APIs; layouts; image optimization. |
-| UI | **React 19** (bundled with Next 15) | Component model; server + client components. |
+| Framework | **Next.js 16 (App Router)** | Native Vercel target; metadata/manifest APIs; layouts; image optimization. |
+| UI | **React 19** (bundled with Next 16) | Component model; server + client components. |
 | Language | **TypeScript 5+** | Typed content models. |
 | Styling | **CSS custom properties + Tailwind v4** | Vanguard tokens stay the source of truth; Tailwind for responsive layout. |
 | Animation | **Motion for React** | Scroll/drawer/route animation, reduced-motion aware. |
 | Icons | **Lucide React + Simple Icons React** | UI icons + brand/social/tool logos; no CDN. |
 | Dialog | **Radix Dialog + Visually Hidden** | Recruiter Hub focus trap, inert, ESC, focus return. |
-| PWA | **@ducanh2912/next-pwa** (or `next-pwa`) | Service worker + manifest wiring for the App Router. |
+| PWA | **Serwist** (`@serwist/next`) | Service worker + manifest wiring for the App Router; stable Serwist builds through webpack. |
 | Class helpers | **clsx + class-variance-authority** | Conditional classes; component variants. |
 | Fonts | **next/font (Syne + Inter)** | Self-hosted, zero-CLS, automatic subsetting. |
 | Unit tests | **Vitest + Testing Library** | Fast component tests. |
@@ -39,7 +39,7 @@ Trade-off acknowledged: Next.js adds a server runtime and framework surface the 
 
 ## 2. Prerequisites
 
-- **Node.js 20 LTS or 22 LTS** (Next 15 requires 18.18+; use current LTS).
+- **Node.js 20 LTS or 22 LTS** (Next 16 requires Node 20.9+; use current LTS).
 - **pnpm** via Corepack: `corepack enable`.
 - **Git**, **VS Code/Cursor** with ESLint, Prettier, Tailwind IntelliSense, Playwright Test.
 
@@ -64,7 +64,7 @@ pnpm dev   # confirm starter runs on :3000
 # runtime
 pnpm add motion lucide-react clsx class-variance-authority \
   @radix-ui/react-dialog @radix-ui/react-visually-hidden \
-  @icons-pack/react-simple-icons @ducanh2912/next-pwa
+  @icons-pack/react-simple-icons @serwist/next serwist
 
 # dev / tooling
 pnpm add -D prettier prettier-plugin-tailwindcss eslint-plugin-jsx-a11y sharp
@@ -111,25 +111,23 @@ edstudio-portfolio/
 
 ## 6. Configure Next.js + PWA
 
-`next.config.mjs`:
-```js
-import withPWAInit from '@ducanh2912/next-pwa';
+`next.config.ts`:
+```ts
+import type { NextConfig } from "next";
+import withSerwistInit from "@serwist/next";
 
-const withPWA = withPWAInit({
-  dest: 'public',
-  disable: process.env.NODE_ENV === 'development',
-  register: true,
-  cacheOnFrontEndNav: true,
-  fallbacks: { document: '/offline' }, // optional offline page
-});
-
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  images: { formats: ['image/avif', 'image/webp'] },
-  experimental: { optimizePackageImports: ['lucide-react', '@icons-pack/react-simple-icons'] },
+const nextConfig: NextConfig = {
+  images: { formats: ["image/avif", "image/webp"] },
+  experimental: { optimizePackageImports: ["lucide-react", "@icons-pack/react-simple-icons"] },
 };
 
-export default withPWA(nextConfig);
+const withSerwist = withSerwistInit({
+  swSrc: "src/app/sw.ts",
+  swDest: "public/sw.js",
+  disable: process.env.NODE_ENV === "development",
+});
+
+export default withSerwist(nextConfig);
 ```
 
 `src/app/manifest.ts`:
@@ -208,21 +206,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-## 8. Asset normalization (JPEG-as-PNG fix, carried from v1.8)
+## 8. Asset normalization
 
-The uploaded screenshots are JPEG data with `.png` extensions. Normalize before first build.
+Keep the asset normalization script available for future image drops and to preserve the fixed `osteoplus-screenshot*` naming.
 ```bash
 pnpm assets:normalize    # runs scripts/normalize-assets.mjs (sharp → jpg/webp/avif)
 ```
-With Next, you can also import them through `next/image` for per-request optimization; the pre-normalized files give correct extensions and a smaller source.
+Current launch screenshots are already normalized. With Next, you can also import them through `next/image` for per-request optimization.
 
 ## 9. Scripts
 
 ```json
 {
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "next dev --turbopack",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
@@ -237,7 +235,7 @@ With Next, you can also import them through `next/image` for per-request optimiz
 
 ## 10. Testing
 
-`vitest.config.ts` uses `@vitejs/plugin-react` + `jsdom`. Unit goals: hero `h1` renders; nav labels render; Recruiter Hub opens/closes; **view-mode toggle switches Quick Scan ↔ Deep Dive**; no `href="#"`; **footer renders LinkedIn/Facebook/Instagram links with accessible names**.
+`vitest.config.ts` uses `@vitejs/plugin-react` + `jsdom`. Unit goals: hero `h1` renders; nav labels render; Recruiter Hub opens/closes; **view-mode toggle switches Quick Scan ↔ Deep Dive**; no `href="#"`; **footer renders LinkedIn/GitHub/Facebook/Instagram links with accessible names**.
 
 Playwright goals: homepage loads; keyboard reaches nav + hub controls; ESC closes drawer; **responsive — mobile (375), tablet (768), desktop (1280) all render without overflow**; reduced-motion respected; axe no critical violations.
 
@@ -245,7 +243,7 @@ Playwright goals: homepage loads; keyboard reaches nav + hub controls; ESC close
 
 1. Push to GitHub.
 2. Import the repo in Vercel — framework auto-detected as Next.js.
-3. Build command `next build`, output handled automatically (no `dist` config).
+3. Build command `next build --webpack`, output handled automatically (no `dist` config).
 4. No SPA rewrite needed — App Router handles routing server-side.
 5. Set any env vars (e.g. contact endpoint) in Vercel project settings.
 6. Verify the PWA: manifest served at `/manifest.webmanifest`, installable, service worker active in production (disabled in dev by config).
@@ -265,7 +263,7 @@ Manual: install prompt appears; layout holds 320→1440px; Recruiter Hub mode sw
 - Next.js PWA / manifest: https://nextjs.org/docs/app/api-reference/file-conventions/metadata/manifest
 - next/font: https://nextjs.org/docs/app/building-your-application/optimizing/fonts
 - Vercel deploy: https://vercel.com/docs/frameworks/nextjs
-- Tailwind v4: https://tailwindcss.com/docs/installation/using-vite
+- Tailwind v4: https://tailwindcss.com/docs/installation/framework-guides/nextjs
 - Motion for React: https://motion.dev/docs/react-installation
 - Radix Dialog: https://www.radix-ui.com/primitives/docs/components/dialog
-- @ducanh2912/next-pwa: https://github.com/DuCanhGH/next-pwa
+- Serwist: https://serwist.pages.dev/docs/next

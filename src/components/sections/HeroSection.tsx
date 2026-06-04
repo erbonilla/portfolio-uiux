@@ -1,8 +1,16 @@
+'use client';
+
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { ButtonLink } from "@/components/actions/button/ButtonLink";
 import { aboutCopy } from "@/content/approach";
 import { cn } from "@/lib/cn";
 import s from "./sections.module.css";
+
+const HeroCylindersBackground = dynamic(
+  () => import("./HeroCylindersBackground"),
+  { ssr: false },
+);
 
 const disciplines = [
   "Health & rehab PWAs",
@@ -14,6 +22,10 @@ const disciplines = [
 export function HeroSection() {
   return (
     <section id="top" className={cn(s.section, s.hero)}>
+      <div className={s.heroCanvas} aria-hidden="true">
+        <HeroCylindersBackground />
+      </div>
+      <div className={s.heroOverlay} aria-hidden="true" />
       <div className="container">
         <div className={s.heroGrid}>
           <div className={s.heroContent}>
@@ -21,7 +33,7 @@ export function HeroSection() {
               Hey, I&rsquo;m Edgar Bonilla G., a
             </p>
             <h1 className={cn(s.heroTitle, "ts-display-hero")}>
-              <span>Product </span>
+              <span>Creative </span>
               <strong>UI/UX </strong>
               <span className={s.heroTitleRole}>designer</span>
             </h1>

@@ -8,7 +8,7 @@
 **Owner / contact:** erbonilla@outlook.com
 **Repo:** https://github.com/erbonilla/portfolio-uiux.git
 **DNA version:** v1.0 · **Date:** 2026-05-31
-**Status:** Built & green (Phases 2–11); Phase 12 (deploy) pending — owner action.
+**Status:** Built, deployed, and green; social URLs resolved 2026-06-01.
 **Authored by:** Product Design (team-level synthesis from the v2.0 doc set)
 
 ---
@@ -203,14 +203,13 @@ violation as a launch blocker.
 
 | Blocker | Fallback in place | Resolved by |
 |---|---|---|
-| **B1 — Social URLs** (LinkedIn/Facebook/Instagram) | `socials.ts` keeps `href:'TODO'`; footer renders only real entries via `visibleSocials` | Owner-supplied real URLs |
+| **B1 — Social URLs** (LinkedIn/Facebook/Instagram) | Resolved 2026-06-01 with real LinkedIn, GitHub, Facebook, and Instagram links; `visibleSocials` still guards placeholders | Keep links current |
 | **B2 — App-icon source** | Placeholder set from `(ed)studio-primary.svg` | Final wordmark export |
-| **B3 — Contact endpoint** | `mailto:erbonilla@outlook.com` confirmed | Formspree/Resend/Vercel fn (deferred) |
-| **B4 — Case-study destinations** | Internal `/work/[slug]` stubs | Decision: internal pages vs external links |
+| **B3 — Contact endpoint** | Formspree-ready via `NEXT_PUBLIC_FORMSPREE_ID`; `mailto:erbonilla@outlook.com` fallback confirmed | Vercel env var or final endpoint decision |
+| **B4 — Case-study destinations** | Internal `/work/[slug]` recruiter summaries plus external standalone full-case-study links | Keep evidence pages current |
 
-Asset reality note: screenshots are JPEG data normalized via `pnpm
-assets:normalize`; the `screenshoot` typo is fixed; only
-`(ed)studio-text-primary.svg` is a true vector.
+Asset reality note: screenshots are normalized; the `screenshoot` typo is fixed;
+only `(ed)studio-text-primary.svg` is a true vector.
 
 ---
 
@@ -222,7 +221,7 @@ assets:normalize`; the `screenshoot` typo is fixed; only
 - **Phase 3** — Range galleries: real thumbnails replace decorative previews.
 - **Phase 4** — System maturity: Figma↔code token sync, token export, full
   component kit + the 12 deferred patterns.
-- **Phase 12 (now)** — Deploy: push to GitHub + import to Vercel (owner action).
+- **Phase 12 ✅** — Deploy: pushed to GitHub and live on Vercel.
 
 ---
 

@@ -59,10 +59,47 @@
 }
 
 /* ---- Hero ---- */
+/* Universal dark stage: always --surface-bg-hero (neutral-950) regardless of
+   light/dark theme. The WebGL canvas + overlay sit at z:0 and z:1 behind
+   the .container foreground at z:2. */
 .hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding-top: var(--space-section-xl);
   padding-bottom: var(--space-section-xl);
-  background-color: var(--surface-bg-brand);
+  background-color: var(--surface-bg-hero);
+}
+/* Canvas wrapper — absolute, behind everything, pointer-events blocked. */
+.heroCanvas {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-index-base);
+  overflow: hidden;
+}
+/* Readability overlay — keeps headline/portrait legible when cylinders brighten. */
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--static-black) 80%, transparent),
+      color-mix(in srgb, var(--static-black) 35%, transparent),
+      color-mix(in srgb, var(--static-black) 65%, transparent)
+    ),
+    radial-gradient(
+      circle at 38% 42%,
+      color-mix(in srgb, var(--color-brand-500) 22%, transparent),
+      transparent 34%
+    );
+}
+/* Foreground container sits above canvas and overlay. */
+.hero > :global(.container) {
+  position: relative;
+  z-index: 2;
 }
 .heroGrid {
   display: grid;
@@ -79,7 +116,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-stack-lg);
-  color: var(--static-black);
+  color: var(--static-white);
 }
 .heroContent > * {
   animation: hero-rise var(--motion-duration-hero)
@@ -101,21 +138,23 @@
   animation-delay: 280ms;
 }
 .heroGreeting {
-  color: var(--static-black);
+  color: var(--static-white);
   opacity: var(--opacity-90);
 }
 .heroTitle {
   display: flex;
   flex-direction: column;
-  color: var(--static-black);
+  align-items: flex-end;
+  color: var(--static-white);
   text-transform: uppercase;
   text-wrap: balance;
+  text-align: right;
 }
 .heroTitle span {
   opacity: var(--opacity-90);
 }
 .heroTitle strong {
-  color: var(--static-black);
+  color: var(--static-white);
   font-weight: var(--font-weight-bold);
 }
 .heroTitleRole {
@@ -124,22 +163,24 @@
   opacity: var(--opacity-80);
 }
 .heroLead {
-  color: var(--static-black);
+  color: var(--static-white);
   opacity: var(--opacity-80);
 }
 .heroDisciplines {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: var(--space-stack-2xs);
   list-style: none;
   margin: 0;
   padding: 0;
-  color: color-mix(in srgb, var(--static-black) 68%, transparent);
+  color: color-mix(in srgb, var(--static-white) 68%, transparent);
   font-family: var(--font-family-heading);
   font-size: clamp(var(--font-size-md), 2vw, var(--font-size-xl));
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-xl);
   text-transform: uppercase;
+  text-align: center;
 }
 .heroCtas {
   display: flex;
@@ -147,29 +188,32 @@
   gap: var(--space-inline-md);
 }
 .heroCtas :global([data-variant="primary"]) {
-  background-color: var(--static-black);
-  border-color: var(--static-black);
-  color: var(--static-white);
+  background-color: var(--static-white);
+  border-color: var(--static-white);
+  color: var(--static-black);
   transition:
     background-color var(--motion-duration-hover) var(--motion-easing-default),
     border-color var(--motion-duration-hover) var(--motion-easing-default),
+    color var(--motion-duration-hover) var(--motion-easing-default),
     box-shadow var(--motion-duration-hover) var(--motion-easing-default);
 }
+/* Hover: energize with brand orange to echo the cylinder field. */
 .heroCtas :global([data-variant="primary"]:hover) {
-  background-color: var(--color-neutral-800);
-  border-color: var(--color-neutral-800);
+  background-color: var(--color-brand-500);
+  border-color: var(--color-brand-500);
+  color: var(--static-black);
   box-shadow: var(--shadow-sm);
 }
 .heroCtas :global([data-variant="secondary"]) {
-  border-color: var(--static-black);
-  color: var(--static-black);
-}
-.heroCtas :global([data-variant="secondary"]:hover) {
-  background-color: var(--static-black);
+  border-color: var(--static-white);
   color: var(--static-white);
 }
-.heroMeta {
+.heroCtas :global([data-variant="secondary"]:hover) {
+  background-color: var(--static-white);
   color: var(--static-black);
+}
+.heroMeta {
+  color: var(--static-white);
   opacity: var(--opacity-90);
 }
 .heroPortrait {
@@ -178,8 +222,8 @@
   border-radius: var(--radius-surface-md);
   overflow: hidden;
   border: var(--stroke-width-default) solid
-    color-mix(in srgb, var(--static-black) 20%, transparent);
-  background-color: var(--surface-bg-default);
+    color-mix(in srgb, var(--static-white) 16%, transparent);
+  background-color: var(--surface-bg-hero);
   animation: portrait-settle var(--motion-duration-hero)
     var(--motion-easing-expressive) 140ms both;
 }
@@ -190,6 +234,7 @@
   object-position: 92% 50%;
   transform: scale(1.04);
 }
+/* Fade the portrait into the dark stage (replaces the orange band fade). */
 .heroPortrait::before {
   content: "";
   position: absolute;
@@ -198,8 +243,8 @@
   pointer-events: none;
   background: linear-gradient(
     to right,
-    var(--surface-bg-brand),
-    color-mix(in srgb, var(--surface-bg-brand) 35%, transparent),
+    var(--surface-bg-hero),
+    color-mix(in srgb, var(--surface-bg-hero) 35%, transparent),
     transparent
   );
 }

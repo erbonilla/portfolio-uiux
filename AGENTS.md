@@ -11,13 +11,13 @@ Guidance for Codex when working in this repository.
 
 ## Current state (read first)
 
-**The app is scaffolded and builds.** Next 16 (App Router) + React 19 + Tailwind v4 live at the repo root (`src/`, `package.json`, `next.config.ts`); runtime/dev/test deps are installed and `pnpm build` is green. Git is initialized (`main`; remote `origin` → the GitHub repo above) — **no commits pushed yet**. PWA uses **Serwist** (`@serwist/next`), not next-pwa.
+**The app is live and builds.** Next 16 (App Router) + React 19 + Tailwind v4 live at the repo root (`src/`, `package.json`, `next.config.ts`); runtime/dev/test deps are installed and `pnpm build` is green. Git is initialized on `main`, pushed to `origin`, and deployed to Vercel at `https://portfolio-uiux-smoky.vercel.app/`. PWA uses **Serwist** (`@serwist/next`), not next-pwa.
 
 > **Build-tool correction (verified 2026-05-29):** stable `@serwist/next` injects a **webpack** config and does **not** support Turbopack — only the experimental `@serwist/turbopack` preview does. So `dev` stays on Turbopack (SW is disabled in dev anyway) and **`build` runs `next build --webpack`** so Serwist can bundle the service worker. The original "Serwist supports Turbopack builds" premise was inaccurate; Serwist is still the chosen SW lib, the production build just opts into webpack.
 
-**Phases 2–11 are built and green (2026-05-29).** Token layer (`src/styles/{tokens,base,typography}.css`), launch-subset components (`src/components/**`, see `COMPONENTS.md`), content models (`src/content/**`), full shell + sections (`src/components/{layout,sections}`), the Recruiter Hub with all 5 working panels (`src/components/recruiter-hub/**`), `/work/[slug]` stub + `/offline`, and the Serwist PWA are all in place. The full gate passes: `pnpm assets:normalize && typecheck && lint && test (17 unit) && build && test:e2e (10 e2e incl. axe WCAG 2.2 AA)`. View-mode reflow, live tokenizer, persona annotations, drawer focus/ESC, and 320→1440 no-overflow are all verified in a real browser.
+**Launch scope is built, deployed, and green (verified 2026-06-01).** Token layer (`src/styles/{tokens,base,typography}.css`), launch-subset components (`src/components/**`, see `COMPONENTS.md`), content models (`src/content/**`), full shell + sections (`src/components/{layout,sections}`), the Recruiter Hub with all 5 working panels (`src/components/recruiter-hub/**`), internal `/work/[slug]` recruiter summaries, `/offline`, and the Serwist PWA are all in place. The gate passes: `pnpm typecheck && pnpm lint && pnpm test` (17 unit) and `CI=1 pnpm test:e2e` (30 e2e incl. dark/light axe WCAG 2.2 AA). View-mode reflow, live tokenizer, persona annotations, drawer focus/ESC, and 320→1440 no-overflow are verified in a real browser.
 
-Only **Phase 12 (deploy)** remains — push to GitHub + import to Vercel (owner action). Work lives on branch `feat/portfolio-build-phase2-12`, **not yet committed**. Open blockers below (B1 social URLs, B2 final app-icon export, B3 contact endpoint) are unresolved by design and use their documented fallbacks.
+**Phase 12 (deploy) is done.** Post-launch hardening added SEO/share fixes (sitemap, robots, JSON-LD, corrected `metadataBase`), light/dark theme toggle with persistence, real GitHub/LinkedIn/Facebook/Instagram social links, "Recruiter Hub" name unification, honest non-clickable Range sections, compact internal case-study summaries, standalone full-case-study links, and a Formspree-ready contact path. Remaining blockers: B2 (final app-icon export) is open, and B3 is code-ready: the contact form POSTs to Formspree once `NEXT_PUBLIC_FORMSPREE_ID` is set, else falls back to `mailto:`. Set `NEXT_PUBLIC_SITE_URL` in Vercel before custom-domain/share-preview work.
 
 Asset reality differed from the docs: the screenshots were already valid PNGs (not JPEG-as-PNG); the `screenshoot` typo was real and is fixed; and `(ed)studio-primary/secondary.svg` were PNG data mislabelled `.svg` (re-encoded to `.png`). Only `(ed)studio-text-primary.svg` is a true vector (the wordmark).
 
@@ -35,6 +35,7 @@ Always defer to these docs; they are the source of truth. When in doubt, cite th
 | `docs/portfolio-recruiter-hub-spec-v2_0.md` | Recruiter Hub: 5 panels, drawer, Panel 01 reflow. |
 | `docs/portfolio-improvements-roadmap-v2_0.md` | Priorities, blockers, post-launch phases. |
 | `docs/README-portfolio-docs-v2_0.md` | Index + requirements-coverage matrix. |
+| `docs/product-dna-v1_0.md` | **Product/Project DNA** — one-page synthesis of identity, audience, principles, signature behavior, system/tech DNA, non-negotiables, and success signals. Orientation, not binding detail. |
 
 ## Key decisions (already made — don't relitigate)
 
@@ -45,10 +46,10 @@ Always defer to these docs; they are the source of truth. When in doubt, cite th
 
 ## Open blockers (need owner input; build proceeds via fallback)
 
-- **Social URLs** (LinkedIn/Facebook/Instagram) — until provided, `socials.ts` keeps `href:'TODO'` and the footer renders only real entries (no dead links).
+- **Social URLs** — resolved 2026-06-01. LinkedIn, GitHub, Facebook, and Instagram are real links; `visibleSocials` still guards against future placeholders.
 - **App-icon source** — placeholder set from `(ed)studio-primary.svg` until the wordmark export is supplied.
-- **Contact endpoint** — `mailto:erbonilla@outlook.com` confirmed; Formspree/Resend/Vercel-fn upgrade deferred.
-- **Case-study destinations** — default to internal `/work/[slug]` stubs.
+- **Contact endpoint** — Formspree-ready via `NEXT_PUBLIC_FORMSPREE_ID`; `mailto:erbonilla@outlook.com` remains the verified fallback until the Vercel env var is set.
+- **Case-study destinations** — resolved to internal `/work/[slug]` recruiter summaries with external standalone full-case-study links.
 
 ## Conventions & guardrails
 
@@ -56,7 +57,7 @@ Always defer to these docs; they are the source of truth. When in doubt, cite th
 - **Naming:** slash names in Figma → CSS custom properties in code (`color/brand/500` → `--color-brand-500`).
 - **Honesty rules (non-negotiable):** the tools strip lists **Next.js, not Vite**; the Recruiter Hub view-mode toggle must **actually reflow** the page; the audit panel's count must match its rows; **no `href="#"` or dead links**; no invented metrics.
 - **Accessibility target:** WCAG 2.2 AA. Icon-only controls need accessible names; status never by color alone; visible focus everywhere; reduced-motion respected; no horizontal overflow 320→1440px.
-- **Assets:** screenshots are JPEG data with `.png` extensions — must be re-encoded (sharp). Fix the typo `osteoplus-screenshoot*` → `osteoplus-screenshot*` in the same commit (see action plan Phase 4).
+- **Assets:** screenshots are normalized; the `osteoplus-screenshoot*` typo is fixed. `(ed)studio-primary/secondary.svg` were PNG data mislabelled `.svg` and have been re-encoded to `.png`; only `(ed)studio-text-primary.svg` is a true vector.
 
 ## Commands (pnpm)
 
@@ -64,7 +65,7 @@ Package manager is **pnpm** (via Corepack):
 
 ```bash
 pnpm dev               # next dev --turbopack (:3000)
-pnpm build             # next build
+pnpm build             # next build --webpack
 pnpm start             # next start
 pnpm lint              # next lint (+ jsx-a11y)
 pnpm typecheck         # tsc --noEmit

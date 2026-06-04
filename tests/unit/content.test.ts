@@ -5,7 +5,7 @@ import { toolGroups } from "@/content/tools";
 const tools = toolGroups.flatMap((group) => group.tools);
 
 describe("socials guard (B1, no dead links)", () => {
-  it("defines the expected networks (linkedin + github real, facebook + instagram pending)", () => {
+  it("defines the expected networks", () => {
     expect(socials.map((s) => s.id)).toEqual([
       "linkedin",
       "github",
@@ -14,10 +14,14 @@ describe("socials guard (B1, no dead links)", () => {
     ]);
   });
 
-  it("renders only entries with a real URL; TODO placeholders are filtered out", () => {
-    // Facebook + Instagram remain TODO until URLs land — they must not ship.
-    expect(socials.some((s) => s.href === "TODO")).toBe(true);
-    expect(visibleSocials.map((s) => s.id)).toEqual(["linkedin", "github"]);
+  it("renders all current real URLs", () => {
+    expect(socials.some((s) => s.href === "TODO")).toBe(false);
+    expect(visibleSocials.map((s) => s.id)).toEqual([
+      "linkedin",
+      "github",
+      "facebook",
+      "instagram",
+    ]);
   });
 
   it("never exposes a placeholder/dead href as visible", () => {

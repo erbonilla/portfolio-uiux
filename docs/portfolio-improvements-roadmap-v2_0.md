@@ -15,28 +15,28 @@ This is a **delta** over v1.1. Carried items still apply; new and changed items 
 | Next.js + Vercel (replaces Vite) | In scope, P0 |
 | Recruiter Hub mode switching at launch (real reflow) | In scope, P0 |
 | Replace view-mode emojis with icons (Lucide `Zap`/`Search`) | In scope, P0 |
-| Footer social icons (LinkedIn, Facebook, Instagram) | In scope — **blocked on real URLs** |
+| Footer social icons (LinkedIn, GitHub, Facebook, Instagram) | ✅ wired with real URLs |
 
 ## 2. P0 (updated)
 
 | Item | Recommendation |
 |---|---|
 | Stack migration | Next.js App Router; deploy to Vercel; `next/font`, `next/image`, typed manifest. |
-| PWA | `@ducanh2912/next-pwa`; manifest 192/512 + maskable; theme `#FF4F18`, bg `#050505`; offline fallback optional. |
+| PWA | Serwist (`@serwist/next`); manifest 192/512 + maskable; theme `#FF4F18`, bg `#050505`; offline fallback. |
 | Responsive | Mobile-first, `clamp()` type, `minmax()` grids, safe-area insets, ≥44px targets; QA no overflow 320→1440px. |
 | Recruiter Hub mode switch | `data-view-mode` reflow (Quick Scan ↔ Deep Dive), not a label toggle; keyboard + announced. |
 | Emoji → icon | Lucide `Zap` (Quick Scan), `Search` (Deep Dive), `aria-hidden`. |
-| Footer socials | Simple Icons, monochrome, labeled, ≥44px; render only entries with real URLs. **Blocked** until URLs given. |
+| Footer socials | Simple Icons, monochrome, labeled, ≥44px; LinkedIn, GitHub, Facebook, and Instagram render with real URLs. |
 | Carried P0 | Fake links, contact truthfulness, Radix focus trap, audit count fix, asset re-encode + typo rename. |
 
 ## 3. Blocked items (need input — not guessed)
 
 | Item | Needed from owner |
 |---|---|
-| Social links | Real LinkedIn, Facebook, Instagram URLs. Until provided, the footer omits any placeholder entry rather than shipping a dead link. |
+| Social links | Resolved 2026-06-01. Keep LinkedIn, GitHub, Facebook, and Instagram current; the footer still omits placeholder entries. |
 | App icon set | Source (ed)studio wordmark export to generate 192/512/maskable/apple-touch icons. |
-| Contact endpoint | mailto confirmed (`erbonilla@outlook.com`); upgrade path (Formspree/Resend/Vercel function) TBD. |
-| Case-study destinations | Internal `/work/*` pages vs external marketing-site links. |
+| Contact endpoint | Formspree-ready via `NEXT_PUBLIC_FORMSPREE_ID`; mailto confirmed (`erbonilla@outlook.com`) as fallback. |
+| Case-study destinations | Resolved to internal `/work/*` recruiter summaries plus external standalone full-case-study links. |
 
 ## 4. Carried (P1/P2)
 
@@ -48,13 +48,13 @@ Unchanged from v1.1 §5 (hero role clarity, story refinement, contact phrasing).
 ## 6. Launch checklists (delta)
 
 **Content**
-- [ ] Real LinkedIn / Facebook / Instagram URLs (blocked).
+- [x] Real LinkedIn / GitHub / Facebook / Instagram URLs.
 - [ ] App icons generated from wordmark.
 - [ ] mailto confirmed; view-mode copy "Optimize the page layout for the user's available time" present.
 - [ ] Carried content checklist (v1.1 §7).
 
 **Technical**
-- [ ] `next build` succeeds; deploys to Vercel.
+- [x] `next build --webpack` succeeds; deploys to Vercel.
 - [ ] Manifest valid; PWA installable; service worker active in prod.
 - [ ] No horizontal overflow 320/375/768/1024/1440.
 - [ ] View-mode reflow verified + keyboard-operable.

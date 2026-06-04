@@ -14,7 +14,7 @@
 | 2 | **Full responsive PWA** | New requirement — installable, offline-capable, fluid 320→1440px+. |
 | 3 | **Recruiter Hub view-mode switching is now in scope for launch** | New requirement — Quick Scan ↔ Deep Dive must actually reflow the page. |
 | 4 | **Emojis replaced with icons** in the view-mode control | New requirement — Lucide icons, not `⚡`/`🔍`. |
-| 5 | **Footer social icons** — LinkedIn, Facebook, Instagram | New requirement. |
+| 5 | **Footer social icons** — LinkedIn, GitHub, Facebook, Instagram | New requirement, resolved with real URLs 2026-06-01. |
 | 6 | Asset normalization (JPEG-as-PNG) | Carried from v1.8 (still required). |
 
 ## 1. Responsive PWA requirements
@@ -40,7 +40,7 @@ Mobile-first. Fluid by default; named breakpoints only where layout must change.
 
 ### 1.3 PWA requirements
 - `manifest.webmanifest` via `src/app/manifest.ts` (name, icons 192/512 + maskable, `theme_color #FF4F18`, `background_color #050505`, `display standalone`).
-- Service worker via `@ducanh2912/next-pwa` (enabled in production only).
+- Service worker via Serwist (`@serwist/next`, enabled in production only). Production builds use `next build --webpack`; dev stays on Turbopack with the service worker disabled.
 - App icons + Apple touch icon under `public/icons/`, generated from the (ed)studio wordmark.
 - Optional `/offline` fallback route.
 - `theme-color` and `apple-mobile-web-app-*` via Next `viewport`/`metadata` exports.
@@ -80,32 +80,34 @@ type ViewMode = 'quick' | 'deep';
 
 ## 3. Footer social icons (new)
 
-Add a social row to `SiteFooter` with **LinkedIn, Facebook, Instagram**, using Simple Icons React components.
+Add a social row to `SiteFooter` with **LinkedIn, GitHub, Facebook, Instagram**, using Simple Icons React components.
 
 ```tsx
-import { SiLinkedin, SiFacebook, SiInstagram } from '@icons-pack/react-simple-icons';
+import { SiLinkedin, SiGithub, SiFacebook, SiInstagram } from '@icons-pack/react-simple-icons';
 ```
 
 | Network | Icon | href (content/socials.ts) |
 |---|---|---|
-| LinkedIn | `SiLinkedin` | **TODO — real URL needed** |
-| Facebook | `SiFacebook` | **TODO — real URL needed** |
-| Instagram | `SiInstagram` | **TODO — real URL needed** |
+| LinkedIn | `SiLinkedin` | `https://www.linkedin.com/in/edgarbonillag/` |
+| GitHub | `SiGithub` | `https://github.com/erbonilla` |
+| Facebook | `SiFacebook` | `https://www.facebook.com/oxygenozar` |
+| Instagram | `SiInstagram` | `https://www.instagram.com/coacherbonilla` |
 
 Requirements:
 - Each link is an icon-only control → needs an accessible name: `aria-label="Edgar Bonilla on LinkedIn"` (+ `<VisuallyHidden>` text or label).
 - `target="_blank" rel="noopener noreferrer"`.
 - Icons inherit `currentColor` (`--text-muted`, hover → `--text-brand`); do not hardcode brand-network colors unless intentional.
 - Tap target ≥ 44×44px.
-- **Blocked until URLs provided:** real hrefs. Ship with `href="#"` disabled + a visible TODO is **not** acceptable per the no-fake-links rule — instead render the row only once URLs exist, or keep them in `socials.ts` with a build-time guard that omits any entry whose `href` is still the placeholder. Document the gap; don't ship a dead social link.
+- Keep the build-time guard that omits any entry whose `href` is still the placeholder. That preserves the no-fake-links rule if a future social entry is drafted before its real URL exists.
 
 ```ts
 // src/content/socials.ts
 export type Social = { id: string; label: string; href: string };
 export const socials: Social[] = [
-  { id: 'linkedin',  label: 'Edgar Bonilla on LinkedIn',  href: 'TODO' },
-  { id: 'facebook',  label: 'Edgar Bonilla on Facebook',  href: 'TODO' },
-  { id: 'instagram', label: 'Edgar Bonilla on Instagram', href: 'TODO' },
+  { id: 'linkedin',  label: 'Edgar Bonilla on LinkedIn', href: 'https://www.linkedin.com/in/edgarbonillag/' },
+  { id: 'github',    label: 'Edgar Bonilla on GitHub', href: 'https://github.com/erbonilla' },
+  { id: 'facebook',  label: 'Oxygeno Coaching on Facebook', href: 'https://www.facebook.com/oxygenozar' },
+  { id: 'instagram', label: 'Coach Edgar Bonilla on Instagram', href: 'https://www.instagram.com/coacherbonilla' },
 ];
 // Render only entries where href !== 'TODO'.
 ```

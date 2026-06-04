@@ -14,7 +14,7 @@ type AuditItem = { label: string; status: AuditStatus };
  * The passing count, the row count, and the progress bar all derive from the
  * same array, so they cannot disagree (spec §2 / §4 honesty rule).
  */
-const AUDIT_DATE = "2026-05-29";
+const AUDIT_DATE = "2026-06-01";
 
 const items: AuditItem[] = [
   { label: "Responsive layout from 320 to 1440px, no horizontal overflow", status: "pass" },
@@ -22,9 +22,9 @@ const items: AuditItem[] = [
   { label: "View modes reflow the page", status: "pass" },
   { label: "Components use semantic tokens", status: "pass" },
   { label: "Installable PWA and production service worker", status: "pass" },
-  { label: "Real social URLs (LinkedIn/Facebook/Instagram)", status: "todo" },
+  { label: "Real social URLs (LinkedIn/Facebook/Instagram)", status: "pass" },
   { label: "Final app-icon export from wordmark", status: "todo" },
-  { label: "Wired contact endpoint (beyond mailto)", status: "todo" },
+  { label: "Formspree contact endpoint configured in Vercel", status: "todo" },
 ];
 
 const statusMeta: Record<

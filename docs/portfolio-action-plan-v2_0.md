@@ -38,10 +38,10 @@ The spec docs remain the **authority for detail**. When this plan says "per desi
 
 | # | Blocker | Needed from owner | Fallback used until then |
 |---|---|---|---|
-| B1 | **Social URLs** | Real LinkedIn / Facebook / Instagram URLs | `socials.ts` keeps entries as `href: 'TODO'`; footer renders **only** entries where `href !== 'TODO'` → no dead links (impl §3). |
+| B1 | **Social URLs** | Resolved 2026-06-01: real LinkedIn / GitHub / Facebook / Instagram URLs | `visibleSocials` still guards against future placeholder entries, so no dead links ship. |
 | B2 | **App-icon set** | `(ed)studio` wordmark export to generate 192 / 512 / maskable / apple-touch | Temporary placeholder set generated from `(ed)studio-primary.svg`; regenerate on final export. |
-| B3 | **Contact endpoint** | Confirm/upgrade contact channel | `mailto:erbonilla@outlook.com` (confirmed). Upgrade (Formspree / Resend / Vercel fn) deferred to roadmap. |
-| B4 | **Case-study destinations** | Internal `/work/*` vs external links | Default to **internal** `/work/[slug]` stub routes; revisit if external preferred. |
+| B3 | **Contact endpoint** | Configure Formspree env var or choose a final endpoint | Formspree-ready via `NEXT_PUBLIC_FORMSPREE_ID`; `mailto:erbonilla@outlook.com` remains the verified fallback. |
+| B4 | **Case-study destinations** | Resolved: internal summaries plus standalone full-case-study links | Keep `/work/[slug]` summaries and external evidence pages current. |
 
 ---
 
@@ -197,9 +197,10 @@ Populate `src/content/`: `caseStudies.ts` (Osteóplus, Atlan; images → normali
 ```ts
 export type Social = { id: string; label: string; href: string };
 export const socials: Social[] = [
-  { id: 'linkedin',  label: 'Edgar Bonilla on LinkedIn',  href: 'TODO' },
-  { id: 'facebook',  label: 'Edgar Bonilla on Facebook',  href: 'TODO' },
-  { id: 'instagram', label: 'Edgar Bonilla on Instagram', href: 'TODO' },
+  { id: 'linkedin',  label: 'Edgar Bonilla on LinkedIn', href: 'https://www.linkedin.com/in/edgarbonillag/' },
+  { id: 'github',    label: 'Edgar Bonilla on GitHub',    href: 'https://github.com/erbonilla' },
+  { id: 'facebook',  label: 'Oxygeno Coaching on Facebook', href: 'https://www.facebook.com/oxygenozar' },
+  { id: 'instagram', label: 'Coach Edgar Bonilla on Instagram', href: 'https://www.instagram.com/coacherbonilla' },
 ];
 // Render only entries where href !== 'TODO'.
 ```
@@ -273,10 +274,10 @@ _Source: tooling §10; impl §6–§7; design-sync §8; hub spec §7; design-sys
 
 _Source: tooling §11._
 
-Push to GitHub → import (Next.js auto-detected) → `next build` → set env vars → verify PWA in production (manifest + SW active; SW disabled in dev by config).
+Push to GitHub → import (Next.js auto-detected) → `next build --webpack` → set env vars → verify PWA in production (manifest + SW active; SW disabled in dev by config).
 
 **Verification:** production deploy live; manifest + SW verified.
-- [ ] Pushed + imported · [ ] `next build` deploys · [ ] Manifest + SW verified in prod
+- [x] Pushed + imported · [x] `next build --webpack` deploys · [x] Manifest + SW verified in prod
 
 ---
 

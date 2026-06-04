@@ -296,6 +296,8 @@
   --surface-bg-disabled: var(--color-neutral-100);
   --surface-bg-brand: var(--color-brand-500);
   --surface-bg-brand-subtle: var(--color-brand-50);
+  /* Hero section is permanently dark in both themes (universal dark stage). */
+  --surface-bg-hero: var(--color-neutral-950);
   --surface-bg-accent: var(--color-accent-500);
   --surface-bg-accent-subtle: var(--color-accent-100);
   --surface-bg-success: var(--color-success-500);
@@ -514,6 +516,8 @@
   --surface-bg-disabled: var(--color-neutral-800);
   --surface-bg-brand: var(--color-brand-500);
   --surface-bg-brand-subtle: var(--color-brand-900);
+  /* Hero section is permanently dark in both themes (universal dark stage). */
+  --surface-bg-hero: var(--color-neutral-950);
   --surface-bg-accent: var(--color-accent-500);
   --surface-bg-accent-subtle: var(--color-accent-900);
   --surface-bg-success: var(--color-success-600);

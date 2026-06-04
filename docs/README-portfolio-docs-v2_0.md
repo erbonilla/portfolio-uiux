@@ -36,11 +36,11 @@ The v1.8 docs remain valid for anything not overridden here (full token set, con
 | Next.js + Vercel | tooling v2.0 (whole doc) | ✅ specified |
 | Recruiter Hub mode switching | impl §2, hub §3 | ✅ specified (real reflow) |
 | Emoji → icons | impl §2.1, hub §3.1, design-sync §6 | ✅ Lucide `Zap`/`Search` |
-| Footer social icons | impl §3, design-sync §4 | ⚠️ specified — **blocked on real URLs** |
+| Footer social icons | impl §3, design-sync §4 | ✅ LinkedIn, GitHub, Facebook, and Instagram wired |
 | Documentation as Markdown | this set | ✅ delivered |
 
 ## Blocked (needs owner input — not guessed)
 
-- **Social URLs** (LinkedIn/Facebook/Instagram). The footer is built to render only entries with real URLs, so it ships without dead links; provide the three URLs to activate the row.
+- **Social URLs** are resolved as of 2026-06-01. The footer still renders only entries with real URLs, so future placeholders will not create dead links.
 - **App icon source** (the (ed)studio wordmark export) to generate the PWA icon set.
-- **Case-study destination model** (internal `/work/*` vs external links).
+- **Contact endpoint** finalization. The code is Formspree-ready via `NEXT_PUBLIC_FORMSPREE_ID` and falls back to `mailto:` when unset.

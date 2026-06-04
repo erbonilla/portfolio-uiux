@@ -69,7 +69,7 @@ export const metadata: Metadata = {
   },
 };
 
-/** Structured data — Person schema for richer search/knowledge-panel results. */
+/** Structured data for richer search and knowledge-panel results. */
 const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -85,8 +85,10 @@ const personJsonLd = {
   },
   knowsLanguage: ["es", "en"],
   sameAs: [
-    "https://www.linkedin.com/in/edgarbonillag",
+    "https://www.linkedin.com/in/edgarbonillag/",
     "https://github.com/erbonilla",
+    "https://www.facebook.com/oxygenozar",
+    "https://www.instagram.com/coacherbonilla",
   ],
 };
 
@@ -108,7 +110,7 @@ export default function RootLayout({
       className={`${syne.variable} ${inter.variable} ${jetbrainsMono.variable} ${outfit.variable}`}
     >
       <body>
-        {/* Resolve theme before paint (no flash): stored choice → system → dark. */}
+        {/* Resolve theme before paint: stored choice, system, then dark. */}
         <script
           dangerouslySetInnerHTML={{
             __html:

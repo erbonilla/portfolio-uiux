@@ -47,7 +47,7 @@ The case-study summary pages should feel like portfolio-native editorial surface
   - No invented metrics.
   - Label concept work and validation plans clearly.
   - Keep pre-launch outcome language framed as measurement strategy or hypothesis.
-- Resolve launch trust blockers when owner input is available: real social URLs, final app icons, deploy state, and contact endpoint decision.
+- Resolve remaining launch trust blockers when owner input is available: final app icons and contact endpoint configuration. Social URLs and deploy state are now resolved.
 
 ### P1: Hiring Scan Strength
 
@@ -64,7 +64,7 @@ The case-study summary pages should feel like portfolio-native editorial surface
 ### P2: Polish and Trust
 
 - Generate final OG images for the portfolio and case-study summary routes.
-- Add final social links only when real URLs are available.
+- Keep final social links current; LinkedIn, GitHub, Facebook, and Instagram are wired with real URLs.
 - Review motion pacing after content changes, especially first viewport and card hover states.
 - Re-run responsive QA from 320px through 1440px.
 - Consider a light analytics layer after launch, privacy-conscious and documented.

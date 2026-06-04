@@ -12,12 +12,12 @@
 .ed {
   /* (ed) — Regular; slightly larger than the wordmark baseline for visual balance */
   font-weight: 400;
-  font-size: 24px;
+  font-size: 28px;
 }
 .studio {
   /* studio — Medium */
   font-weight: 500;
-  font-size: 24px;
+  font-size: 28px;
   color: var(--text-default);
 }
 [data-theme="dark"] .studio {
