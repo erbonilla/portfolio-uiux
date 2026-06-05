@@ -57,6 +57,13 @@
   color: var(--text-muted);
   max-width: 62ch;
 }
+.aboutBody > p + p {
+  margin-top: 1em;
+}
+.colophon {
+  color: var(--text-muted);
+  margin-top: 2em !important;
+}
 
 /* ---- Hero ---- */
 /* Universal dark stage: always --surface-bg-hero (neutral-950) regardless of

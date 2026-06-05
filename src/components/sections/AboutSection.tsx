@@ -22,6 +22,9 @@ export function AboutSection() {
             <p className="ts-body-lg">
               <strong>{aboutCopy.evidence}</strong>
             </p>
+            <p className={cn("ts-body-sm", s.colophon)}>
+              <em>Colophon: {aboutCopy.colophon}</em>
+            </p>
           </div>
           <div className={s.aboutCta}>
             <ButtonLink

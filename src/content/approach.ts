@@ -39,5 +39,7 @@ export const aboutCopy = {
     "I specialize in health, wellness, lifestyle, and fitness products where clear interaction design supports trust, safety, and momentum.",
   evidence:
     "My approach uses WCAG 2.2 AA as a baseline, plain-language decisions, and product stories that make the problem, tradeoffs, and interface logic easy to understand.",
+  colophon:
+    "Hero background uses the open-source threejs-components (grid2) WebGL field; configuration, layout, accessibility, and reduced-motion handling are mine.",
   email: "erbonilla@outlook.com",
 };

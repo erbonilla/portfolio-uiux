@@ -267,3 +267,15 @@ Manual: install prompt appears; layout holds 320→1440px; Recruiter Hub mode sw
 - Motion for React: https://motion.dev/docs/react-installation
 - Radix Dialog: https://www.radix-ui.com/primitives/docs/components/dialog
 - Serwist: https://serwist.pages.dev/docs/next
+
+## 14. WebGL Hero Background Migration (Path B → Path A)
+
+In June 2026, the hand-rolled Three.js hero background (Path B) was reversed in favor of migrating to the open-source `threejs-components` (grid2) library (Path A).
+
+**Rationale**: The hand-rolled attempt could not reach visual parity with the library's effects (such as the specific crater displacement math, peg density, color gradients, and heavy pointer follow). Rebuilding these features manually amounted to rewriting the library, which violates the goal of maintaining a maintainable portfolio. Adopting the actual library is both functionally superior and more honest, provided it is properly credited.
+
+**Decisions & Fixes**:
+- **CDN Imports (Path A)**: We vendored the library to `public/vendor/threejs-components/grid2.js` but kept its internal runtime jsDelivr imports for `three` and `postprocessing`. Because of this, we explicitly do not claim "zero third-party runtime calls".
+- **Texture 404 Fix**: The library originally hardcoded a fetch to `/ps-buttons-black.webp`. To prevent a 404 without altering the minified vendor source, a 1x1 transparent `public/ps-buttons-black.webp` was added.
+- **Config**: We tuned the background to use the brand's orange palette (`0xff4f18`, `0xff6a32`, `0xffd9c7`), added a warm rim light, disabled the default blue tint, and configured a dense field (desktop `n=22`, mobile `n=14`).
+- **Disclosure**: A colophon was added to the About section explicitly acknowledging the third-party animation code, clarifying what elements were authored by the owner (tuning, layout, accessibility, reduced-motion guards).
