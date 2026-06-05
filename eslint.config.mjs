@@ -16,6 +16,8 @@ const eslintConfig = defineConfig([
     "public/sw.js",
     "public/sw*.js",
     "public/swe-worker*.js",
+    // Vendored third-party builds — minified, not source.
+    "public/vendor/**",
     // Reports + deps.
     "node_modules/**",
     ".agents/**",

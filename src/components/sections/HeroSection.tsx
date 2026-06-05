@@ -7,8 +7,8 @@ import { aboutCopy } from "@/content/approach";
 import { cn } from "@/lib/cn";
 import s from "./sections.module.css";
 
-const HeroCylindersBackground = dynamic(
-  () => import("./HeroCylindersBackground"),
+const HeroCylinderGrid = dynamic(
+  () => import('./HeroCylinderGrid'),
   { ssr: false },
 );
 
@@ -23,7 +23,7 @@ export function HeroSection() {
   return (
     <section id="top" className={cn(s.section, s.hero)}>
       <div className={s.heroCanvas} aria-hidden="true">
-        <HeroCylindersBackground />
+        <HeroCylinderGrid />
       </div>
       <div className={s.heroOverlay} aria-hidden="true" />
       <div className="container">
@@ -65,7 +65,7 @@ export function HeroSection() {
               width={1122}
               height={1402}
               priority
-              sizes="(min-width: 1024px) 40vw, 100vw"
+              sizes="(min-width: 1024px) 30vw, 100vw"
             />
           </div>
         </div>

@@ -78,6 +78,23 @@
   overflow: hidden;
   pointer-events: none;
 }
+/*
+ * The grid2 library canvas — fills the wrapper and receives pointer events
+ * from the library's own pointer manager (attached to document.body).
+ * The radial mask softens the edges so the field feels embedded.
+ * Scoped under .heroCanvas to satisfy CSS Modules purity (no bare :global).
+ */
+.heroCanvas :global(.heroCylinderGrid) {
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .heroCanvas :global(.heroCylinderGrid) {
+    display: none; /* belt-and-suspenders with the JS guard in the component */
+  }
+}
 /* Readability overlay — keeps headline/portrait legible when cylinders brighten. */
 .heroOverlay {
   position: absolute;
@@ -139,7 +156,7 @@
 }
 @media (min-width: 1024px) {
   .heroGrid {
-    grid-template-columns: 1.15fr 0.85fr;
+    grid-template-columns: 1.5fr 0.7fr;
     gap: var(--space-section-md);
   }
 }
@@ -176,6 +193,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  align-self: center;
   color: var(--static-white);
   text-transform: uppercase;
   text-wrap: balance;
@@ -250,6 +268,9 @@
 .heroPortrait {
   position: relative;
   aspect-ratio: 4 / 5;
+  max-width: 380px;
+  width: 100%;
+  margin-inline: auto;
   border-radius: var(--radius-surface-md);
   overflow: hidden;
   border: var(--stroke-width-default) solid
