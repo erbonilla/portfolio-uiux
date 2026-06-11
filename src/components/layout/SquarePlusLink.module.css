@@ -1,0 +1,29 @@
+.root {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--component-size-control-md);
+  height: var(--component-size-control-md);
+  color: var(--icon-on-brand);
+  background-color: var(--surface-control-brand);
+  border: var(--stroke-width-default) solid var(--border-brand);
+  border-radius: var(--radius-control-md);
+  text-decoration: none;
+  transition:
+    background-color var(--motion-duration-hover) var(--motion-easing-default),
+    border-color var(--motion-duration-hover) var(--motion-easing-default);
+}
+.root:hover,
+.root:focus-visible {
+  background-color: var(--surface-control-brand-hover);
+  border-color: var(--surface-control-brand-hover);
+}
+.root svg {
+  width: var(--component-size-icon-sm);
+  height: var(--component-size-icon-sm);
+}
+@media (min-width: 600px) {
+  .root {
+    display: inline-flex;
+  }
+}

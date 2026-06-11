@@ -9,7 +9,7 @@ import { cn } from "@/lib/cn";
 import styles from "./Drawer.module.css";
 
 export type DrawerSide = "left" | "right" | "bottom";
-export type DrawerSize = "sm" | "md" | "lg";
+export type DrawerSize = "sm" | "md" | "lg" | "full";
 
 export interface DrawerProps {
   open: boolean;

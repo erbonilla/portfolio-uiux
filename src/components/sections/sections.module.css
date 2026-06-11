@@ -73,9 +73,17 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding-top: var(--space-section-xl);
-  padding-bottom: var(--space-section-xl);
+  min-height: calc(100svh - var(--nav-h-mobile));
+  padding-top: clamp(var(--space-section-lg), 12vh, var(--space-section-2xl));
+  padding-bottom: var(--space-section-lg);
   background-color: var(--surface-bg-hero);
+}
+@media (min-width: 1024px) {
+  .hero {
+    min-height: calc(100svh - var(--nav-h));
+    padding-top: clamp(var(--space-section-lg), 14vh, var(--space-section-2xl));
+    padding-bottom: var(--space-section-md);
+  }
 }
 /* Canvas wrapper — absolute, behind everything, pointer-events blocked. */
 .heroCanvas {
@@ -102,7 +110,8 @@
     display: none; /* belt-and-suspenders with the JS guard in the component */
   }
 }
-/* Readability overlay — keeps headline/portrait legible when cylinders brighten. */
+/* Readability overlay — protects text while letting the red cylinder terrain
+ * keep the high-contrast, glossy appearance of the reference. */
 .heroOverlay {
   position: absolute;
   inset: 0;
@@ -110,28 +119,16 @@
   pointer-events: none;
   background:
     linear-gradient(
-      to right,
-      color-mix(in srgb, var(--static-black) 38%, transparent) 0%,
-      color-mix(in srgb, var(--static-black) 18%, transparent) 32%,
-      color-mix(in srgb, var(--static-black) 44%, transparent) 58%,
-      color-mix(in srgb, var(--static-black) 82%, transparent) 100%
+      90deg,
+      color-mix(in srgb, var(--static-black) 92%, transparent) 0%,
+      color-mix(in srgb, var(--static-black) 76%, transparent) 42%,
+      color-mix(in srgb, var(--static-black) 42%, transparent) 70%,
+      color-mix(in srgb, var(--static-black) 72%, transparent) 100%
     ),
     radial-gradient(
-      ellipse at 36% 58%,
-      color-mix(in srgb, var(--color-brand-500) 22%, transparent),
-      transparent 42%
-    ),
-    radial-gradient(
-      ellipse at 70% 50%,
-      color-mix(in srgb, var(--static-black) 72%, transparent),
-      transparent 34%
-    ),
-    linear-gradient(
-      to bottom,
-      color-mix(in srgb, var(--static-black) 72%, transparent) 0%,
-      transparent 28%,
-      transparent 68%,
-      color-mix(in srgb, var(--static-black) 82%, transparent) 100%
+      circle at 74% 34%,
+      color-mix(in srgb, var(--color-brand-500) 26%, transparent),
+      transparent 36%
     );
 }
 
@@ -140,14 +137,14 @@
     background:
       linear-gradient(
         to bottom,
-        color-mix(in srgb, var(--static-black) 72%, transparent) 0%,
-        color-mix(in srgb, var(--static-black) 34%, transparent) 42%,
-        color-mix(in srgb, var(--static-black) 86%, transparent) 100%
+        color-mix(in srgb, var(--static-black) 62%, transparent) 0%,
+        color-mix(in srgb, var(--static-black) 18%, transparent) 42%,
+        color-mix(in srgb, var(--static-black) 64%, transparent) 100%
       ),
       radial-gradient(
         ellipse at 50% 58%,
-        color-mix(in srgb, var(--color-brand-500) 18%, transparent),
-        transparent 46%
+        color-mix(in srgb, var(--color-brand-500) 42%, transparent),
+        transparent 56%
       );
   }
 }
@@ -159,18 +156,21 @@
 .heroGrid {
   display: grid;
   gap: var(--space-section-sm);
-  align-items: center;
+  align-items: end;
 }
 @media (min-width: 1024px) {
   .heroGrid {
-    grid-template-columns: 1.5fr 0.7fr;
-    gap: var(--space-section-md);
+    min-height: min(
+      720px,
+      calc(100svh - var(--nav-h) - var(--space-section-md))
+    );
   }
 }
 .heroContent {
   display: flex;
   flex-direction: column;
   gap: var(--space-stack-lg);
+  max-width: 760px;
   color: var(--static-white);
 }
 .heroContent > * {
@@ -192,122 +192,89 @@
 .heroContent > :nth-child(6) {
   animation-delay: 280ms;
 }
-.heroGreeting {
-  color: var(--static-white);
-  opacity: var(--opacity-90);
+.heroKicker {
+  color: color-mix(in srgb, var(--static-white) 72%, transparent);
 }
 .heroTitle {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  align-self: center;
+  align-items: flex-start;
+  max-width: 12ch;
   color: var(--static-white);
   text-transform: uppercase;
   text-wrap: balance;
-  text-align: right;
+  text-align: left;
 }
 .heroTitle span {
+  color: var(--static-white);
+  font-weight: var(--font-weight-bold);
   opacity: var(--opacity-90);
 }
-.heroTitle strong {
-  color: var(--static-white);
-  font-weight: var(--font-weight-bold);
-}
-.heroTitleRole {
-  font-size: 0.4em;
-  letter-spacing: var(--letter-spacing-wide);
-  opacity: var(--opacity-80);
-}
 .heroLead {
-  color: var(--static-white);
-  opacity: var(--opacity-80);
-}
-.heroDisciplines {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-stack-2xs);
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  color: color-mix(in srgb, var(--static-white) 68%, transparent);
-  font-family: var(--font-family-heading);
-  font-size: clamp(var(--font-size-md), 2vw, var(--font-size-xl));
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-xl);
-  text-transform: uppercase;
-  text-align: center;
+  max-width: 56ch;
+  color: color-mix(in srgb, var(--static-white) 78%, transparent);
 }
 .heroCtas {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-inline-md);
+  align-items: center;
+  gap: var(--space-inline-sm);
 }
 .heroCtas :global([data-variant="primary"]) {
-  background-color: var(--static-white);
-  border-color: var(--static-white);
-  color: var(--static-black);
+  background-color: var(--surface-control-brand);
+  border-color: var(--border-brand);
+  color: var(--text-on-brand);
+  box-shadow: none;
   transition:
     background-color var(--motion-duration-hover) var(--motion-easing-default),
     border-color var(--motion-duration-hover) var(--motion-easing-default),
     color var(--motion-duration-hover) var(--motion-easing-default),
     box-shadow var(--motion-duration-hover) var(--motion-easing-default);
 }
-/* Hover: energize with brand orange to echo the cylinder field. */
-.heroCtas :global([data-variant="primary"]:hover) {
-  background-color: var(--color-brand-500);
-  border-color: var(--color-brand-500);
-  color: var(--static-black);
+.heroCtas :global([data-variant="primary"]:hover),
+.heroCtas :global([data-variant="primary"]:focus-visible) {
+  background-color: var(--surface-control-brand-hover);
+  border-color: var(--surface-control-brand-hover);
+  color: var(--text-on-brand);
   box-shadow: var(--shadow-sm);
 }
 .heroCtas :global([data-variant="secondary"]) {
-  border-color: var(--static-white);
+  background-color: transparent;
+  border-color: color-mix(in srgb, var(--static-white) 28%, transparent);
   color: var(--static-white);
 }
-.heroCtas :global([data-variant="secondary"]:hover) {
+.heroCtas :global([data-variant="secondary"]:hover),
+.heroCtas :global([data-variant="secondary"]:focus-visible) {
   background-color: var(--static-white);
+  border-color: var(--static-white);
   color: var(--static-black);
 }
 .heroMeta {
-  color: var(--static-white);
-  opacity: var(--opacity-90);
+  color: color-mix(in srgb, var(--static-white) 70%, transparent);
 }
-.heroPortrait {
-  position: relative;
-  aspect-ratio: 4 / 5;
-  max-width: 380px;
-  width: 100%;
-  margin-inline: auto;
-  border-radius: var(--radius-surface-md);
-  overflow: hidden;
-  border: var(--stroke-width-default) solid
-    color-mix(in srgb, var(--static-white) 16%, transparent);
-  background-color: var(--surface-bg-hero);
-  animation: portrait-settle var(--motion-duration-hero)
-    var(--motion-easing-expressive) 140ms both;
+.heroDisciplines {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-inline-md);
+  list-style: none;
+  margin: var(--space-section-lg) 0 0;
+  padding: 0;
+  color: color-mix(in srgb, var(--static-white) 58%, transparent);
+  font-family: var(--font-family-code);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-xs);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
 }
-.heroPortrait img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 92% 50%;
-  transform: scale(1.04);
-}
-/* Fade the portrait into the dark stage (replaces the orange band fade). */
-.heroPortrait::before {
+.heroDisciplines li::before {
   content: "";
-  position: absolute;
-  inset: 0;
-  z-index: var(--z-index-base);
-  pointer-events: none;
-  background: linear-gradient(
-    to right,
-    var(--surface-bg-hero),
-    color-mix(in srgb, var(--surface-bg-hero) 35%, transparent),
-    transparent
-  );
+  display: inline-block;
+  width: var(--size-1);
+  height: var(--size-1);
+  margin-right: var(--space-inline-sm);
+  vertical-align: middle;
+  background-color: var(--surface-bg-brand);
 }
-
 /* ---- Tool strip (auto-scrolling brand marquee) ---- */
 .toolsHead {
   align-items: center;
@@ -908,15 +875,6 @@
   }
 }
 
-@keyframes portrait-settle {
-  from {
-    transform: translateY(var(--size-3)) scale(0.99);
-  }
-  to {
-    transform: translateY(0) scale(1);
-  }
-}
-
 @keyframes story-settle {
   from {
     transform: translateY(var(--size-4));
@@ -928,7 +886,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .heroContent > *,
-  .heroPortrait,
   .toolsHead,
   .storyPanel {
     animation: none;

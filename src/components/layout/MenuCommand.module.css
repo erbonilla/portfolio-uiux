@@ -1,0 +1,71 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-inline-sm);
+  min-width: var(--size-24);
+  min-height: 44px;
+  padding-inline: var(--space-inset-md);
+  border: var(--stroke-width-default) solid transparent;
+  border-radius: var(--radius-control-sm);
+  background-color: transparent;
+  color: var(--static-white);
+  cursor: pointer;
+  font-family: var(--font-family-code);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-wider);
+  line-height: var(--line-height-xs);
+  text-transform: uppercase;
+  transition:
+    color var(--motion-duration-hover) var(--motion-easing-default),
+    background-color var(--motion-duration-hover) var(--motion-easing-default);
+}
+
+.root:hover,
+.root:focus-visible {
+  color: var(--text-brand);
+}
+
+.label {
+  min-width: 5ch;
+  text-align: right;
+}
+
+.glyph {
+  position: relative;
+  width: var(--size-4);
+  height: var(--size-3);
+  color: currentColor;
+}
+
+.glyph span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: var(--stroke-width-strong);
+  background-color: currentColor;
+  transition: transform 150ms var(--motion-easing-default);
+}
+
+.glyph span:nth-child(1) {
+  top: 0;
+}
+
+.glyph span:nth-child(2) {
+  bottom: 0;
+}
+
+.root[data-open] .glyph span:nth-child(1) {
+  transform: translateY(5px) rotate(45deg);
+}
+
+.root[data-open] .glyph span:nth-child(2) {
+  transform: translateY(-5px) rotate(-45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glyph span {
+    transition: none;
+  }
+}

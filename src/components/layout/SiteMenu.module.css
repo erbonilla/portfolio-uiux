@@ -1,0 +1,200 @@
+.root {
+  position: fixed;
+  inset: calc(var(--nav-h-mobile) + var(--safe-top)) 0 0;
+  z-index: calc(var(--z-index-sticky) - 1);
+  overflow-y: auto;
+  background-color: var(--surface-bg-muted);
+  color: var(--static-white);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(calc(var(--size-4) * -1));
+  transition:
+    opacity calc(var(--motion-duration-layout) * 0.6)
+      var(--motion-easing-expressive),
+    transform calc(var(--motion-duration-layout) * 0.6)
+      var(--motion-easing-expressive),
+    visibility 0s linear calc(var(--motion-duration-layout) * 0.6);
+}
+
+.root[data-open="true"] {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition:
+    opacity var(--motion-duration-layout) var(--motion-easing-expressive),
+    transform var(--motion-duration-layout) var(--motion-easing-expressive),
+    visibility 0s;
+}
+
+@media (min-width: 1024px) {
+  .root {
+    top: calc(var(--nav-h) + var(--safe-top));
+  }
+}
+
+.inner {
+  display: grid;
+  min-height: 100%;
+  gap: var(--space-section-md);
+  padding-top: var(--space-section-sm);
+  padding-bottom: max(var(--space-section-md), var(--safe-bottom));
+}
+
+@media (min-width: 900px) {
+  .inner {
+    grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+    align-items: start;
+    gap: var(--space-section-lg);
+    padding-top: var(--space-section-md);
+  }
+}
+
+.list,
+.availability,
+.socials {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-xs);
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-inline-lg);
+  min-height: 56px;
+  color: var(--static-white);
+  text-decoration: none;
+  font-family: var(--font-family-heading);
+  font-size: clamp(var(--font-size-5xl), 8vw, var(--font-size-7xl));
+  font-weight: var(--font-weight-bold);
+  line-height: 0.95;
+  letter-spacing: var(--letter-spacing-tight);
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(var(--size-2));
+  transition:
+    color var(--motion-duration-hover) var(--motion-easing-default),
+    opacity var(--motion-duration-layout) var(--motion-easing-expressive),
+    transform var(--motion-duration-layout) var(--motion-easing-expressive);
+}
+
+.root[data-open="true"] .link {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay:
+    0ms,
+    calc(var(--i) * 50ms),
+    calc(var(--i) * 50ms);
+}
+
+.link:hover,
+.link:focus-visible,
+.link[data-active] {
+  color: var(--text-brand);
+}
+
+.marker {
+  width: var(--size-6);
+  height: var(--size-6);
+  flex: 0 0 auto;
+  background-color: var(--surface-bg-brand);
+  opacity: 0;
+  transform: scale(0.7);
+  transition:
+    opacity var(--motion-duration-hover) var(--motion-easing-default),
+    transform var(--motion-duration-hover) var(--motion-easing-default);
+}
+
+.link[data-active] .marker {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-stack-xl);
+  color: var(--text-muted);
+}
+
+.eyebrow {
+  color: var(--text-muted);
+}
+
+.email {
+  color: var(--static-white);
+  font-family: var(--font-family-heading);
+  font-size: clamp(var(--font-size-2xl), 4vw, var(--font-size-5xl));
+  line-height: 1;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.email:hover,
+.email:focus-visible {
+  color: var(--text-brand);
+}
+
+.availability {
+  display: grid;
+  gap: var(--space-stack-sm);
+  color: var(--static-white);
+}
+
+.availability li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-inline-sm);
+}
+
+.availability li::before {
+  content: "";
+  width: var(--size-3);
+  height: var(--size-3);
+  flex: 0 0 auto;
+  background-color: var(--surface-bg-brand);
+}
+
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-inline-md);
+}
+
+.socials a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.socials a:hover,
+.socials a:focus-visible {
+  color: var(--text-brand);
+}
+
+@media (max-width: 599px) {
+  .marker {
+    width: var(--size-4);
+    height: var(--size-4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root,
+  .root[data-open="true"],
+  .link,
+  .root[data-open="true"] .link,
+  .marker {
+    transition: none;
+    transform: none;
+  }
+
+  .root[data-open="true"] .link {
+    transition-delay: 0ms;
+  }
+}

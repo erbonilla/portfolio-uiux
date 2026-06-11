@@ -1,4 +1,4 @@
-import { HeroSection } from "@/components/sections/HeroSection";
+import { HeroSecondary } from "@/components/sections/HeroSecondary";
 import { ToolStrip } from "@/components/sections/ToolStrip";
 import { StoryPanel } from "@/components/sections/StoryPanel";
 import { CaseStudiesSection } from "@/components/sections/CaseStudiesSection";
@@ -10,7 +10,7 @@ import { ContactSection } from "@/components/sections/ContactSection";
 export default function Home() {
   return (
     <>
-      <HeroSection />
+      <HeroSecondary />
       <ToolStrip />
       <StoryPanel />
       <CaseStudiesSection />

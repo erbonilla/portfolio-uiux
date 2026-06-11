@@ -1,3 +1,4 @@
+pnpm dev
 # Hero Section WebGL Update Plan
 
 ## 1. Brief description

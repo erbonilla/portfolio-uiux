@@ -6,6 +6,7 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { MainView } from "@/components/layout/MainView";
 import { RecruiterHub } from "@/components/recruiter-hub/RecruiterHub";
+import { LoadingTransitionProvider } from "@/components/loading/LoadingTransitionProvider";
 import { SITE_URL } from "@/lib/siteUrl";
 
 const syne = Syne({
@@ -114,7 +115,7 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "(function(){try{var t=localStorage.getItem('ed-theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.dataset.theme=t;}catch(e){}})();",
+              "(function(){try{var t=localStorage.getItem('ed-theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.dataset.theme=t;if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.dataset.loadingVeil='skip';}}catch(e){}})();",
           }}
         />
         <script
@@ -124,12 +125,14 @@ export default function RootLayout({
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
-        <ViewModeProvider>
-          <SiteHeader />
-          <MainView>{children}</MainView>
-          <SiteFooter />
-          <RecruiterHub />
-        </ViewModeProvider>
+        <LoadingTransitionProvider>
+          <ViewModeProvider>
+            <SiteHeader />
+            <MainView>{children}</MainView>
+            <SiteFooter />
+            <RecruiterHub />
+          </ViewModeProvider>
+        </LoadingTransitionProvider>
       </body>
     </html>
   );

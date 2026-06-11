@@ -478,6 +478,9 @@
   --motion-duration-transition: var(--duration-normal);
   --motion-duration-layout: var(--duration-expressive);
   --motion-duration-hero: var(--duration-slower);
+  /* Loading veil deltas — edstudio-loading-veil-analysis-action-plan-v1_0.md §2 D14. */
+  --motion-duration-veil-enter: 220ms;
+  --motion-duration-veil-exit: 420ms;
   --motion-easing-default: var(--easing-standard);
   --motion-easing-expressive: var(--easing-expressive);
 
@@ -656,6 +659,8 @@
     --motion-duration-transition: var(--duration-instant);
     --motion-duration-layout: var(--duration-fast);
     --motion-duration-hero: var(--duration-fast);
+    --motion-duration-veil-enter: var(--duration-instant);
+    --motion-duration-veil-exit: var(--duration-fast);
     --motion-easing-default: var(--easing-reduced);
     --motion-easing-expressive: var(--easing-reduced);
   }

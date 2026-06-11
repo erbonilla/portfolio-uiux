@@ -1,0 +1,177 @@
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-index-toast);
+  display: grid;
+  place-items: center;
+  padding:
+    max(var(--space-inset-xl), var(--safe-top))
+    max(var(--space-inset-xl), var(--safe-right))
+    max(var(--space-inset-xl), var(--safe-bottom))
+    max(var(--space-inset-xl), var(--safe-left));
+  color: var(--text-on-brand);
+  background-color: var(--surface-bg-brand);
+  transform: translateY(0);
+  pointer-events: auto;
+  will-change: transform;
+}
+
+.root[data-state="hidden"] {
+  transform: translateY(100%);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* Pre-paint reduced-motion guard: the inline boot script sets this attribute
+   only when prefers-reduced-motion is active, preventing any flash of the veil
+   before React hydrates. It is never set for regular users. */
+:global(html[data-loading-veil="skip"]) .root {
+  transform: translateY(100%);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.root[data-state="entering"] {
+  animation: veil-enter var(--motion-duration-veil-enter)
+    var(--motion-easing-expressive) both;
+}
+
+.root[data-state="holding"] {
+  transform: translateY(0);
+}
+
+.root[data-state="exiting"] {
+  animation: veil-exit var(--motion-duration-veil-exit)
+    var(--motion-easing-expressive) both;
+  pointer-events: none;
+}
+
+.inner {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-inline-md);
+  color: var(--static-black);
+  font-family: var(--font-family-code);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-wider);
+  line-height: var(--line-height-xs);
+  text-transform: uppercase;
+}
+
+.mark {
+  display: inline-grid;
+  grid-template-columns: repeat(2, var(--size-2));
+  grid-template-rows: repeat(2, var(--size-2));
+  gap: var(--size-0-5);
+}
+
+.markSquare {
+  display: block;
+  background-color: var(--static-black);
+  border-radius: 1px;
+}
+
+/* Roll each square into position only while the veil is active.
+   Scoping to entering/holding ensures the animation replays cleanly on
+   every new veil — the browser resets it when the rule is removed (hidden). */
+.root[data-state="entering"] .markSquare,
+.root[data-state="holding"] .markSquare {
+  animation: veil-square-roll 320ms var(--motion-easing-expressive) both;
+}
+
+.root[data-state="entering"] .markSquare:nth-child(1),
+.root[data-state="holding"] .markSquare:nth-child(1) {
+  animation-delay: 0ms;
+}
+
+.root[data-state="entering"] .markSquare:nth-child(2),
+.root[data-state="holding"] .markSquare:nth-child(2) {
+  animation-delay: 80ms;
+}
+
+.root[data-state="entering"] .markSquare:nth-child(3),
+.root[data-state="holding"] .markSquare:nth-child(3) {
+  animation-delay: 160ms;
+}
+
+.root[data-state="entering"] .markSquare:nth-child(4),
+.root[data-state="holding"] .markSquare:nth-child(4) {
+  animation-delay: 240ms;
+}
+
+.labelMask {
+  display: inline-block;
+  height: var(--line-height-xs);
+  overflow: hidden;
+}
+
+.labelRoll {
+  display: flex;
+  flex-direction: column;
+  animation: veil-label-roll 1400ms var(--motion-easing-expressive) infinite;
+}
+
+@keyframes veil-enter {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes veil-exit {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes veil-label-roll {
+  0%,
+  30% {
+    transform: translateY(0);
+  }
+  70%,
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes veil-square-roll {
+  0% {
+    transform: rotate(-90deg) scale(0.3);
+    opacity: 0;
+  }
+  65% {
+    transform: rotate(8deg) scale(1.08);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root,
+  .root[data-state="entering"],
+  .root[data-state="exiting"] {
+    animation: none;
+    will-change: auto;
+  }
+
+  .root[data-state="exiting"],
+  .root[data-state="hidden"] {
+    opacity: 0;
+    transform: translateY(0);
+  }
+
+  .markSquare,
+  .labelRoll {
+    animation: none;
+  }
+}

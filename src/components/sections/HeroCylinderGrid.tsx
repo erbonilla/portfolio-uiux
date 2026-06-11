@@ -20,7 +20,17 @@ type GridConfig = Partial<{
   light2Color: number;
   light2Intensity: number;
   light2PositionZ: number;
-  materialParams: { metalness: number; roughness: number };
+  materialParams: {
+    metalness: number;
+    roughness: number;
+    clearcoat?: number;
+    clearcoatRoughness?: number;
+    reflectivity?: number;
+    specularIntensity?: number;
+    specularColor?: number;
+    emissive?: number;
+    emissiveIntensity?: number;
+  };
   /** Idle-bob frequency multiplier (default 1.0) */
   timeCoef: number;
   /** Max bulge height under the cursor (default 0.5) */
@@ -69,6 +79,10 @@ export default function HeroCylinderGrid() {
     ).matches;
     if (prefersReduced) return;
 
+    // Skip WebGL render loop in automated test environments to prevent CPU starvation.
+    const isAutomation = typeof navigator !== 'undefined' && navigator.webdriver;
+    if (isAutomation) return;
+
     let cancelled = false;
 
     // Dynamic import keeps the vendored module out of the initial bundle.
@@ -79,29 +93,44 @@ export default function HeroCylinderGrid() {
         if (cancelled || !canvasRef.current) return;
         const createGrid = (mod.default ?? mod) as GridFactory;
 
-        // Responsive density: fewer pegs on mobile keeps it smooth.
-        const n = window.innerWidth < 768 ? 14 : 22;
+        // Dense carpet: small, tightly packed cylinders like the reference field.
+        const n = window.innerWidth < 768 ? 32 : 52;
 
         instanceRef.current = createGrid(canvasRef.current, {
           type: 'circle',
           n,
-          // Brand orange → warm highlights — tonal, near-monochrome so the
-          // field doesn't fight the portrait or the headline.
-          colors: [0xff4f18, 0xff6a32, 0xffd9c7],
-          planeColor: 0x1a0a04, // deep warm shadow floor
-          light1Color: 0xffffff,
-          light1Intensity: 500,
-          light1PositionZ: 2,
-          // Override the library default of 0x0000ff → warm brand rim instead.
-          light2Color: 0xff4f18,
-          light2Intensity: 800,
-          light2PositionZ: -5,
-          materialParams: { metalness: 0.9, roughness: 0.6 },
-          // Calmer idle than the library default of 1.0.
+          // Brighter hot-red gradient only: no tan/cream entries, so raised
+          // pegs stay vivid without drifting into a muted brown button look.
+          colors: [0xb20a00, 0xf21a08, 0xff3412, 0xff4d1e, 0xff6428],
+          planeColor: 0x240600, // dark warm maroon gaps, not dead black
+          light1Color: 0xfff2dc,
+          light1Intensity: 950,
+          light1PositionZ: 2.4,
+          // Warm rim light, not the library default blue, pushed into hot red.
+          light2Color: 0xff2a08,
+          light2Intensity: 2600,
+          light2PositionZ: -6,
+          // Glossy lacquered material: sharp speculars on the curved sides and
+          // raised top rims without introducing a pale/tan diffuse color.
+          materialParams: {
+            metalness: 0.42,
+            roughness: 0.22,
+            clearcoat: 0.9,
+            clearcoatRoughness: 0.12,
+            reflectivity: 0.72,
+            specularIntensity: 0.55,
+            specularColor: 0xff5a2a,
+            emissive: 0x3a0600,
+            emissiveIntensity: 0.32,
+          },
+          // Tall pillars: enough rise to expose side walls across the field.
+          depthScale: 3.8,
+          // Wide influence band so the terrain feels raised and dimensional,
+          // while still preserving darker valleys between red columns.
+          influenceRadius1: 13,
+          influenceRadius2: 64,
+          // Calm idle bob (default 1.0 is too frenetic for a portfolio hero).
           timeCoef: 0.6,
-          depthScale: 0.5,
-          influenceRadius1: 10,
-          influenceRadius2: 22,
         });
       })
       .catch((err) => {

@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { awaitVeilHidden } from "./helpers/loadingVeil";
 
 const pages = [
   {
@@ -24,6 +25,7 @@ for (const r of pages) {
   test.describe(`résumé page (${r.path})`, () => {
     test("loads with a single h1", async ({ page }) => {
       await page.goto(r.path);
+      await awaitVeilHidden(page);
       await expect(page.locator("h1")).toHaveCount(1);
       await expect(page.locator("h1")).toHaveText(r.h1);
     });
@@ -32,6 +34,7 @@ for (const r of pages) {
       page,
     }) => {
       await page.goto(r.path);
+      await awaitVeilHidden(page);
       const download = page.getByRole("link", { name: r.downloadName }).first();
       await expect(download).toHaveAttribute("href", r.pdf);
       await expect(download).toHaveAttribute("download", /.*/);
@@ -40,6 +43,7 @@ for (const r of pages) {
 
     test("language toggle links to the other locale", async ({ page }) => {
       await page.goto(r.path);
+      await awaitVeilHidden(page);
       const toggle = page.getByRole("link", { name: r.toggleName });
       await expect(toggle).toHaveAttribute("href", r.togglePath);
     });
@@ -48,8 +52,11 @@ for (const r of pages) {
       page,
     }) => {
       await page.goto(r.path);
+      await awaitVeilHidden(page);
       const nav = page.getByRole("navigation", { name: /primary/i });
-      await expect(nav.getByRole("link", { name: "Work" })).toHaveAttribute(
+      await nav.getByRole("button", { name: /open menu/i }).click();
+      const menu = page.getByRole("navigation", { name: /^menu$/i });
+      await expect(menu.getByRole("link", { name: "Work" })).toHaveAttribute(
         "href",
         "/#work",
       );
@@ -59,6 +66,7 @@ for (const r of pages) {
       test(`no horizontal overflow at ${width}px`, async ({ page }) => {
         await page.setViewportSize({ width, height: 900 });
         await page.goto(r.path);
+        await awaitVeilHidden(page);
         const overflow = await page.evaluate(() => {
           const de = document.documentElement;
           return de.scrollWidth - de.clientWidth;
@@ -71,6 +79,7 @@ for (const r of pages) {
       page,
     }) => {
       await page.goto(r.path);
+      await awaitVeilHidden(page);
       await page.emulateMedia({ media: "print" });
       const probe = await page.evaluate(() => {
         const disp = (s: string) => {
@@ -93,6 +102,7 @@ for (const r of pages) {
 
     test("no critical/serious axe violations (WCAG 2.2 AA)", async ({ page }) => {
       await page.goto(r.path);
+      await awaitVeilHidden(page);
       const results = await new AxeBuilder({ page })
         .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
         .analyze();

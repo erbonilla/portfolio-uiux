@@ -71,6 +71,12 @@
 .content[data-side="left"] {
   width: 100%;
 }
+.content[data-size="full"],
+.content[data-side="left"][data-size="full"],
+.content[data-side="right"][data-size="full"] {
+  width: 100vw;
+  max-width: none;
+}
 @media (min-width: 600px) {
   .content[data-side="right"][data-size="sm"],
   .content[data-side="left"][data-size="sm"] {

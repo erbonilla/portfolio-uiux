@@ -24,6 +24,12 @@
   /* In dark mode text/default is brand-led; keep the wordmark legible. */
   color: var(--color-neutral-100);
 }
+:global([data-variant="glass"]) .ed {
+  color: var(--color-brand-500);
+}
+:global([data-variant="glass"]) .studio {
+  color: var(--static-white);
+}
 .srOnly {
   position: absolute;
   width: 1px;

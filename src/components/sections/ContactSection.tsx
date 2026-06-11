@@ -111,7 +111,11 @@ export function ContactSection() {
         <div className={s.contactGrid}>
           <div className={s.contactCopy}>
             <p className={cn(s.eyebrow, "ts-label-md")}>Work together</p>
-            <h2 className={cn(s.heading, "ts-display-section")}>
+            <h2
+              id="contact-title"
+              className={cn(s.heading, "ts-display-section")}
+              tabIndex={-1}
+            >
               Build clear, accessible product interfaces.
             </h2>
             <p className={cn(s.lead, "ts-body-lg")}>
